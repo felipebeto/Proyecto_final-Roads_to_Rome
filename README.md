@@ -1,33 +1,61 @@
-# RoadsToRome
+# Roads to Rome
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+Videojuego 2D estilo **Roguelite** ambientado en la época del Imperio Romano de Occidente.
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+## Integrantes del grupo
 
-## Platforms
+- Luis Castellanos
+- Agustín Passerini
+- Felipe Camps Palacios
 
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
+## Descripción
 
-## Gradle
+El jugador controla a un personaje encarcelado en las catacumbas por una profecía divina, quien deberá encontrar la manera de escapar. La jugabilidad se basa en mazmorras generadas de forma procedural, compuestas por salas con enemigos que hay que derrotar para avanzar. Al vencerlos, los enemigos sueltan objetos y oro que ayudan al jugador en su huida.
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
+El juego combina exploración, combate y aventura en una vista **top-down / cenital**, con estética **pixel art**.
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `test`: runs unit tests (if any).
+## Tecnologías utilizadas
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+- **Java 8** (actualización 481)
+- **[LibGDX](https://libgdx.com/)** 1.14.2 — framework principal del juego
+- **Tiled** — creación y edición de los mapas 2D
+- **SQLite** — persistencia de partidas y estadísticas
+- Control de versiones con **Git / GitHub**
+
+## Cómo compilar y ejecutar
+
+### Requisitos previos
+
+- [JDK 8](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html) (u OpenJDK equivalente) instalado y configurado en el `PATH`.
+- [Git](https://git-scm.com/) instalado.
+- (Opcional) [Android Studio](https://developer.android.com/studio) o un IDE con soporte para proyectos Gradle, como IntelliJ IDEA.
+
+### Pasos para compilar y ejecutar
+
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/<usuario-o-organizacion>/roads-to-rome.git
+   cd roads-to-rome
+   ```
+
+2. Compilar y ejecutar la versión de escritorio usando el wrapper de Gradle incluido en el proyecto:
+
+   En Linux / macOS:
+   ```bash
+   ./gradlew desktop:run
+   ```
+
+   En Windows:
+   ```bash
+   gradlew.bat desktop:run
+   ```
+
+   > La primera ejecución puede tardar más de lo normal ya que Gradle descargará las dependencias necesarias.
+
+## Estado actual del proyecto
+
+Configuración inicial y estructura del proyecto.
+
+
+## Enlace a la wiki
+[Wiki de Roads to Rome](https://github.com/felipebeto/Proyecto_final-Roads_to_Rome/wiki/Propuesta-del-Proyecto:-Roads-to-Rome)
