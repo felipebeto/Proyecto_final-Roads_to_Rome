@@ -18,8 +18,12 @@ El juego combina exploración, combate y aventura en una vista **top-down / ceni
 
 - **Java 8** (actualización 481)
 - **[LibGDX](https://libgdx.com/)** 1.14.2 — framework principal del juego
-- **Tiled** — creación y edición de los mapas 2D
-- **SQLite** — persistencia de partidas y estadísticas
+- **Tiled** — es una herramienta que permite crear y editar mapas 2D de forma
+sencilla mediante pequeños cuadrados llamados tiles. También permite agregar
+capas, enemigos, cofres y varias cosas más al mapa.
+- **SQLite** — es una base de datos que permite guardar de forma permanente
+los datos del jugador, como el nombre, el puntaje, el oro y las estadísticas
+de la partida, para que no se pierdan al cerrar el juego.
 - Control de versiones con **Git / GitHub**
 
 ## Cómo compilar y ejecutar
@@ -28,7 +32,7 @@ El juego combina exploración, combate y aventura en una vista **top-down / ceni
 
 - [JDK 8](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html) (u OpenJDK equivalente) instalado y configurado en el `PATH`.
 - [Git](https://git-scm.com/) instalado.
-- (Opcional) [Android Studio](https://developer.android.com/studio) o un IDE con soporte para proyectos Gradle, como IntelliJ IDEA.
+- (Opcional) Un IDE con soporte para proyectos Gradle, como IntelliJ IDEA.
 
 ### Pasos para compilar y ejecutar
 
