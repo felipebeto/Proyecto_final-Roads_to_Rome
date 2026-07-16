@@ -4,7 +4,7 @@ Todos los cambios importantes de este proyecto se documentarán en este archivo.
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
-## [0.1.1] - 2026-07-10
+## [0.1.1] - 2026-07-16
 
 ### Agregado
 - Arreglamos la wiki del proyecto agregandole las imagenes correspondientes.
