@@ -16,7 +16,7 @@ El juego combina exploración, combate y aventura en una vista **top-down / ceni
 
 ## Tecnologías utilizadas
 
-- **Java 8** (actualización 481)
+- **Java 11** 
 - **[LibGDX](https://libgdx.com/)** 1.14.2 — framework principal del juego
 - **Tiled** — es una herramienta que permite crear y editar mapas 2D de forma
 sencilla mediante pequeños cuadrados llamados tiles. También permite agregar
@@ -30,7 +30,7 @@ de la partida, para que no se pierdan al cerrar el juego.
 
 ### Requisitos previos
 
-- [JDK 8](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html) (u OpenJDK equivalente) instalado y configurado en el `PATH`.
+- [JDK 17](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html) (o superior) instalado y configurado en el `PATH`.
 - [Git](https://git-scm.com/) instalado.
 - (Opcional) Un IDE con soporte para proyectos Gradle, como IntelliJ IDEA.
 
