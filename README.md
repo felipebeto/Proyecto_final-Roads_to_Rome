@@ -29,6 +29,10 @@ capas, enemigos, cofres y varias cosas más al mapa.
 los datos del jugador, como el nombre, el puntaje, el oro y las estadísticas
 de la partida, para que no se pierdan al cerrar el juego.
 
+## Plataforma Objetivo
+
+Este proyecto está desarrollado para escritorio (PC - Windows/Linux/macOS) mediante el módulo `lwjgl3`.
+
 ## Cómo compilar y ejecutar
 
 ### Requisitos previos
