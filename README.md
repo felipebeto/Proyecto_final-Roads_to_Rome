@@ -45,7 +45,7 @@ Este proyecto está desarrollado para escritorio (PC - Windows/Linux/macOS) medi
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/<usuario-o-organizacion>/roads-to-rome.git
+   git clone https://github.com/felipebeto/Proyecto_final-Roads_to_Rome.git
    cd roads-to-rome
    ```
 
@@ -53,12 +53,12 @@ Este proyecto está desarrollado para escritorio (PC - Windows/Linux/macOS) medi
 
    En Linux / macOS:
    ```bash
-   ./gradlew desktop:run
+   ./gradlew lwjgl3:run
    ```
 
    En Windows:
    ```bash
-   gradlew.bat desktop:run
+   gradlew.bat lwjgl3:run
    ```
 
    > La primera ejecución puede tardar más de lo normal ya que Gradle descargará las dependencias necesarias.
