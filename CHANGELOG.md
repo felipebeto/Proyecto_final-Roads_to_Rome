@@ -7,8 +7,10 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 ## [0.1.1] - 2026-07-16
 
 ### Agregado
-- Arreglamos la wiki del proyecto agregandole las imagenes correspondientes.
-- corregimos el CHANGELOG.md 
+- Arreglo de la Wiki del proyecto.
+- Agregado de imágenes ilustrativas en la Wiki.
+- Corrección el CHANGELOG.md.
+- Corrección del README.md
 
 
 ## [0.1.0] - 2026-07-10
