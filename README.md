@@ -46,7 +46,7 @@ Este proyecto está desarrollado para escritorio (PC - Windows/Linux/macOS) medi
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/felipebeto/Proyecto_final-Roads_to_Rome.git
-   cd roads-to-rome
+   cd Proyecto_Final-Roads_to_Rome
    ```
 
 2. Compilar y ejecutar la versión de escritorio usando el wrapper de Gradle incluido en el proyecto:
