@@ -37,7 +37,7 @@ Este proyecto está desarrollado para escritorio (PC - Windows/Linux/macOS) medi
 
 ### Requisitos previos
 
-- [JDK 17](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html) (o superior) instalado y configurado en el `PATH`.
+- [JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) (o superior) instalado y configurado en el `PATH`.
 - [Git](https://git-scm.com/) instalado.
 - (Opcional) Un IDE con soporte para proyectos Gradle, como IntelliJ IDEA.
   > El código compila con compatibilidad Java 11, JDK 17 es el requisito para ejecutar el wrapper de Gradle.
