@@ -4,6 +4,14 @@ Todos los cambios importantes de este proyecto se documentarán en este archivo.
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [1.1.2] - 2026-08-12
+
+### Agregado
+- Elimina la portada de la wiki dejando la propuesta como página principal.
+- Arregla el comando para clonar el repositorio.
+- Corrección del link de JDK 17.
+- Arreglo de versiones del CHANGELOG respecto al gradle.
+
 ## [1.1.1] - 2026-07-16
 
 ### Agregado
