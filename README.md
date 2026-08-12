@@ -69,4 +69,4 @@ Configuración inicial y estructura del proyecto.
 
 
 ## Enlace a la wiki
-[Wiki de Roads to Rome](https://github.com/felipebeto/Proyecto_final-Roads_to_Rome/wiki/Propuesta-del-Proyecto:-Roads-to-Rome)
+[Wiki de Roads to Rome](https://github.com/felipebeto/Proyecto_final-Roads_to_Rome/wiki/Propuesta-del-Proyecto-%E2%80%90-Roads-to-Rome)
