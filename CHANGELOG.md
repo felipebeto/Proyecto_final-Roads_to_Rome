@@ -4,6 +4,11 @@ Todos los cambios importantes de este proyecto se documentarán en este archivo.
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [0.1.2] - 2026-08-18
+### Agregado
+- Establece la propuesta formal como página principal (Home) de la Wiki.
+- Unifica el versionado del proyecto entre CHANGELOG.md y gradle.properties (0.1.2).
+
 ## [1.1.2] - 2026-08-12
 
 ### Agregado
