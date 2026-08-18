@@ -20,7 +20,7 @@ El juego combina exploración, combate y aventura en una vista **top-down / ceni
 - **[LibGDX](https://libgdx.com/)** 1.14.2 — framework principal del juego
 - Control de versiones con **Git / GitHub**
 
-## Teconologías planificadas para etapas posteriores
+## Tecnologías planificadas para etapas posteriores
 
 - **Tiled** — es una herramienta que permite crear y editar mapas 2D de forma
 sencilla mediante pequeños cuadrados llamados tiles. También permite agregar
@@ -70,4 +70,4 @@ Configuración inicial y estructura del proyecto.
 
 
 ## Enlace a la wiki
-[Wiki de Roads to Rome](https://github.com/felipebeto/Proyecto_final-Roads_to_Rome/wiki/Propuesta-del-Proyecto-%E2%80%90-Roads-to-Rome)
+[Wiki de Roads to Rome](https://github.com/felipebeto/Proyecto_final-Roads_to_Rome/wiki)
