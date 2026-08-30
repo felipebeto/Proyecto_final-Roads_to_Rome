@@ -19,5 +19,8 @@ public class Fotos {
 	public void dibujar() {
 		s.draw(Render.batch);
 	}
+	public void setTrans(float a) {
+		s.setAlpha(a);
+	}
 
 }
