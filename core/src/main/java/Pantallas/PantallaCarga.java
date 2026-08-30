@@ -2,7 +2,7 @@ package Pantallas;
 
 import com.badlogic.gdx.Screen;
 
-import Imagenes.Imagen;
+import elementos.Imagen;
 import util.Render;
 
 public class PantallaCarga implements Screen{
@@ -15,9 +15,10 @@ public class PantallaCarga implements Screen{
 	private Imagen img6;
 	private Imagen img7;
 	private Imagen img8;
-	private Imagen carga;
+	private Imagen barra;
 	private int cont = 0;
 	private float tiempo =0;
+	private float tiempoEspera = 0;
 	@Override
 	public void show() {
 		img = new Imagen("gambito/g1.png", 355, 140, 250, 320);
@@ -28,7 +29,7 @@ public class PantallaCarga implements Screen{
 		img6 = new Imagen("gambito/g4.png", 355, 140, 250, 320);
 		img7 = new Imagen("gambito/g3.png", 355, 140, 250, 320);
 		img8 = new Imagen("gambito/g2.png", 355, 140, 250, 320);
-		carga = new Imagen("cargandos.png", 305, 15, 350, 130);
+		barra = new Imagen("cargan2.png", 305, 15, 350, 130);
 	}
 	
 	private void cargar() {
@@ -61,14 +62,14 @@ public class PantallaCarga implements Screen{
         	default: 
         		break;
         }
-        carga.dibujar();
+        barra.dibujar();
         Render.batch.end();
     }
 
 	@Override
 	public void render(float delta) {
 
-	    Render.limpiarPantalla(0.9f, 0.9f, 0.9f);
+	    Render.limpiarPantalla(0, 0, 0);
 	    tiempo += delta;
 	    if(tiempo >= 0.1f) {
 	        cont++;
@@ -78,6 +79,10 @@ public class PantallaCarga implements Screen{
 	        tiempo = 0;
 	    }
 	    cargar();
+	    tiempoEspera += 0.05f;
+		if (tiempoEspera>5) {
+			Render.app.setScreen(new PantallaMenu());
+		}
 	}
 
 	@Override

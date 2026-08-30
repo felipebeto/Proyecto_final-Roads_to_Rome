@@ -1,23 +1,18 @@
 package Pantallas;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 import elementos.Imagen;
 import util.Recursos;
 import util.Render;
 
-public class PantallaIntro implements Screen{
-	private Imagen fondo;
-	private float a = 0, contTiempo = 0;
+public class PantallaMenu implements Screen{
+	private Imagen fondoMenu;
 	private boolean finFadeIn = false;
-	private boolean finall = false;
-	private float contTiempo2 = 0;
+	private float a;
 	@Override
 	public void show() {
-		fondo = new Imagen("marvel.jpg", 0, 0, Recursos.ANCHO, Recursos.ALTO);
-		
-		
+		fondoMenu = new Imagen("fondo.jpg", 0, 0, Recursos.ANCHO, Recursos.ALTO);
 	}
 
 	private void calcularFade() {
@@ -27,66 +22,39 @@ public class PantallaIntro implements Screen{
 				finFadeIn = true;
 				a=1;
 			}
-		}else {
-			if(!finall) {
-				contTiempo+= 0.05f;
-				if (contTiempo>5) {
-					a-= 0.01f;
-					if (a<0) {
-						a=0;
-						finall = true;
-					}
-				}
-			}else {
-				contTiempo2 += 0.05f;
-				if (contTiempo2>5) {
-					Render.app.setScreen(new PantallaCarga());
-				}
-			}
 		}
-		
-		
 	}
-
 	@Override
 	public void render(float delta) {
-		calcularFade();
-		fondo.setTrans(a);
+		if(!finFadeIn) {
+			calcularFade();
+			fondoMenu.setTrans(a);
+		}
+		
 		Render.limpiarPantalla(0f, 0f, 0f);
 		Render.batch.begin();
-		fondo.dibujar();
+		fondoMenu.dibujar();
 		Render.batch.end();
-		
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		
-		
 	}
 
 	@Override
 	public void pause() {
-		
-		
 	}
 
 	@Override
 	public void resume() {
-		
-		
 	}
 
 	@Override
 	public void hide() {
-		
-		
 	}
 
 	@Override
 	public void dispose() {
-		
-		
 	}
 
 }

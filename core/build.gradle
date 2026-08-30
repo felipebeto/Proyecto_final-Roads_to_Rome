@@ -1,6 +1,13 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-core'
+project(":core") {
+    apply plugin: "java"
 
+
+    dependencies {
+        implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+    }
+}
 dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
