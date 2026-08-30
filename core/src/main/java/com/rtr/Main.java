@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import Pantallas.PantallaMenu;
+import Pantallas.PantallaMenuPrincipal;
 import util.Render;
 
 
@@ -21,7 +21,7 @@ public class Main extends Game {
     public void create() {
        Render.batch = new SpriteBatch();
        fuente = new BitmapFont();
-       this.setScreen(new PantallaMenu());
+       this.setScreen(new PantallaMenuPrincipal());
     }
 
     @Override
