@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import Pantallas.PantallaMenuPrincipal;
+import util.Recursos;
 import util.Render;
 
 
@@ -20,6 +21,7 @@ public class Main extends Game {
     @Override
     public void create() {
        Render.batch = new SpriteBatch();
+       Recursos.MAIN = this;
        fuente = new BitmapFont();
        this.setScreen(new PantallaMenuPrincipal());
     }

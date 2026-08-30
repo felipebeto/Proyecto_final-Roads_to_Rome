@@ -67,7 +67,9 @@ public class PantallaMenuPrincipal implements Screen{
 			subtitulo4.setColor(subtitulo4.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
 			subtitulo4.escribir();
 		}
-		
+		if(Gdx.input.justTouched()) {
+			if(subtitulo1.isHover(mouseX, mouseY)) Recursos.MAIN.setScreen(new PantallaJuego());
+		}
 		Render.batch.end();
 	}
 
