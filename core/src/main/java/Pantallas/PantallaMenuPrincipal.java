@@ -1,6 +1,8 @@
 package Pantallas;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.rtr.Main;
 
@@ -13,18 +15,25 @@ public class PantallaMenuPrincipal implements Screen{
 	
 	private Fotos fondo;
 	private Texto titulo;
-	private Texto subtitulo;
+	private Texto subtitulo1;
+	private Texto subtitulo2;
+	private Texto subtitulo3;
+	private Texto subtitulo4;
 	private boolean finFadeIn = false;
 	private float a = 0;
+	private float mouseX, mouseY;
 
 	@Override
 	public void show() {
 		fondo = new Fotos(Recursos.FONDO_MENU);
 		fondo.setTrans(a);
 		fondo.ajustarTamaño();
-		titulo = new Texto();
+		titulo = new Texto("Roads to Rome ", 40, 450);
 		titulo.agrandar(2);
-		subtitulo = new Texto();
+		subtitulo1 = new Texto("Nueva partida", 60, 300);
+		subtitulo2 = new Texto("Continuar", 60, 250);
+		subtitulo3 = new Texto("Logros", 60, 200);
+		subtitulo4 = new Texto("Opciones", 60, 150);
 	}
 	private void calcularFade() {
 		if(!finFadeIn ) {
@@ -38,6 +47,8 @@ public class PantallaMenuPrincipal implements Screen{
 
 	@Override
 	public void render(float delta) {
+		mouseX = Gdx.input.getX();
+	    mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 		Render.limpiar(0, 0, 0);
 		
 		Render.batch.begin();
@@ -46,11 +57,15 @@ public class PantallaMenuPrincipal implements Screen{
 			calcularFade();
 			fondo.setTrans(a);
 		}else {
-			titulo.escribir("Roads to Rome ", 40, 450);
-			subtitulo.escribir("Nueva partida", 60, 300);
-			subtitulo.escribir("Continuar", 60, 250);
-			subtitulo.escribir("Logros", 60, 200);
-			subtitulo.escribir("Opciones", 60, 150);
+			titulo.escribir();
+			subtitulo1.setColor(subtitulo1.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo1.escribir();
+			subtitulo2.setColor(subtitulo2.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo2.escribir();
+			subtitulo3.setColor(subtitulo3.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo3.escribir();
+			subtitulo4.setColor(subtitulo4.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo4.escribir();
 		}
 		
 		Render.batch.end();
