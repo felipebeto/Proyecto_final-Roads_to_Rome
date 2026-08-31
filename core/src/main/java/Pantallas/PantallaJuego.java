@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import elementos.Audio;
 import elementos.Imagen;
 import personajes.Jugador;
+import util.Recursos;
 import util.Render;
 
 public class PantallaJuego implements Screen{
@@ -17,7 +18,7 @@ public class PantallaJuego implements Screen{
 		jugador = new Jugador();
 		escenario = new Imagen("fondos/escenarioBase.jpg");
 		escenario.ajustarTamaño();
-		musica = new Audio("audios/Moongrains.mp3");
+		musica = new Audio(Recursos.MUSICA_JUEGO);
 	}
 
 	@Override

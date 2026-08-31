@@ -38,8 +38,8 @@ public class PantallaMenuPrincipal implements Screen{
 		subtitulo2 = new Texto("Continuar", 60, 250);
 		subtitulo3 = new Texto("Logros", 60, 200);
 		subtitulo4 = new Texto("Opciones", 60, 150);
-		musica = new Audio("audios/Ruins.mp3");
-		sonidoClick = Gdx.audio.newSound(Gdx.files.internal("audios/Click.mp3"));
+		musica = new Audio(Recursos.MUSICA_MENU);
+		sonidoClick = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_CLICK));
 	}
 	private void calcularFade() {
 		if(!finFadeIn ) {
