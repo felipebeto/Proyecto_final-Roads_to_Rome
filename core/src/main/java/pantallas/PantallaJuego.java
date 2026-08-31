@@ -1,4 +1,4 @@
-package Pantallas;
+package pantallas;
 
 import com.badlogic.gdx.Screen;
 
@@ -16,8 +16,8 @@ public class PantallaJuego implements Screen{
 	@Override
 	public void show() {
 		jugador = new Jugador();
-		escenario = new Imagen("fondos/escenarioBase.jpg");
-		escenario.ajustarTamaño();
+		escenario = new Imagen(Recursos.FONDO_JUEGO);
+		escenario.ajustarTamaño();	
 		musica = new Audio(Recursos.MUSICA_JUEGO);
 	}
 

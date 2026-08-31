@@ -1,4 +1,4 @@
-package Pantallas;
+package pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
