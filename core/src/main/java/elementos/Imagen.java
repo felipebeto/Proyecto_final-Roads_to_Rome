@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import util.Render;
 
-public class Fotos {
+public class Imagen {
 	private Sprite s;
 	private Texture t;
-	public Fotos(String ruta) {
+	public Imagen(String ruta) {
 		this.t = new Texture(ruta);
 		this.s = new Sprite(t);
 	}
@@ -21,6 +21,9 @@ public class Fotos {
 	}
 	public void setTrans(float a) {
 		s.setAlpha(a);
+	}
+	public void setPosicion(float x, float y) {
+		s.setPosition(x, y);
 	}
 
 }

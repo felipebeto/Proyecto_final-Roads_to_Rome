@@ -2,18 +2,20 @@ package Pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.rtr.Main;
 
-import elementos.Fotos;
+import elementos.Audio;
+import elementos.Imagen;
 import elementos.Texto;
 import util.Recursos;
 import util.Render;
 
 public class PantallaMenuPrincipal implements Screen{
 	
-	private Fotos fondo;
+	private Imagen fondo;
 	private Texto titulo;
 	private Texto subtitulo1;
 	private Texto subtitulo2;
@@ -22,10 +24,12 @@ public class PantallaMenuPrincipal implements Screen{
 	private boolean finFadeIn = false;
 	private float a = 0;
 	private float mouseX, mouseY;
+	private Audio musica;
+	private Sound sonidoClick;
 
 	@Override
 	public void show() {
-		fondo = new Fotos(Recursos.FONDO_MENU);
+		fondo = new Imagen(Recursos.FONDO_MENU);
 		fondo.setTrans(a);
 		fondo.ajustarTamaño();
 		titulo = new Texto("Roads to Rome ", 40, 450);
@@ -34,6 +38,8 @@ public class PantallaMenuPrincipal implements Screen{
 		subtitulo2 = new Texto("Continuar", 60, 250);
 		subtitulo3 = new Texto("Logros", 60, 200);
 		subtitulo4 = new Texto("Opciones", 60, 150);
+		musica = new Audio("audios/Ruins.mp3");
+		sonidoClick = Gdx.audio.newSound(Gdx.files.internal("audios/Click.mp3"));
 	}
 	private void calcularFade() {
 		if(!finFadeIn ) {
@@ -50,7 +56,7 @@ public class PantallaMenuPrincipal implements Screen{
 		mouseX = Gdx.input.getX();
 	    mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 		Render.limpiar(0, 0, 0);
-		
+		musica.comenzar();
 		Render.batch.begin();
 		fondo.dibujar();
 		if (!finFadeIn) {
@@ -68,7 +74,14 @@ public class PantallaMenuPrincipal implements Screen{
 			subtitulo4.escribir();
 		}
 		if(Gdx.input.justTouched()) {
-			if(subtitulo1.isHover(mouseX, mouseY)) Recursos.MAIN.setScreen(new PantallaJuego());
+			if(subtitulo1.isHover(mouseX, mouseY)) {
+				sonidoClick.play();
+				musica.detener();
+				Recursos.MAIN.setScreen(new PantallaJuego());
+			}
+			if(subtitulo2.isHover(mouseX, mouseY)) sonidoClick.play();
+			if(subtitulo3.isHover(mouseX, mouseY)) sonidoClick.play();
+			if(subtitulo4.isHover(mouseX, mouseY)) sonidoClick.play();
 		}
 		Render.batch.end();
 	}
@@ -91,6 +104,7 @@ public class PantallaMenuPrincipal implements Screen{
 
 	@Override
 	public void dispose() {
+		
 	}
 
 }
