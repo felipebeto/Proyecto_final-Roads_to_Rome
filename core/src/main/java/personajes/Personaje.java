@@ -39,7 +39,7 @@ public abstract class Personaje {
 	protected void revisarLimite() {
 		if(x<0) x = 0;
 		if(y<0) y = 0;
-		if(x>Recursos.ancho-hitbox.width) x = Recursos.ancho;
-		if(y>Recursos.alto-hitbox.height) y = Recursos.alto;
+		if(x>Recursos.ancho-hitbox.width) x = Recursos.ancho-hitbox.width;
+		if(y>Recursos.alto-hitbox.height) y = Recursos.alto-hitbox.height;
 	}
 }

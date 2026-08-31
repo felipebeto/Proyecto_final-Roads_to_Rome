@@ -10,7 +10,7 @@ public class Audio {
 	public Audio(String ruta) {
 		this.musica = Gdx.audio.newMusic(Gdx.files.internal(ruta));
 		this.musica.setLooping(true);
-		this.volumen = 0.5f;
+		this.volumen = 0.3f;
 		this.musica.setVolume(volumen);
 	}
 	public void comenzar() {
