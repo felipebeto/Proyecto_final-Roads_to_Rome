@@ -4,6 +4,12 @@ Todos los cambios importantes de este proyecto se documentarán en este archivo.
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [1.0.0] - 2026-08-30
+### Agregado
+- Crea el menú principal.
+- Agrega música de fondo y efectos de sonido.
+- Crea una base del sistema de movimiento.
+
 ## [0.1.2] - 2026-08-18
 ### Agregado
 - Establece la propuesta formal como página principal (Home) de la Wiki.
