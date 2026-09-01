@@ -4,22 +4,47 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 import elementos.Imagen;
+import mapas.Mapa;
+import util.Colisiones;
+import util.Recursos;
 
 public class Jugador extends Personaje{
-
+	
 	public Jugador() {
-		super(250, 250, 100, 200, new Imagen("gambit1.png"), 70,  82);
+		super(Recursos.ancho/2-35, Recursos.alto/2-41, 100, 200, "gambit1.png", 70,  82);
 	}
 	@Override
-	public void calcularMovimiento(float delta) {
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= velocidad * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) x += velocidad * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) y += velocidad * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= velocidad * delta;
+	public void calcularMovimiento(float delta, Mapa mapa, Personaje enemigo) {
+		float nuevaX=x, nuevaY=y;
+		if (Gdx.input.isKeyPressed(Input.Keys.A)) nuevaX -= velocidad * delta;
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) nuevaX += velocidad * delta;
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) nuevaY += velocidad * delta;
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) nuevaY -= velocidad * delta;
+        
+
+        
+		hitbox.setPosition(nuevaX, y);
+        if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) x = nuevaX;	
+
+        hitbox.setPosition(x, nuevaY);
+        if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) y = nuevaY;
         revisarLimite();
         hitbox.setPosition(x, y);
+        if(cooldownDanio>0) cooldownDanio -= delta;
         
 	}
+	
+	@Override
+	public boolean recibirDanio(int cantidad) {
+		if(cooldownDanio<=0) {
+			vida-=cantidad;
+			cooldownDanio = 1;
+			System.out.println(vida);
+			return true;
+		}
+		return false;
+	}
+	
 	
 
 }

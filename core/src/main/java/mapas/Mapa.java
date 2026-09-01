@@ -15,6 +15,7 @@ public abstract class Mapa {
 		this.alto = alto;
 		this.obstaculos = new ArrayList<>();
 		this.fondo = new Imagen(rutaFondo);
+		cargarObstaculos();
 	}
 	protected abstract void cargarObstaculos(); 
 
@@ -25,5 +26,13 @@ public abstract class Mapa {
 	public void dibujarFondo() {
 		fondo.dibujar();
 	}
+	public ArrayList<Rectangle> getObstaculos() {
+		
+		return obstaculos;
+	}
+	public Imagen getFondo(){
+		return fondo;
+	}
+	
 
 }

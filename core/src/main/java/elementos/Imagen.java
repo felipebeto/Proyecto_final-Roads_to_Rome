@@ -16,6 +16,9 @@ public class Imagen {
 	public void ajustarTamaño() {
 		s.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
+	public void setTamanio(float w, float h) {
+		s.setSize(w, h);
+	}
 	public void dibujar() {
 		s.draw(Render.batch);
 	}
