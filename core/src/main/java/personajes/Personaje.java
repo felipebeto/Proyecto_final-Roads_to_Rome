@@ -37,11 +37,28 @@ public abstract class Personaje {
     	}
 	}
 	public abstract void calcularMovimiento(float delta, Mapa mapa, Personaje p);
+	public abstract void atacar();
 	protected void revisarLimite() {
 		if(x<0) x = 0;
 		if(y<0) y = 0;
 		if(x>Recursos.ancho-hitbox.width) x = Recursos.ancho-hitbox.width;
 		if(y>Recursos.alto-hitbox.height) y = Recursos.alto-hitbox.height;
+	}
+	protected void revisarHitbox(float nuevaX, float nuevaY, Mapa mapa) {
+		this.hitbox.setPosition(nuevaX, y);
+        if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) x = nuevaX;	
+        	
+
+        this.hitbox.setPosition(x, nuevaY);
+        if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) y = nuevaY;
+		revisarLimite();
+        this.hitbox.setPosition(x, y);
+	}
+	public float getX() {
+		return x;
+	}
+	public float getY() {
+		return y;
 	}
 	public boolean colisionar(Rectangle area) {
 		return Colisiones.colisionaConEntidad(area, hitbox);

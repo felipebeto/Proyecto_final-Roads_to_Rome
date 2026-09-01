@@ -23,19 +23,14 @@ public class Jugador extends Personaje{
         
 
         
-		hitbox.setPosition(nuevaX, y);
-        if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) x = nuevaX;	
-
-        hitbox.setPosition(x, nuevaY);
-        if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) y = nuevaY;
-        revisarLimite();
-        hitbox.setPosition(x, y);
+		revisarHitbox(nuevaX, nuevaY, mapa);
         if(cooldownDanio>0) cooldownDanio -= delta;
         
 	}
 	
 	@Override
 	public boolean recibirDanio(int cantidad) {
+		
 		if(cooldownDanio<=0) {
 			vida-=cantidad;
 			cooldownDanio = 1;
@@ -44,6 +39,11 @@ public class Jugador extends Personaje{
 		}
 		return false;
 	}
+	@Override
+	public void atacar() {
+		
+	}
+	
 	
 	
 

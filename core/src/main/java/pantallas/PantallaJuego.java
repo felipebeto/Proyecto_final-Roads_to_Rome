@@ -37,6 +37,7 @@ public class PantallaJuego implements Screen{
 	public void render(float delta) {
 		musica.comenzar();
 		jugador.calcularMovimiento(delta, mapa, enemigo);
+		enemigo.calcularMovimiento(delta, mapa, jugador);
 		Render.limpiar(0, 0, 0);
 		Render.batch.begin();
 		mapa.dibujarFondo();
