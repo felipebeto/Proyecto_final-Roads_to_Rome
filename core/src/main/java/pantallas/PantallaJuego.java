@@ -1,6 +1,9 @@
 package pantallas;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector2;
 
 import elementos.Audio;
 import elementos.Imagen;
@@ -49,13 +52,33 @@ public class PantallaJuego implements Screen{
 		rojo.setTrans(a);
 		
 		if(Colisiones.colisionaConEntidad(jugador.getHitbox(), enemigo.getHitbox())) {
-			efectoDanio = jugador.recibirDanio(5);
+			efectoDanio = jugador.recibirDanio(10);
+			System.out.println("vida tuya: " + jugador.getVida());
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.P) && calcularRangoAtaque()) {
+			enemigo.recibirDanio(10);
+			System.out.println("vida enemigo: " + enemigo.getVida());
 		}
 		Render.batch.end();
 		if(jugador.isMuerto()) {
 			musica.detener();
 			Recursos.MAIN.setScreen(new PantallaGameOver());
 		}
+		if(enemigo.isMuerto()) {
+			musica.detener();
+			Recursos.MAIN.setScreen(new PantallaYouWin());
+		}
+	}
+
+	private boolean calcularRangoAtaque() {
+		float centroJugadorX = jugador.getX() + jugador.getHitbox().width/2;
+		float centroJugadorY = jugador.getY() + jugador.getHitbox().height/2;
+		float centroEnemigoX = enemigo.getX() + enemigo.getHitbox().width/2;
+		float centroEnemigoY = enemigo.getY() + enemigo.getHitbox().height/2;
+
+		float distancia = Vector2.dst(centroJugadorX, centroJugadorY, centroEnemigoX, centroEnemigoY);
+		if(distancia<=jugador.getAlcance()) return true;
+		else return false;
 	}
 
 	private void fadeDanio(Personaje jugador) {

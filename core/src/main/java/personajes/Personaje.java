@@ -14,7 +14,8 @@ public abstract class Personaje {
     protected Rectangle hitbox;
     protected Imagen sprite;
     protected float cooldownDanio = 0;
-    public Personaje(float x, float y, int vida, int velocidad, String ruta, float ancho, float alto) {
+    protected int alcance;
+    public Personaje(float x, float y, int vida, int velocidad, String ruta, float ancho, float alto, int alcance) {
         this.x = x; 
         this.y = y; 
         this.vida = vida; 
@@ -22,6 +23,7 @@ public abstract class Personaje {
         this.sprite = new Imagen(ruta);
         sprite.setTamanio(ancho, alto);
         this.hitbox = new Rectangle(x, y, ancho, alto);
+        this.alcance = alcance;
     }
     public void dibujar() {
 		sprite.setPosicion(x, y);
@@ -68,5 +70,11 @@ public abstract class Personaje {
 	}
 	public float getCooldown() {
 		return cooldownDanio;
+	}
+	public int getAlcance() {
+		return alcance;
+	}
+	public int getVida() {
+		return vida;
 	}
 }

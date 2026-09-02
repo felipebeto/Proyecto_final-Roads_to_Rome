@@ -9,7 +9,6 @@ import util.Colisiones;
 import util.Recursos;
 
 public class Enemigo extends Personaje{
-	private int alcance = 30;
 	private float cooldownMove = 0;
 	private float maxCooldown = 1.5f;
 	private float tiempoAnim = 0.5f;
@@ -17,7 +16,7 @@ public class Enemigo extends Personaje{
 	private float contAnimacion = 0;
 	private float nuevaX, nuevaY, direccionX, direccionY, objX, objY, difX, difY;
 	public Enemigo() {
-		super(Recursos.ancho/2+100, Recursos.alto/2-62, 100, 100, "momo.png", 80, 87);
+		super(Recursos.ancho/2+100, Recursos.alto/2-62, 100, 100, "momo.png", 80, 87, 30);
 		
 	}
 
@@ -109,7 +108,7 @@ public class Enemigo extends Personaje{
 
 	@Override
 	public boolean recibirDanio(int cantidad) {
-		
+		vida -=cantidad;
 		return false;
 	}
 

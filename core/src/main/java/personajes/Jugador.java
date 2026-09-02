@@ -11,7 +11,7 @@ import util.Recursos;
 public class Jugador extends Personaje{
 	
 	public Jugador() {
-		super(Recursos.ancho/2-35, Recursos.alto/2-41, 100, 200, "gambit1.png", 70,  82);
+		super(Recursos.ancho/2-35, Recursos.alto/2-41, 100, 200, "gambit1.png", 70,  82, 100);
 	}
 	@Override
 	public void calcularMovimiento(float delta, Mapa mapa, Personaje enemigo) {
@@ -34,7 +34,6 @@ public class Jugador extends Personaje{
 		if(cooldownDanio<=0) {
 			vida-=cantidad;
 			cooldownDanio = 1;
-			System.out.println(vida);
 			return true;
 		}
 		return false;
