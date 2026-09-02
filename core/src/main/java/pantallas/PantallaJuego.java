@@ -3,9 +3,11 @@ package pantallas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 import elementos.Audio;
+import elementos.BarraVida;
 import elementos.Camara;
 import elementos.Imagen;
 import mapas.Dungeon1;
@@ -23,9 +25,11 @@ public class PantallaJuego implements Screen{
 	private Imagen rojo;
 	private Audio musica;
 	private Camara camara;	
+	private BarraVida barraVida;
 	private boolean efectoDanio = false;
 	private float a = 0;
 	private boolean animacionT = true;
+	float porcentajeVida = 0;
 	@Override
 	public void show() {
 		jugador = new Jugador();
@@ -37,11 +41,13 @@ public class PantallaJuego implements Screen{
 		mapa.getFondo().ajustarTamaño();
 		musica = new Audio(Recursos.MUSICA_JUEGO);
 		camara = new Camara();
+		barraVida  = new BarraVida();
 	}
 
 	@Override
 	public void render(float delta) {
 		musica.comenzar();
+		
 		jugador.calcularMovimiento(delta, mapa, enemigo);
 		enemigo.calcularMovimiento(delta, mapa, jugador);
 		Render.limpiar(0, 0, 0);
@@ -55,14 +61,14 @@ public class PantallaJuego implements Screen{
 		rojo.setTrans(a);
 		
 		if(Colisiones.colisionaConEntidad(jugador.getHitbox(), enemigo.getHitbox())) {
-			efectoDanio = jugador.recibirDanio(10);
-			System.out.println("vida tuya: " + jugador.getVida());
+			efectoDanio = jugador.recibirDanio(20);
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.P) && calcularRangoAtaque()) {
 			enemigo.recibirDanio(10);
-			System.out.println("vida enemigo: " + enemigo.getVida());
 		}
 		Render.batch.end();
+		porcentajeVida = (float) jugador.getVida() / 100;
+		barraVida.pintar(porcentajeVida);
 		if(jugador.isMuerto()) {
 			musica.detener();
 			Recursos.MAIN.setScreen(new PantallaGameOver());
