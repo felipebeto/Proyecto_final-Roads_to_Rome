@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector2;
 
 import elementos.Audio;
+import elementos.Camara;
 import elementos.Imagen;
 import mapas.Dungeon1;
 import mapas.Mapa;
@@ -21,6 +22,7 @@ public class PantallaJuego implements Screen{
 	private Dungeon1 mapa;
 	private Imagen rojo;
 	private Audio musica;
+	private Camara camara;	
 	private boolean efectoDanio = false;
 	private float a = 0;
 	private boolean animacionT = true;
@@ -34,6 +36,7 @@ public class PantallaJuego implements Screen{
 		rojo.setTrans(a);
 		mapa.getFondo().ajustarTamaño();
 		musica = new Audio(Recursos.MUSICA_JUEGO);
+		camara = new Camara();
 	}
 
 	@Override
@@ -47,7 +50,7 @@ public class PantallaJuego implements Screen{
 		enemigo.dibujar();
 		jugador.dibujar();
 		rojo.dibujar();
-		
+		camara.actualizarPosicion(jugador);
 		fadeDanio(jugador);
 		rojo.setTrans(a);
 		
@@ -101,6 +104,7 @@ public class PantallaJuego implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
+		camara.actualizarPantalla();
 	}
 
 	@Override

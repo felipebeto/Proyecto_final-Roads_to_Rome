@@ -2,8 +2,10 @@ package pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Matrix4;
 
 import elementos.Audio;
+import elementos.Camara;
 import elementos.Imagen;
 import elementos.Texto;
 import util.Recursos;
@@ -14,6 +16,7 @@ public class PantallaYouWin implements Screen{
 	private Imagen fondo;
 	private Texto titulo;
 	private Texto subtitulo;
+	private Audio audio;
 	private boolean finFadeIn = false;
 	private float a = 0;
 	@Override
@@ -24,6 +27,8 @@ public class PantallaYouWin implements Screen{
 		titulo = new Texto("Ganaste!!!", 340, 450);
 		titulo.agrandar(2);
 		subtitulo = new Texto("clickea la pantalla para jugar otra vez", 60, 350);
+		Render.batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+		audio = new Audio(Recursos.MUSICA_YOUWIN);
 	}
 	private void calcularFade() {
 		if(!finFadeIn ) {
@@ -36,6 +41,7 @@ public class PantallaYouWin implements Screen{
 	}
 	@Override
 	public void render(float delta) {
+		audio.comenzar();
 		Render.limpiar(0, 0, 0);
 		Render.batch.begin();
 		fondo.dibujar();
@@ -47,6 +53,7 @@ public class PantallaYouWin implements Screen{
 			subtitulo.escribir();
 		}
 		if(Gdx.input.justTouched()) {
+			audio.detener();
 			Recursos.MAIN.setScreen(new PantallaJuego());
 		}
 		Render.batch.end();

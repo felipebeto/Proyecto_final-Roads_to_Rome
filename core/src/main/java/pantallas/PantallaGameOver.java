@@ -2,8 +2,10 @@ package pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Matrix4;
 
 import elementos.Audio;
+import elementos.Camara;
 import elementos.Imagen;
 import elementos.Texto;
 import util.Recursos;
@@ -27,6 +29,7 @@ public class PantallaGameOver implements Screen{
 		subtitulo = new Texto("clickea la pantalla para reintentar", 60, 350);
 		musica = new Audio(Recursos.MUSICA_GAMEOVER);
 		musica.cambiarVolumen(1);
+		Render.batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 	}
 	private void calcularFade() {
 		if(!finFadeIn ) {
