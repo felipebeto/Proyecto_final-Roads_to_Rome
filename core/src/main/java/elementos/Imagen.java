@@ -3,6 +3,7 @@ package elementos;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import util.Render;
 
@@ -27,6 +28,12 @@ public class Imagen {
 	}
 	public void setPosicion(float x, float y) {
 		s.setPosition(x, y);
+	}
+	public void setRegion(TextureRegion region) {
+	    s.setRegion(region);
+	}
+	public void setFlip(boolean flipX) {
+	    s.setFlip(flipX, false);
 	}
 
 }
