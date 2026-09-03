@@ -26,6 +26,7 @@ public class PantallaJuego implements Screen{
 	private Imagen rojo;
 	private Audio musica;
 	private Sound sonidoGolpe;
+	private Sound sonidoOof;
 	private Camara camara;	
 	private BarraVida barraVida;
 	private boolean efectoDanio = false;
@@ -43,6 +44,7 @@ public class PantallaJuego implements Screen{
 		mapa.getFondo().ajustarTamaño();
 		musica = new Audio(Recursos.MUSICA_JUEGO);
 		sonidoGolpe = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_GOLPE));
+		sonidoOof = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_OOF));
 		camara = new Camara();
 		barraVida  = new BarraVida();
 	}
@@ -64,7 +66,8 @@ public class PantallaJuego implements Screen{
 		rojo.setTrans(a);
 		
 		if(Colisiones.colisionaConEntidad(jugador.getHitbox(), enemigo.getHitbox())) {
-			efectoDanio = jugador.recibirDanio(20);
+			sonidoOof.play();
+			enemigo.atacar(jugador);
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.P) && calcularRangoAtaque()) {
 			sonidoGolpe.play();

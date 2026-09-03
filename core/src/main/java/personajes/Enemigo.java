@@ -15,29 +15,31 @@ public class Enemigo extends Personaje{
 	private boolean animacion = false;
 	private float contAnimacion = 0;
 	private float nuevaX, nuevaY, direccionX, direccionY, objX, objY, difX, difY;
+
 	public Enemigo() {
-		super(Recursos.ancho/2+100, Recursos.alto/2-62, 100, 100, "momo.png", 80, 87, 30);
-		
+		super(Recursos.ancho / 2 + 100, Recursos.alto / 2 - 62, 100, 100, "momo.png", 80, 87, 30);
+
 	}
 
 	@Override
 		public void calcularMovimiento(float delta, Mapa mapa, Personaje personaje) {
-			if(cooldownMove <=0) {
-				animacion = true;
-				direccionX = 0;
-				direccionY = 0;
-				cooldownMove = maxCooldown;
-				int op = Aleatorio.generarEntero(2);
-				if (op ==1) {
-					
-					objX = x + Aleatorio.generarEntero(-alcance*2, alcance*2);
-					objY =  y + Aleatorio.generarEntero(-alcance*2, alcance*2);
-				}else{
-					objX = personaje.getX();
-					objY = personaje.getY();
-				}
-					
-				
+			if (isRetrocediendo) {
+				float[] pos = actualizarRetroceso(delta);
+				nuevaX = pos[0];
+				nuevaY = pos[1];
+			} else if(cooldownMove <=0) {
+					animacion = true;
+					direccionX = 0;
+					direccionY = 0;
+					cooldownMove = maxCooldown;
+					int op = Aleatorio.generarEntero(2);
+					if (op ==1) {
+						objX = x + Aleatorio.generarEntero(-alcance*2, alcance*2);
+						objY =  y + Aleatorio.generarEntero(-alcance*2, alcance*2);
+					}else{
+						objX = personaje.getX();
+						objY = personaje.getY();
+					}
 				
 			}else {
 				if(animacion) {
@@ -59,9 +61,9 @@ public class Enemigo extends Personaje{
 					}
 				}
 				cooldownMove -=delta;
-				revisarHitbox((float)nuevaX, (float)nuevaY, mapa);
-			}
-			
+				
+			}		
+			revisarHitbox((float)nuevaX, (float)nuevaY, mapa);
 			
 		}
 	private void calcularDistanciaObjetivo() {
@@ -109,11 +111,14 @@ public class Enemigo extends Personaje{
 	@Override
 	public boolean recibirDanio(int cantidad) {
 		vida -=cantidad;
-		return false;
+		return true;
 	}
 
 	@Override
-	public void atacar(Personaje p) {
+	public void atacar(Personaje jugador) {
+	    if (jugador.recibirDanio(10)) {
+	        jugador.iniciarRetroceso(this);
+	    }
 	}
 
 	
