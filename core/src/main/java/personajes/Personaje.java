@@ -39,7 +39,7 @@ public abstract class Personaje {
     	}
 	}
 	public abstract void calcularMovimiento(float delta, Mapa mapa, Personaje p);
-	public abstract void atacar();
+	public abstract void atacar(Personaje p);
 	protected void revisarLimite() {
 		if(x<0) x = 0;
 		if(y<0) y = 0;

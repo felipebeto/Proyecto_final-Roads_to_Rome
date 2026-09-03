@@ -68,7 +68,7 @@ public class PantallaJuego implements Screen{
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.P) && calcularRangoAtaque()) {
 			sonidoGolpe.play();
-			enemigo.recibirDanio(10);
+			jugador.atacar(enemigo);
 		}
 		Render.batch.end();
 		porcentajeVida = (float) jugador.getVida() / 100;

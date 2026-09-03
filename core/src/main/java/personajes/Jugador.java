@@ -17,21 +17,35 @@ public class Jugador extends Personaje{
 	private float tiempoAnimacion = 0;
 	private boolean mirandoDerecha = true;
 	private boolean moviendose = false;
+	private Animation<TextureRegion> animacionAtacar;
+	private boolean atacando = false;
+	private float tiempoAtaque = 0;
+	private float duracionAtaque = 0.32f;
 	public Jugador() {
 		super(Recursos.ancho/2-35, Recursos.alto/2-41, 100, 200, "gambit1.png", 70,  82, 100);
-		cargarSpriteSheet();
+		cargarSpriteSheets();
 	}
-	private void cargarSpriteSheet() {
+	private void cargarSpriteSheets() {
 		Texture sheet = new Texture(Gdx.files.internal("sheetCaminando.png"));
-		TextureRegion[][] matriz = TextureRegion.split(sheet, 56, 81);
-		TextureRegion[] frames = matriz[0];
-
-		frameQuieto = frames[0];
-		animacionCaminar = new Animation<>(0.12f, frames);
+		TextureRegion[] framesCaminando = TextureRegion.split(sheet, 56, 81)[0];
+		frameQuieto = framesCaminando[0];
+		animacionCaminar = new Animation<>(0.12f, framesCaminando);
 		animacionCaminar.setPlayMode(Animation.PlayMode.LOOP);
+		
+		Texture sheetAtaque = new Texture(Gdx.files.internal("sheetGolpe.png"));
+		TextureRegion[] framesAtaque = TextureRegion.split(sheetAtaque, 89, 77)[0]; 
+		animacionAtacar = new Animation<>(0.08f, framesAtaque); 
+		animacionAtacar.setPlayMode(Animation.PlayMode.NORMAL);
 	}
 	@Override
 	public void calcularMovimiento(float delta, Mapa mapa, Personaje enemigo) {
+		if(atacando) {
+			tiempoAtaque +=delta;
+			if(tiempoAtaque>=duracionAtaque) {
+				atacando = false;
+			}
+			return;
+		}
 		moviendose = false;
 		float nuevaX=x, nuevaY=y;
 		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
@@ -62,7 +76,6 @@ public class Jugador extends Personaje{
 	
 	@Override
 	public boolean recibirDanio(int cantidad) {
-		
 		if(cooldownDanio<=0) {
 			vida-=cantidad;
 			cooldownDanio = 1;
@@ -71,14 +84,25 @@ public class Jugador extends Personaje{
 		return false;
 	}
 	@Override
-	public void atacar() {
+	public void atacar(Personaje enemigo) {
+		if(!atacando) {
+			atacando = true;
+			tiempoAtaque = 0;
+			enemigo.recibirDanio(10);
+		}
+		
 		
 	}
 	@Override
 	public void dibujar() {
 	    TextureRegion frameActual;
-	    if(moviendose) frameActual =  animacionCaminar.getKeyFrame(tiempoAnimacion, true);
-	    else frameActual = frameQuieto;
+	    if (atacando) {
+	        frameActual = animacionAtacar.getKeyFrame(tiempoAtaque, false);
+	    } else if(moviendose) {
+	    	frameActual =  animacionCaminar.getKeyFrame(tiempoAnimacion, true);
+	    }else {
+	    	frameActual = frameQuieto;
+	    }
 	    sprite.setRegion(frameActual);
 	    sprite.setFlip(!mirandoDerecha);
 	    sprite.setPosicion(x, y);
