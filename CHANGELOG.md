@@ -4,12 +4,18 @@ Todos los cambios importantes de este proyecto se documentarán en este archivo.
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [1.0.3] - 2026-09-02
+### Agregado
+- Establece camara con movimiento.
+- Agrega barra de vida.
+- Agrega animaciones al personaje principal.
+- Implementa sistema de retroceso para el combate.
+
 ## [1.0.2] - 2026-09-01
 ### Agregado
 - Establece prototipo de sistema de combate.
 - Agrega sistema de movimiento al enemigo.
 - Agega pantalla de victoria.
-
 
 ## [1.0.1] - 2026-08-31
 ### Agregado
