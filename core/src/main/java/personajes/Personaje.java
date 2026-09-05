@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import elementos.Imagen;
 import mapas.Mapa;
+import util.Aleatorio;
 import util.Colisiones;
 import util.Recursos;
 
@@ -34,8 +35,11 @@ public abstract class Personaje {
     }
 
     public void dibujar() {
-        sprite.setPosicion(x, y);
-        sprite.dibujar();
+    	if(vida>0) {
+    		sprite.setPosicion(x, y);
+    		sprite.dibujar();
+    	}
+        
     }
 
     public abstract boolean recibirDanio(int cantidad);
@@ -115,4 +119,10 @@ public abstract class Personaje {
     public int getVida() {
     	return vida; 
     }
+    public void dispose() {
+    	sprite.dispose();
+    	
+    }
+
+	public abstract Personaje aparecer(Mapa mapa);
 }

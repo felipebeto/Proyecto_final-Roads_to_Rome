@@ -35,5 +35,8 @@ public class Imagen {
 	public void setFlip(boolean flipX) {
 	    s.setFlip(flipX, false);
 	}
+	public void dispose() {
+		t.dispose();
+	}
 
 }

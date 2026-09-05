@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Matrix4;
 
 import elementos.Audio;
 import elementos.Camara;
+import elementos.ContadorKills;
 import elementos.Imagen;
 import elementos.Texto;
 import util.Recursos;
@@ -16,9 +17,14 @@ public class PantallaGameOver implements Screen{
 	private Imagen fondo;
 	private Texto titulo;
 	private Texto subtitulo;
+	private Texto kills;
+	private int contK = 0;
 	private boolean finFadeIn = false;
 	private float a = 0;
 	private Audio musica;
+	public PantallaGameOver(int contK) {
+		this.contK = contK;
+	}
 	@Override
 	public void show() {
 		fondo = new Imagen(Recursos.GAMEOVER);
@@ -26,6 +32,7 @@ public class PantallaGameOver implements Screen{
 		fondo.ajustarTamaño();
 		titulo = new Texto("Game Over", 40, 450);
 		titulo.agrandar(2);
+		kills = new Texto("Kills: " + Integer.toString(contK), 50, 410);
 		subtitulo = new Texto("clickea la pantalla para reintentar", 60, 350);
 		musica = new Audio(Recursos.MUSICA_GAMEOVER);
 		musica.cambiarVolumen(1);
@@ -49,13 +56,17 @@ public class PantallaGameOver implements Screen{
 		if (!finFadeIn) {
 			calcularFade();
 			fondo.setTrans(a);
+			
 		}else {
 			titulo.escribir();
 			subtitulo.escribir();
+			if(contK!=0) {
+				kills.escribir();
+			}
 		}
 		if(Gdx.input.justTouched()) {
 			musica.detener();
-			Recursos.MAIN.setScreen(new PantallaJuego());
+			Recursos.MAIN.setScreen(new PantallaMenuPrincipal());
 		}
 		Render.batch.end();
 	}

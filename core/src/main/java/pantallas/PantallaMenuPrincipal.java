@@ -35,7 +35,7 @@ public class PantallaMenuPrincipal implements Screen{
 		titulo = new Texto("Roads to Rome ", 40, 450);
 		titulo.agrandar(2);
 		subtitulo1 = new Texto("Nueva partida", 60, 300);
-		subtitulo2 = new Texto("Continuar", 60, 250);
+		subtitulo2 = new Texto("Modo oleada", 60, 250);
 		subtitulo3 = new Texto("Logros", 60, 200);
 		subtitulo4 = new Texto("Opciones", 60, 150);
 		musica = new Audio(Recursos.MUSICA_MENU);
@@ -80,13 +80,16 @@ public class PantallaMenuPrincipal implements Screen{
 				musica.detener();
 				Recursos.MAIN.setScreen(new PantallaJuego());
 			}
-			if(subtitulo2.isHover(mouseX, mouseY)) sonidoClick.play();
+			if(subtitulo2.isHover(mouseX, mouseY)) {
+					sonidoClick.play();
+					musica.detener();
+					Recursos.MAIN.setScreen(new PantallaOleada());
+			}
 			if(subtitulo3.isHover(mouseX, mouseY)) sonidoClick.play();
 			if(subtitulo4.isHover(mouseX, mouseY)) sonidoClick.play();
 		}
 		Render.batch.end();
 	}
-
 	@Override
 	public void resize(int width, int height) {
 	}

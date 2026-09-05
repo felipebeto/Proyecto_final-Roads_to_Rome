@@ -4,21 +4,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 import elementos.Audio;
 import elementos.BarraVida;
 import elementos.Camara;
+import elementos.ContadorKills;
 import elementos.Imagen;
 import mapas.Dungeon1;
-import mapas.Mapa;
-import personajes.*;
+import personajes.Enemigo;
+import personajes.Jugador;
+import personajes.Personaje;
 import util.Colisiones;
 import util.Recursos;
 import util.Render;
 
-public class PantallaJuego implements Screen{
+public class PantallaOleada implements Screen{
 	
 	private Personaje jugador;
 	private Personaje enemigo;
@@ -29,6 +30,7 @@ public class PantallaJuego implements Screen{
 	private Sound sonidoOof;
 	private Camara camara;	
 	private BarraVida barraVida;
+	private int contador = 0; 
 	private boolean efectoDanio = false;
 	private float a = 0;
 	private boolean animacionT = true;
@@ -78,11 +80,12 @@ public class PantallaJuego implements Screen{
 		barraVida.pintar(porcentajeVida);
 		if(jugador.isMuerto()) {
 			musica.detener();
-			Recursos.MAIN.setScreen(new PantallaGameOver(0));
+			Recursos.MAIN.setScreen(new PantallaGameOver(contador));
 		}
 		if(enemigo.isMuerto()) {
-			musica.detener();
-			Recursos.MAIN.setScreen(new PantallaYouWin());
+			contador++;
+			enemigo.dispose();
+			enemigo = enemigo.aparecer(mapa);
 		}
 	}
 

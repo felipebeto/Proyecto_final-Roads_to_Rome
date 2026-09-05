@@ -54,7 +54,7 @@ public class PantallaYouWin implements Screen{
 		}
 		if(Gdx.input.justTouched()) {
 			audio.detener();
-			Recursos.MAIN.setScreen(new PantallaJuego());
+			Recursos.MAIN.setScreen(new PantallaMenuPrincipal());
 		}
 		Render.batch.end();
 	}

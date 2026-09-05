@@ -26,6 +26,9 @@ public class Texto {
 	public void agrandar(float num) {
 		fuente.getData().setScale(num);
 	}
+	public void cambiarMsj(String nuevo) {
+		msj = nuevo;
+	}
 	public void escribir() {
 		fuente.draw(Render.batch, msj, x, y);
 	}

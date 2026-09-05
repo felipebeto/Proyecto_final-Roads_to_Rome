@@ -16,13 +16,16 @@ public class Enemigo extends Personaje{
 	private float contAnimacion = 0;
 	private float nuevaX, nuevaY, direccionX, direccionY, objX, objY, difX, difY;
 
-	public Enemigo() {
-		super(Recursos.ancho / 2 + 100, Recursos.alto / 2 - 62, 100, 100, "momo.png", 80, 87, 30);
+	public Enemigo(float x, float y) {
+		super(x, y, 100, 100, "momo.png", 80, 87, 30);
 
 	}
 
 	@Override
 		public void calcularMovimiento(float delta, Mapa mapa, Personaje personaje) {
+			if(vida<=0) {
+				return;
+			}
 			if (isRetrocediendo) {
 				float[] pos = actualizarRetroceso(delta);
 				nuevaX = pos[0];
@@ -116,9 +119,29 @@ public class Enemigo extends Personaje{
 
 	@Override
 	public void atacar(Personaje jugador) {
-	    if (jugador.recibirDanio(10)) {
-	        jugador.iniciarRetroceso(this);
-	    }
+		if(vida>0) {
+			if (jugador.recibirDanio(20)) {
+				jugador.iniciarRetroceso(this);
+			}
+		}
+	    
+	}
+	@Override
+	public Personaje aparecer(Mapa mapa) {
+		float x2;
+		float y2;
+		
+		do {
+			x2 = Aleatorio.generarEntero(Recursos.ancho);
+			y2 = Aleatorio.generarEntero(Recursos.alto);
+			this.hitbox.setPosition(x2, Recursos.alto / 2);
+			if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()))x = x2;
+			this.hitbox.setPosition(Recursos.ancho / 2, y2);
+			if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) y = y2;
+		}while(!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()) && 
+				!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()));
+		
+		return new Enemigo(x, y);
 	}
 
 	

@@ -82,7 +82,7 @@ public class Jugador extends Personaje {
         if (!atacando) {
             atacando = true;
             tiempoAtaque = 0;
-            if (enemigo.recibirDanio(10)) {
+            if (enemigo.recibirDanio(50)) {
                 enemigo.iniciarRetroceso(this);
             }
         }
@@ -100,4 +100,10 @@ public class Jugador extends Personaje {
         sprite.setPosicion(x, y);
         sprite.dibujar();
     }
+
+	@Override
+	public Personaje aparecer(Mapa mapa) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
