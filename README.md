@@ -69,5 +69,6 @@ Este proyecto está desarrollado para escritorio (PC - Windows/Linux/macOS) medi
 Configuración inicial y estructura del proyecto.
 
 
-## Enlace a la wiki
-[Wiki de Roads to Rome](https://github.com/felipebeto/Proyecto_final-Roads_to_Rome/wiki)
+## Informacion adicional
+- [Wiki de Roads to Rome](https://github.com/felipebeto/Proyecto_final-Roads_to_Rome/wiki)
+- [Video explicativo del gameplay](https://youtu.be/sA7kaqZce3s)
