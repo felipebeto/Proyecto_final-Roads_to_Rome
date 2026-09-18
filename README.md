@@ -66,7 +66,7 @@ Este proyecto está desarrollado para escritorio (PC - Windows/Linux/macOS) medi
 
 ## Estado actual del proyecto
 
-Primeros pasos del videojuego y mecánicas básicas.
+Primeras versiones y testeo de mecánicas.
 
 
 ## Informacion adicional
