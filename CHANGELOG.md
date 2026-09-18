@@ -4,6 +4,12 @@ Todos los cambios importantes de este proyecto se documentarán en este archivo.
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [1.0.4] - 2026-09-18
+### Agregado
+- Agrega beta del modo oleada.
+- Arregla sistema de versiones.
+- Actualiza README.md a la fase actual.
+
 ## [1.0.3] - 2026-09-02
 ### Agregado
 - Establece camara con movimiento.
@@ -30,12 +36,12 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 - Agrega música de fondo y efectos de sonido.
 - Crea una base del sistema de movimiento.
 
-## [0.1.2] - 2026-08-18
+## [0.1.3] - 2026-08-18
 ### Agregado
 - Establece la propuesta formal como página principal (Home) de la Wiki.
-- Unifica el versionado del proyecto entre CHANGELOG.md y gradle.properties (0.1.2).
+- Unifica el versionado del proyecto entre CHANGELOG.md y gradle.properties (0.1.3).
 
-## [1.1.2] - 2026-08-12
+## [0.1.2] - 2026-08-12
 
 ### Agregado
 - Elimina la portada de la wiki dejando la propuesta como página principal.
@@ -43,7 +49,7 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 - Corrección del link de JDK 17.
 - Arreglo de versiones del CHANGELOG respecto al gradle.
 
-## [1.1.1] - 2026-07-16
+## [0.1.1] - 2026-07-16
 
 ### Agregado
 - Reemplazo de la wiki por el documento formal completo presentado anteriormente.
@@ -52,7 +58,7 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 - Corrección del README.md
 
 
-## [1.1.0] - 2026-07-10
+## [0.1.0] - 2026-07-10
 
 ### Agregado
 - Repositorio de GitHub creado para el proyecto.
