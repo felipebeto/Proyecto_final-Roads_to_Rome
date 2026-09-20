@@ -18,6 +18,7 @@ public class Audio {
 	}
 	public void cambiarVolumen(float num) {
 		this.volumen = num;
+		musica.setVolume(num);
 	}
 	public void detener() {
 		this.musica.stop();

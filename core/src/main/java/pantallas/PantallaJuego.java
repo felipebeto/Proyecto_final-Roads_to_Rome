@@ -25,9 +25,7 @@ public abstract class PantallaJuego implements Screen{
 	protected Sound sonidoOof;
 	protected Camara camara;	
 	protected BarraVida barraVida;
-	private boolean efectoDanio = false;
 	protected float a = 0;
-	private boolean animacionT = true;
 	protected float porcentajeVida = 0;
 	protected Main main;
 	protected SpriteBatch batch;
@@ -60,38 +58,20 @@ public abstract class PantallaJuego implements Screen{
 	@Override
 	public abstract void render(float delta);
 
-	protected boolean calcularRangoAtaque() {
+	protected boolean calcularRangoAtaque(Personaje e) {
 		float centroJugadorX = jugador.getX() + jugador.getHitbox().width/2;
 		float centroJugadorY = jugador.getY() + jugador.getHitbox().height/2;
-		float centroEnemigoX = enemigo.getX() + enemigo.getHitbox().width/2;
-		float centroEnemigoY = enemigo.getY() + enemigo.getHitbox().height/2;
+		float centroEnemigoX = e.getX() + e.getHitbox().width/2;
+		float centroEnemigoY = e.getY() + e.getHitbox().height/2;
 
 		float distancia = Vector2.dst(centroJugadorX, centroJugadorY, centroEnemigoX, centroEnemigoY);
 		if(distancia<=jugador.getAlcance()) return true;
 		else return false;
 	}
 
-	protected void fadeDanio(Personaje jugador) {
-		if (efectoDanio || !animacionT) {
-			if(animacionT) {
-				a=1;
-				rojo.setTrans(a);
-				rojo.dibujar(batch);
-			}
-			a -= 0.05f;
-			animacionT = false;
-			if (a < 0) {
-				efectoDanio = false;
-				a = 0;
-				animacionT = true;
-			}
-		}
-
-	}
-
 	@Override
 	public void resize(int width, int height) {
-		camara.actualizarPantalla();
+		camara.actualizarPantalla(width, height);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package elementos;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -15,8 +16,8 @@ public class Camara {
 		camara.update();
 		batch.setProjectionMatrix(camara.combined);	
 	}
-	public void actualizarPantalla(){
-		vp.update(Recursos.ancho, Recursos.alto);
+	public void actualizarPantalla(int width, int height){
+		vp.update(width, height);
 	}
 	public void centrarPantalla(SpriteBatch batch) {
 		camara.position.set(Recursos.ancho/2, Recursos.alto/2, 0);

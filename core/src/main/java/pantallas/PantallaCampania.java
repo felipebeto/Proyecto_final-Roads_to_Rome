@@ -21,20 +21,20 @@ public class PantallaCampania extends PantallaJuego{
 		jugador.calcularMovimiento(delta, mapa, enemigo);
 		enemigo.calcularMovimiento(delta, mapa, jugador);
 		Render.limpiar(0, 0, 0);
+		camara.actualizarPosicion(jugador, batch);
+		
 		batch.begin();
 		mapa.dibujarFondo(batch);
 		enemigo.dibujar(batch);
 		jugador.dibujar(batch);
 		rojo.dibujar(batch);
-		camara.actualizarPosicion(jugador, batch);
-		fadeDanio(jugador);
 		rojo.setTrans(a);
 		
 		if(Colisiones.colisionaConEntidad(jugador.getHitbox(), enemigo.getHitbox())) {
 			sonidoOof.play();
 			enemigo.atacar(jugador);
 		}
-		if(jugador.prepararAtaque() && calcularRangoAtaque()) {
+		if(jugador.prepararAtaque() && calcularRangoAtaque(enemigo)) {
 			sonidoGolpe.play();
 			jugador.atacar(enemigo);
 		}

@@ -40,7 +40,8 @@ public class Enemigo extends Personaje{
 						objX = personaje.getX();
 						objY = personaje.getY();
 					}
-				
+					nuevaX = x;
+					nuevaY = y;
 			}else {
 				if(animacion) {
 					calcularDistanciaObjetivo();
@@ -124,19 +125,19 @@ public class Enemigo extends Personaje{
 	    
 	}
 	@Override
-	public Personaje aparecer(Mapa mapa) {
+	public Personaje aparecer(Mapa mapa, Personaje jugador) {
 		float x2;
 		float y2;
 		
 		do {
 			x2 = Aleatorio.generarEntero(Recursos.ancho);
 			y2 = Aleatorio.generarEntero(Recursos.alto);
-			this.hitbox.setPosition(x2, Recursos.alto / 2);
-			if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()))x = x2;
-			this.hitbox.setPosition(Recursos.ancho / 2, y2);
-			if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) y = y2;
-		}while(!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()) && 
-				!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()));
+			this.hitbox.setPosition(x2, y2);
+			if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()) && !Colisiones.colisionaConEntidad(hitbox, jugador.getHitbox())) {
+				y = y2;
+				x = x2;
+			}
+		}while(Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()) || Colisiones.colisionaConEntidad(hitbox, jugador.getHitbox()));
 		
 		return new Enemigo(x, y);
 	}
@@ -146,6 +147,7 @@ public class Enemigo extends Personaje{
 		
 		return false;
 	}
+
 
 	
 

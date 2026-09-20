@@ -20,6 +20,8 @@ public class Jugador extends Personaje {
     private boolean atacando = false;
     private float tiempoAtaque = 0;
     private final float DURACION_ATAQUE = 0.32f;
+    private Texture sheetCaminar;
+    private Texture sheetAtaque;
     private InputManager input = new InputManager();
     
 
@@ -29,13 +31,13 @@ public class Jugador extends Personaje {
     }
 
     private void cargarSpriteSheets() {
-        Texture sheetCaminar = new Texture(Gdx.files.internal("sheetCaminando.png"));
+        sheetCaminar = new Texture(Gdx.files.internal("sheetCaminando.png"));
         TextureRegion[] framesCaminando = TextureRegion.split(sheetCaminar, 56, 81)[0];
         frameQuieto = framesCaminando[0];
         animacionCaminar = new Animation<>(0.12f, framesCaminando);
         animacionCaminar.setPlayMode(Animation.PlayMode.LOOP);
 
-        Texture sheetAtaque = new Texture(Gdx.files.internal("sheetGolpe.png"));
+        sheetAtaque = new Texture(Gdx.files.internal("sheetGolpe.png"));
         TextureRegion[] framesAtaque = TextureRegion.split(sheetAtaque, 89, 77)[0];
         animacionAtacar = new Animation<>(0.08f, framesAtaque);
         animacionAtacar.setPlayMode(Animation.PlayMode.NORMAL);
@@ -108,8 +110,17 @@ public class Jugador extends Personaje {
         sprite.dibujar(batch);
     }
 
+
 	@Override
-	public Personaje aparecer(Mapa mapa) {
+	public void dispose() {
+		super.dispose();
+		sheetCaminar.dispose();
+		sheetAtaque.dispose();
+	}
+
+	@Override
+	public Personaje aparecer(Mapa mapa, Personaje jugador) {
+		
 		return null;
 	}
 }

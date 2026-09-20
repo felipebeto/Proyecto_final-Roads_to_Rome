@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rtr.Main;
 
 import elementos.Audio;
+import elementos.Camara;
 import elementos.Imagen;
 import elementos.Texto;
 import util.InputManager;
@@ -29,6 +30,7 @@ public class PantallaMenuPrincipal implements Screen{
 	private Sound sonidoClick;
 	private Main main;
 	private SpriteBatch batch;
+	private Camara camara;
 
 	public PantallaMenuPrincipal(Main main, SpriteBatch batch, InputManager input) {
 		this.main = main;
@@ -50,7 +52,7 @@ public class PantallaMenuPrincipal implements Screen{
 		musica = new Audio(Recursos.MUSICA_MENU);
 		musica.cambiarVolumen(1);
 		sonidoClick = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_CLICK));
-		
+		camara = new Camara();
 		
 	}
 	private void calcularFade() {
@@ -103,6 +105,7 @@ public class PantallaMenuPrincipal implements Screen{
 	}
 	@Override
 	public void resize(int width, int height) {
+		camara.actualizarPantalla(width, height);
 	}
 
 	@Override

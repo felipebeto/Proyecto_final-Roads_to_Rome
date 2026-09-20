@@ -124,7 +124,8 @@ public abstract class Personaje {
     	
     }
 
-	public abstract Personaje aparecer(Mapa mapa);
+    public abstract Personaje aparecer(Mapa mapa, Personaje jugador);
 
 	public abstract boolean prepararAtaque();
+
 }

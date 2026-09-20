@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.rtr.Main;
 import elementos.Audio;
+import elementos.Camara;
 import elementos.Imagen;
 import elementos.Texto;
 import util.InputManager;
@@ -14,6 +15,7 @@ import Enums.*;
 
 		public class PantallaFinal implements Screen{
 			
+			private Camara camara;
 			private Imagen fondo;
 			private Texto titulo;
 			private Texto subtitulo;
@@ -46,6 +48,7 @@ import Enums.*;
 				subtitulo = new Texto("clickea la pantalla para volver al menú", 60, 350);
 				musica = new Audio(f.getMusica());
 				batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+				camara = new Camara();
 			}
 			private void calcularFade() {
 				if(!finFadeIn ) {
@@ -86,6 +89,7 @@ import Enums.*;
 		
 			@Override
 			public void resize(int width, int height) {
+				camara.actualizarPantalla(width, height);
 			}
 		
 			@Override
