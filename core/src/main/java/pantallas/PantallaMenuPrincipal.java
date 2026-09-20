@@ -65,28 +65,28 @@ public class PantallaMenuPrincipal implements Screen{
 			fondo.setTrans(a);
 		}else {
 			titulo.escribir();
-			subtitulo1.setColor(subtitulo1.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo1.setColor(subtitulo1.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
 			subtitulo1.escribir();
-			subtitulo2.setColor(subtitulo2.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo2.setColor(subtitulo2.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
 			subtitulo2.escribir();
-			subtitulo3.setColor(subtitulo3.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo3.setColor(subtitulo3.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
 			subtitulo3.escribir();
-			subtitulo4.setColor(subtitulo4.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo4.setColor(subtitulo4.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
 			subtitulo4.escribir();
 		}
 		if(Gdx.input.justTouched()) {
-			if(subtitulo1.isHover(mouseX, mouseY)) {
+			if(subtitulo1.isSobre(mouseX, mouseY)) {
 				sonidoClick.play();
 				musica.detener();
 				Recursos.MAIN.setScreen(new PantallaJuego());
 			}
-			if(subtitulo2.isHover(mouseX, mouseY)) {
+			if(subtitulo2.isSobre(mouseX, mouseY)) {
 					sonidoClick.play();
 					musica.detener();
 					Recursos.MAIN.setScreen(new PantallaOleada());
 			}
-			if(subtitulo3.isHover(mouseX, mouseY)) sonidoClick.play();
-			if(subtitulo4.isHover(mouseX, mouseY)) sonidoClick.play();
+			if(subtitulo3.isSobre(mouseX, mouseY)) sonidoClick.play();
+			if(subtitulo4.isSobre(mouseX, mouseY)) sonidoClick.play();
 		}
 		Render.batch.end();
 	}

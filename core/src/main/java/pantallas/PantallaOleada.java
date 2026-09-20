@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 
+import Enums.Finales;
 import elementos.Audio;
 import elementos.BarraVida;
 import elementos.Camara;
@@ -80,7 +81,7 @@ public class PantallaOleada implements Screen{
 		barraVida.pintar(porcentajeVida);
 		if(jugador.isMuerto()) {
 			musica.detener();
-			Recursos.MAIN.setScreen(new PantallaGameOver(contador));
+			Recursos.MAIN.setScreen(new PantallaFinal(contador, Finales.DERROTA));
 		}
 		if(enemigo.isMuerto()) {
 			contador++;

@@ -5,30 +5,39 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Matrix4;
 
 import elementos.Audio;
-import elementos.Camara;
 import elementos.Imagen;
 import elementos.Texto;
 import util.Recursos;
 import util.Render;
+import Enums.*;
 
-public class PantallaYouWin implements Screen{
-
+public class PantallaFinal implements Screen{
+	
 	private Imagen fondo;
 	private Texto titulo;
 	private Texto subtitulo;
-	private Audio audio;
+	private Texto kills;
+	private int contK = 0;
 	private boolean finFadeIn = false;
 	private float a = 0;
+	private Audio musica;
+	private Finales f;
+	public PantallaFinal(int contK, Finales f) {
+		this.contK = contK;
+		this.f = f;
+	}
+	
 	@Override
 	public void show() {
-		fondo = new Imagen(Recursos.YOUWIN);
+		fondo = new Imagen(f.getFondo());
 		fondo.setTrans(a);
 		fondo.ajustarTamaño();
-		titulo = new Texto("Ganaste!!!", 340, 450);
+		titulo = new Texto(f.getMsj(), 40, 450);
 		titulo.agrandar(2);
-		subtitulo = new Texto("clickea la pantalla para jugar otra vez", 60, 350);
+		kills = new Texto("Kills: " + contK, 50, 410);
+		subtitulo = new Texto("clickea la pantalla para volver al menú", 60, 350);
+		musica = new Audio(f.getMusica());
 		Render.batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-		audio = new Audio(Recursos.MUSICA_YOUWIN);
 	}
 	private void calcularFade() {
 		if(!finFadeIn ) {
@@ -41,21 +50,29 @@ public class PantallaYouWin implements Screen{
 	}
 	@Override
 	public void render(float delta) {
-		audio.comenzar();
 		Render.limpiar(0, 0, 0);
+		musica.comenzar();
 		Render.batch.begin();
 		fondo.dibujar();
 		if (!finFadeIn) {
 			calcularFade();
 			fondo.setTrans(a);
+			
 		}else {
 			titulo.escribir();
 			subtitulo.escribir();
+			if(contK!=0) {
+				kills.escribir();
+			}
+			
+			
+			if (Gdx.input.justTouched()) {
+				musica.detener();
+				Recursos.MAIN.setScreen(new PantallaMenuPrincipal());
+			}
+			
 		}
-		if(Gdx.input.justTouched()) {
-			audio.detener();
-			Recursos.MAIN.setScreen(new PantallaMenuPrincipal());
-		}
+		
 		Render.batch.end();
 	}
 
@@ -78,5 +95,4 @@ public class PantallaYouWin implements Screen{
 	@Override
 	public void dispose() {
 	}
-
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
+import Enums.Finales;
 import elementos.Audio;
 import elementos.BarraVida;
 import elementos.Camara;
@@ -78,11 +79,11 @@ public class PantallaJuego implements Screen{
 		barraVida.pintar(porcentajeVida);
 		if(jugador.isMuerto()) {
 			musica.detener();
-			Recursos.MAIN.setScreen(new PantallaGameOver(0));
+			Recursos.MAIN.setScreen(new PantallaFinal(0, Finales.DERROTA));
 		}
 		if(enemigo.isMuerto()) {
 			musica.detener();
-			Recursos.MAIN.setScreen(new PantallaYouWin());
+			Recursos.MAIN.setScreen(new PantallaFinal(1, Finales.VICTORIA));
 		}
 	}
 

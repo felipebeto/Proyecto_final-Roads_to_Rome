@@ -22,5 +22,8 @@ public class Audio {
 	public void detener() {
 		this.musica.stop();
 	}
+	public void dispose() {
+		musica.dispose();
+	}
 
 }

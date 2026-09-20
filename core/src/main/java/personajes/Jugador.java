@@ -28,8 +28,8 @@ public class Jugador extends Personaje {
     }
 
     private void cargarSpriteSheets() {
-        Texture sheet = new Texture(Gdx.files.internal("sheetCaminando.png"));
-        TextureRegion[] framesCaminando = TextureRegion.split(sheet, 56, 81)[0];
+        Texture sheetCaminar = new Texture(Gdx.files.internal("sheetCaminando.png"));
+        TextureRegion[] framesCaminando = TextureRegion.split(sheetCaminar, 56, 81)[0];
         frameQuieto = framesCaminando[0];
         animacionCaminar = new Animation<>(0.12f, framesCaminando);
         animacionCaminar.setPlayMode(Animation.PlayMode.LOOP);
