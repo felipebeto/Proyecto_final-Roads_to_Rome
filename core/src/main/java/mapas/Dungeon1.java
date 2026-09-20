@@ -28,7 +28,6 @@ public class Dungeon1 extends Mapa{
         
         agregarObstaculo(95, 460, 490, 110);   // arriba 
         agregarObstaculo(95, 0, 490, 90);   // abajo 
-        System.out.println("Obstáculos cargados: " + obstaculos.size());
 	}
 	
 

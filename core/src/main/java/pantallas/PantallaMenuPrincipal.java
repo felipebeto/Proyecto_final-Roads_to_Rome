@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rtr.Main;
 
 import elementos.Audio;
@@ -26,7 +27,13 @@ public class PantallaMenuPrincipal implements Screen{
 	private float mouseX, mouseY;
 	private Audio musica;
 	private Sound sonidoClick;
+	private Main main;
+	private SpriteBatch batch;
 
+	public PantallaMenuPrincipal(Main main, SpriteBatch batch) {
+		this.main = main;
+		this.batch = batch;
+	}
 	@Override
 	public void show() {
 		fondo = new Imagen(Recursos.FONDO_MENU);
@@ -58,37 +65,37 @@ public class PantallaMenuPrincipal implements Screen{
 	    mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 		Render.limpiar(0, 0, 0);
 		musica.comenzar();
-		Render.batch.begin();
-		fondo.dibujar();
+		batch.begin();
+		fondo.dibujar(batch);
 		if (!finFadeIn) {
 			calcularFade();
 			fondo.setTrans(a);
 		}else {
-			titulo.escribir();
+			titulo.escribir(batch);
 			subtitulo1.setColor(subtitulo1.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
-			subtitulo1.escribir();
+			subtitulo1.escribir(batch);
 			subtitulo2.setColor(subtitulo2.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
-			subtitulo2.escribir();
+			subtitulo2.escribir(batch);
 			subtitulo3.setColor(subtitulo3.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
-			subtitulo3.escribir();
+			subtitulo3.escribir(batch);
 			subtitulo4.setColor(subtitulo4.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
-			subtitulo4.escribir();
+			subtitulo4.escribir(batch);
 		}
 		if(Gdx.input.justTouched()) {
 			if(subtitulo1.isSobre(mouseX, mouseY)) {
 				sonidoClick.play();
 				musica.detener();
-				Recursos.MAIN.setScreen(new PantallaJuego());
+				main.setScreen(new PantallaCampania(main, batch));
 			}
 			if(subtitulo2.isSobre(mouseX, mouseY)) {
 					sonidoClick.play();
 					musica.detener();
-					Recursos.MAIN.setScreen(new PantallaOleada());
+					main.setScreen(new PantallaOleada(main, batch));
 			}
 			if(subtitulo3.isSobre(mouseX, mouseY)) sonidoClick.play();
 			if(subtitulo4.isSobre(mouseX, mouseY)) sonidoClick.play();
 		}
-		Render.batch.end();
+		batch.end();
 	}
 	@Override
 	public void resize(int width, int height) {

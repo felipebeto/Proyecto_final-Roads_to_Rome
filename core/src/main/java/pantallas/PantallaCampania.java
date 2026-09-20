@@ -2,32 +2,19 @@ package pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.rtr.Main;
 
 import Enums.Finales;
-import elementos.Audio;
-import elementos.BarraVida;
-import elementos.Camara;
-import elementos.Imagen;
-import mapas.Dungeon1;
-import personajes.Enemigo;
-import personajes.Jugador;
-import personajes.Personaje;
 import util.Colisiones;
-import util.Recursos;
 import util.Render;
 
-public class PantallaOleada extends PantallaJuego{
-	
-	private int contador = 0; 
-	public PantallaOleada(Main main, SpriteBatch batch) {
-		super(main, batch);
-	}
+public class PantallaCampania extends PantallaJuego{
 
+	public PantallaCampania(Main main, SpriteBatch batch) {
+		super(main, batch);
+		
+	}
 	@Override
 	public void render(float delta) {
 		musica.comenzar();
@@ -57,12 +44,12 @@ public class PantallaOleada extends PantallaJuego{
 		barraVida.pintar(porcentajeVida);
 		if(jugador.isMuerto()) {
 			musica.detener();
-			main.setScreen(new PantallaFinal(contador, Finales.DERROTA, main, batch));
+			main.setScreen(new PantallaFinal(0, Finales.DERROTA, main, batch));
 		}
 		if(enemigo.isMuerto()) {
-			contador++;
-			enemigo.dispose();
-			enemigo = enemigo.aparecer(mapa);
+			musica.detener();
+			main.setScreen(new PantallaFinal(1, Finales.VICTORIA, main, batch));
 		}
 	}
+
 }

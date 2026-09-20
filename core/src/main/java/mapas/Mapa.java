@@ -2,6 +2,7 @@ package mapas;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import elementos.Imagen;
@@ -23,8 +24,8 @@ public abstract class Mapa {
 		obstaculos.add(new Rectangle(x, y, ancho, alto));
 	}
 	
-	public void dibujarFondo() {
-		fondo.dibujar();
+	public void dibujarFondo(SpriteBatch batch) {
+		fondo.dibujar(batch);
 	}
 	public ArrayList<Rectangle> getObstaculos() {
 		

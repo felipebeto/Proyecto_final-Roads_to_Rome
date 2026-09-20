@@ -2,7 +2,9 @@ package pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
+import com.rtr.Main;
 
 import elementos.Audio;
 import elementos.Imagen;
@@ -22,9 +24,13 @@ public class PantallaFinal implements Screen{
 	private float a = 0;
 	private Audio musica;
 	private Finales f;
-	public PantallaFinal(int contK, Finales f) {
+	private Main main;
+	private SpriteBatch batch;
+	public PantallaFinal(int contK, Finales f, Main main, SpriteBatch batch) {
 		this.contK = contK;
 		this.f = f;
+		this.main = main;
+		this.batch = batch;
 	}
 	
 	@Override
@@ -37,7 +43,7 @@ public class PantallaFinal implements Screen{
 		kills = new Texto("Kills: " + contK, 50, 410);
 		subtitulo = new Texto("clickea la pantalla para volver al menú", 60, 350);
 		musica = new Audio(f.getMusica());
-		Render.batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+		batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 	}
 	private void calcularFade() {
 		if(!finFadeIn ) {
@@ -52,28 +58,28 @@ public class PantallaFinal implements Screen{
 	public void render(float delta) {
 		Render.limpiar(0, 0, 0);
 		musica.comenzar();
-		Render.batch.begin();
-		fondo.dibujar();
+		batch.begin();
+		fondo.dibujar(batch);
 		if (!finFadeIn) {
 			calcularFade();
 			fondo.setTrans(a);
 			
 		}else {
-			titulo.escribir();
-			subtitulo.escribir();
+			titulo.escribir(batch);
+			subtitulo.escribir(batch);
 			if(contK!=0) {
-				kills.escribir();
+				kills.escribir(batch);
 			}
 			
 			
 			if (Gdx.input.justTouched()) {
 				musica.detener();
-				Recursos.MAIN.setScreen(new PantallaMenuPrincipal());
+				main.setScreen(new PantallaMenuPrincipal(main, batch));
 			}
 			
 		}
 		
-		Render.batch.end();
+		batch.end();
 	}
 
 	@Override

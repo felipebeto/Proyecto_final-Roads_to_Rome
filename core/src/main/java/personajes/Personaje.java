@@ -1,5 +1,6 @@
 package personajes;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import elementos.Imagen;
@@ -34,10 +35,10 @@ public abstract class Personaje {
         this.alcance = alcance;
     }
 
-    public void dibujar() {
+    public void dibujar(SpriteBatch batch) {
     	if(vida>0) {
     		sprite.setPosicion(x, y);
-    		sprite.dibujar();
+    		sprite.dibujar(batch);
     	}
         
     }

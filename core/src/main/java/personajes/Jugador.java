@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import elementos.Imagen;
@@ -89,7 +90,7 @@ public class Jugador extends Personaje {
     }
 
     @Override
-    public void dibujar() {
+    public void dibujar(SpriteBatch batch) {
         TextureRegion frameActual;
         if (atacando) frameActual = animacionAtacar.getKeyFrame(tiempoAtaque, false);
         else if (moviendose) frameActual = animacionCaminar.getKeyFrame(tiempoAnimacion, true);
@@ -98,7 +99,7 @@ public class Jugador extends Personaje {
         sprite.setRegion(frameActual);
         sprite.setFlip(!mirandoDerecha);
         sprite.setPosicion(x, y);
-        sprite.dibujar();
+        sprite.dibujar(batch);
     }
 
 	@Override

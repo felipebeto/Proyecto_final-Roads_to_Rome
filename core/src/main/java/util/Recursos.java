@@ -17,6 +17,5 @@ public class Recursos {
 	public static final String SONIDO_OOF = "audios/oof.mp3";
 	public static int ancho = Gdx.graphics.getWidth();
 	public static int alto = Gdx.graphics.getHeight();
-	public static Main MAIN;
 
 }

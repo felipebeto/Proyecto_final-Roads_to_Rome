@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.rtr.Main;
 
 import Enums.Finales;
 import elementos.Audio;
@@ -19,21 +21,28 @@ import util.Colisiones;
 import util.Recursos;
 import util.Render;
 
-public class PantallaJuego implements Screen{
+public abstract class PantallaJuego implements Screen{
 	
-	private Personaje jugador;
-	private Personaje enemigo;
-	private Dungeon1 mapa;
-	private Imagen rojo;
-	private Audio musica;
-	private Sound sonidoGolpe;
-	private Sound sonidoOof;
-	private Camara camara;	
-	private BarraVida barraVida;
+	protected Personaje jugador;
+	protected Personaje enemigo;
+	protected Dungeon1 mapa;
+	protected Imagen rojo;
+	protected Audio musica;
+	protected Sound sonidoGolpe;
+	protected Sound sonidoOof;
+	protected Camara camara;	
+	protected BarraVida barraVida;
 	private boolean efectoDanio = false;
-	private float a = 0;
+	protected float a = 0;
 	private boolean animacionT = true;
 	float porcentajeVida = 0;
+	protected Main main;
+	protected SpriteBatch batch;
+	public PantallaJuego(Main main, SpriteBatch batch) {
+		this.main = main;
+		this.batch = batch;
+	}
+
 	@Override
 	public void show() {
 		jugador = new Jugador();
@@ -51,43 +60,9 @@ public class PantallaJuego implements Screen{
 	}
 
 	@Override
-	public void render(float delta) {
-		musica.comenzar();
-		
-		jugador.calcularMovimiento(delta, mapa, enemigo);
-		enemigo.calcularMovimiento(delta, mapa, jugador);
-		Render.limpiar(0, 0, 0);
-		Render.batch.begin();
-		mapa.dibujarFondo();
-		enemigo.dibujar();
-		jugador.dibujar();
-		rojo.dibujar();
-		camara.actualizarPosicion(jugador);
-		fadeDanio(jugador);
-		rojo.setTrans(a);
-		
-		if(Colisiones.colisionaConEntidad(jugador.getHitbox(), enemigo.getHitbox())) {
-			sonidoOof.play();
-			enemigo.atacar(jugador);
-		}
-		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && calcularRangoAtaque()) {
-			sonidoGolpe.play();
-			jugador.atacar(enemigo);
-		}
-		Render.batch.end();
-		porcentajeVida = (float) jugador.getVida() / 100;
-		barraVida.pintar(porcentajeVida);
-		if(jugador.isMuerto()) {
-			musica.detener();
-			Recursos.MAIN.setScreen(new PantallaFinal(0, Finales.DERROTA));
-		}
-		if(enemigo.isMuerto()) {
-			musica.detener();
-			Recursos.MAIN.setScreen(new PantallaFinal(1, Finales.VICTORIA));
-		}
-	}
+	public abstract void render(float delta);
 
-	private boolean calcularRangoAtaque() {
+	protected boolean calcularRangoAtaque() {
 		float centroJugadorX = jugador.getX() + jugador.getHitbox().width/2;
 		float centroJugadorY = jugador.getY() + jugador.getHitbox().height/2;
 		float centroEnemigoX = enemigo.getX() + enemigo.getHitbox().width/2;
@@ -98,12 +73,12 @@ public class PantallaJuego implements Screen{
 		else return false;
 	}
 
-	private void fadeDanio(Personaje jugador) {
+	protected void fadeDanio(Personaje jugador) {
 		if (efectoDanio || !animacionT) {
 			if(animacionT) {
 				a=1;
 				rojo.setTrans(a);
-				rojo.dibujar();
+				rojo.dibujar(batch);
 			}
 			a -= 0.05f;
 			animacionT = false;

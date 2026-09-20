@@ -16,14 +16,15 @@ import util.Render;
 
 public class Main extends Game {
 	
-    public BitmapFont fuente;
+    private Main main;
+    private SpriteBatch batch;
 
     @Override
     public void create() {
-       Render.batch = new SpriteBatch();
-       Recursos.MAIN = this;
-       fuente = new BitmapFont();
-       this.setScreen(new PantallaMenuPrincipal());
+       batch = new SpriteBatch();
+       main = this;
+       batch = new SpriteBatch();
+       this.setScreen(new PantallaMenuPrincipal(main, batch));
     }
 
     @Override
@@ -33,7 +34,6 @@ public class Main extends Game {
 
     @Override
     public void dispose() {
-        Render.batch.dispose();
-        fuente.dispose();
+        batch.dispose();
     }
 }
