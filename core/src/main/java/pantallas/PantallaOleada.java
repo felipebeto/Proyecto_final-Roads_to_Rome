@@ -61,6 +61,7 @@ public class PantallaOleada extends PantallaJuego{
 				if(calcularRangoAtaque(e)) {
 					sonidoGolpe.play();
 					jugador.atacar(e);
+					if(revisarMuerto(e)) break;
 				}
 			}
 		}
@@ -71,8 +72,7 @@ public class PantallaOleada extends PantallaJuego{
 			musica.detener();
 			main.setScreen(new PantallaFinal(contador, Finales.DERROTA, main, batch, input));
 		}
-		if(isLimpia()) {
-			contador+=enemigos.size();
+		if(enemigos.isEmpty()) {
 			eliminarEnemigos();
 			if(contador<5) {
 				enemigos.add(enemigo.aparecer(mapa, jugador));
@@ -87,6 +87,16 @@ public class PantallaOleada extends PantallaJuego{
 			
 		}
 	}
+	private boolean revisarMuerto(Personaje e) {
+		if (e.isMuerto()) {
+			e.dispose();
+			enemigos.remove(e);
+			contador++;
+			return true;
+		}
+		return false;
+		
+	}
 
 	private void eliminarEnemigos() {
 		for (Personaje e : enemigos) {
@@ -95,10 +105,4 @@ public class PantallaOleada extends PantallaJuego{
 		enemigos.clear();
 	}
 
-	private boolean isLimpia() {
-		for (Personaje e : enemigos) {
-			if(!e.isMuerto()) return false;
-		}
-		return true;
-	}
 }
