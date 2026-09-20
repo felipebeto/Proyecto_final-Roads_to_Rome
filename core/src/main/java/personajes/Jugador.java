@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import mapas.Mapa;
+import util.InputManager;
 import util.Recursos;
 
 public class Jugador extends Personaje {
@@ -19,6 +20,8 @@ public class Jugador extends Personaje {
     private boolean atacando = false;
     private float tiempoAtaque = 0;
     private final float DURACION_ATAQUE = 0.32f;
+    private InputManager input = new InputManager();
+    
 
     public Jugador() {
         super(Recursos.ancho/2-35, Recursos.alto/2-41, 100, 200, "gambit1.png", 70, 82, 100);
@@ -40,6 +43,7 @@ public class Jugador extends Personaje {
 
     @Override
     public void calcularMovimiento(float delta, Mapa mapa, Personaje enemigo) {
+    	Gdx.input.setInputProcessor(input);
         if (atacando) {
             tiempoAtaque += delta;
             if (tiempoAtaque >= DURACION_ATAQUE) atacando = false;
@@ -54,10 +58,10 @@ public class Jugador extends Personaje {
             nuevaY = pos[1];
         } else {
             moviendose = false;
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) { nuevaX -= velocidad*delta; moviendose=true; mirandoDerecha=false; }
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) { nuevaX += velocidad*delta; moviendose=true; mirandoDerecha=true; }
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) { nuevaY += velocidad*delta; moviendose=true; }
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) { nuevaY -= velocidad*delta; moviendose=true; }
+            if (input.isIzquierda()) { nuevaX -= velocidad*delta; moviendose=true; mirandoDerecha=false; }
+            if (input.isDerecha()) { nuevaX += velocidad*delta; moviendose=true; mirandoDerecha=true; }
+            if (input.isArriba()) { nuevaY += velocidad*delta; moviendose=true; }
+            if (input.isAbajo()) { nuevaY -= velocidad*delta; moviendose=true; }
             if (moviendose) tiempoAnimacion += delta;
         }
 
@@ -65,6 +69,11 @@ public class Jugador extends Personaje {
         if (cooldownDanio > 0) cooldownDanio -= delta;
     }
 
+    @Override
+	public boolean prepararAtaque() {
+    	if(input.isClick()) return true;
+    	return false;
+    }
     @Override
     public boolean recibirDanio(int cantidad) {
         if (cooldownDanio <= 0) {
@@ -101,7 +110,6 @@ public class Jugador extends Personaje {
 
 	@Override
 	public Personaje aparecer(Mapa mapa) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

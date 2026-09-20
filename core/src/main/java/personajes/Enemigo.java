@@ -141,6 +141,12 @@ public class Enemigo extends Personaje{
 		return new Enemigo(x, y);
 	}
 
+	@Override
+	public boolean prepararAtaque() {
+		
+		return false;
+	}
+
 	
 
 }

@@ -125,4 +125,6 @@ public abstract class Personaje {
     }
 
 	public abstract Personaje aparecer(Mapa mapa);
+
+	public abstract boolean prepararAtaque();
 }

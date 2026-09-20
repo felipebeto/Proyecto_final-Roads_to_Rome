@@ -6,13 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rtr.Main;
 import Enums.Finales;
 import util.Colisiones;
+import util.InputManager;
 import util.Render;
 
 public class PantallaOleada extends PantallaJuego{
 	
 	private int contador = 0; 
-	public PantallaOleada(Main main, SpriteBatch batch) {
-		super(main, batch);
+	public PantallaOleada(Main main, SpriteBatch batch, InputManager input) {
+		super(main, batch, input);
 	}
 
 	@Override
@@ -35,7 +36,7 @@ public class PantallaOleada extends PantallaJuego{
 			sonidoOof.play();
 			enemigo.atacar(jugador);
 		}
-		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && calcularRangoAtaque()) {
+		if(jugador.prepararAtaque() && calcularRangoAtaque()) {
 			sonidoGolpe.play();
 			jugador.atacar(enemigo);
 		}
@@ -44,7 +45,7 @@ public class PantallaOleada extends PantallaJuego{
 		barraVida.pintar(porcentajeVida);
 		if(jugador.isMuerto()) {
 			musica.detener();
-			main.setScreen(new PantallaFinal(contador, Finales.DERROTA, main, batch));
+			main.setScreen(new PantallaFinal(contador, Finales.DERROTA, main, batch, input));
 		}
 		if(enemigo.isMuerto()) {
 			contador++;

@@ -10,11 +10,12 @@ import com.rtr.Main;
 import elementos.Audio;
 import elementos.Imagen;
 import elementos.Texto;
+import util.InputManager;
 import util.Recursos;
 import util.Render;
 
 public class PantallaMenuPrincipal implements Screen{
-	
+	private InputManager input;
 	private Imagen fondo;
 	private Texto titulo;
 	private Texto subtitulo1;
@@ -29,9 +30,11 @@ public class PantallaMenuPrincipal implements Screen{
 	private Main main;
 	private SpriteBatch batch;
 
-	public PantallaMenuPrincipal(Main main, SpriteBatch batch) {
+	public PantallaMenuPrincipal(Main main, SpriteBatch batch, InputManager input) {
 		this.main = main;
 		this.batch = batch;
+		this.input = input;
+		Gdx.input.setInputProcessor(input);
 	}
 	@Override
 	public void show() {
@@ -47,6 +50,8 @@ public class PantallaMenuPrincipal implements Screen{
 		musica = new Audio(Recursos.MUSICA_MENU);
 		musica.cambiarVolumen(1);
 		sonidoClick = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_CLICK));
+		
+		
 	}
 	private void calcularFade() {
 		if(!finFadeIn ) {
@@ -80,16 +85,16 @@ public class PantallaMenuPrincipal implements Screen{
 			subtitulo4.setColor(subtitulo4.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
 			subtitulo4.escribir(batch);
 		}
-		if(Gdx.input.justTouched()) {
+		if(input.isClick()) {
 			if(subtitulo1.isSobre(mouseX, mouseY)) {
 				sonidoClick.play();
 				musica.detener();
-				main.setScreen(new PantallaCampania(main, batch));
+				main.setScreen(new PantallaCampania(main, batch, input));
 			}
 			if(subtitulo2.isSobre(mouseX, mouseY)) {
 					sonidoClick.play();
 					musica.detener();
-					main.setScreen(new PantallaOleada(main, batch));
+					main.setScreen(new PantallaOleada(main, batch, input));
 			}
 			if(subtitulo3.isSobre(mouseX, mouseY)) sonidoClick.play();
 			if(subtitulo4.isSobre(mouseX, mouseY)) sonidoClick.play();

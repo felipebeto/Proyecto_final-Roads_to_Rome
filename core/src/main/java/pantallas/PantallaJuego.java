@@ -12,10 +12,10 @@ import elementos.Camara;
 import elementos.Imagen;
 import mapas.Dungeon1;
 import personajes.*;
+import util.InputManager;
 import util.Recursos;
 
 public abstract class PantallaJuego implements Screen{
-	
 	protected Personaje jugador;
 	protected Personaje enemigo;
 	protected Dungeon1 mapa;
@@ -31,9 +31,13 @@ public abstract class PantallaJuego implements Screen{
 	protected float porcentajeVida = 0;
 	protected Main main;
 	protected SpriteBatch batch;
-	public PantallaJuego(Main main, SpriteBatch batch) {
+	protected InputManager input;
+	public PantallaJuego(Main main, SpriteBatch batch, InputManager input) {
 		this.main = main;
 		this.batch = batch;
+		this.input = input;
+		Gdx.input.setInputProcessor(input);
+		input.resetearClick();
 	}
 
 	@Override
@@ -50,6 +54,7 @@ public abstract class PantallaJuego implements Screen{
 		sonidoOof = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_OOF));
 		camara = new Camara();
 		barraVida  = new BarraVida();
+		
 	}
 
 	@Override

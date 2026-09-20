@@ -7,18 +7,17 @@ import com.rtr.Main;
 
 import Enums.Finales;
 import util.Colisiones;
+import util.InputManager;
 import util.Render;
 
 public class PantallaCampania extends PantallaJuego{
-
-	public PantallaCampania(Main main, SpriteBatch batch) {
-		super(main, batch);
-		
+	
+	public PantallaCampania(Main main, SpriteBatch batch, InputManager input) {
+		super(main, batch, input);
 	}
 	@Override
 	public void render(float delta) {
 		musica.comenzar();
-		
 		jugador.calcularMovimiento(delta, mapa, enemigo);
 		enemigo.calcularMovimiento(delta, mapa, jugador);
 		Render.limpiar(0, 0, 0);
@@ -35,7 +34,7 @@ public class PantallaCampania extends PantallaJuego{
 			sonidoOof.play();
 			enemigo.atacar(jugador);
 		}
-		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && calcularRangoAtaque()) {
+		if(jugador.prepararAtaque() && calcularRangoAtaque()) {
 			sonidoGolpe.play();
 			jugador.atacar(enemigo);
 		}
@@ -44,12 +43,13 @@ public class PantallaCampania extends PantallaJuego{
 		barraVida.pintar(porcentajeVida);
 		if(jugador.isMuerto()) {
 			musica.detener();
-			main.setScreen(new PantallaFinal(0, Finales.DERROTA, main, batch));
+			main.setScreen(new PantallaFinal(0, Finales.DERROTA, main, batch, input));
 		}
 		if(enemigo.isMuerto()) {
 			musica.detener();
-			main.setScreen(new PantallaFinal(1, Finales.VICTORIA, main, batch));
+			main.setScreen(new PantallaFinal(1, Finales.VICTORIA, main, batch, input));
 		}
+		
 	}
 
 }
