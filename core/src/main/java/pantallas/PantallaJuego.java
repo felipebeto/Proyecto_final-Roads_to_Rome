@@ -1,25 +1,18 @@
 package pantallas;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.rtr.Main;
-
-import Enums.Finales;
 import elementos.Audio;
 import elementos.BarraVida;
 import elementos.Camara;
 import elementos.Imagen;
 import mapas.Dungeon1;
-import mapas.Mapa;
 import personajes.*;
-import util.Colisiones;
 import util.Recursos;
-import util.Render;
 
 public abstract class PantallaJuego implements Screen{
 	
@@ -35,7 +28,7 @@ public abstract class PantallaJuego implements Screen{
 	private boolean efectoDanio = false;
 	protected float a = 0;
 	private boolean animacionT = true;
-	float porcentajeVida = 0;
+	protected float porcentajeVida = 0;
 	protected Main main;
 	protected SpriteBatch batch;
 	public PantallaJuego(Main main, SpriteBatch batch) {
@@ -110,6 +103,13 @@ public abstract class PantallaJuego implements Screen{
 
 	@Override
 	public void dispose() {
+		jugador.dispose();
+		enemigo.dispose();
+		mapa.dispose();
+		rojo.dispose();
+		musica.dispose();
+		sonidoGolpe.dispose();
+		sonidoOof.dispose();
 	}
 
 }

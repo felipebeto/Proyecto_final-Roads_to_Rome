@@ -1,8 +1,5 @@
 package personajes;
 
-import com.badlogic.gdx.math.Rectangle;
-
-import elementos.Imagen;
 import mapas.Mapa;
 import util.Aleatorio;
 import util.Colisiones;

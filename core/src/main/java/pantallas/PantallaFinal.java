@@ -5,11 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.rtr.Main;
-
 import elementos.Audio;
 import elementos.Imagen;
 import elementos.Texto;
-import util.Recursos;
 import util.Render;
 import Enums.*;
 
@@ -100,5 +98,10 @@ public class PantallaFinal implements Screen{
 
 	@Override
 	public void dispose() {
+		fondo.dispose();
+		titulo.dispose();
+		subtitulo.dispose();
+		kills.dispose();
+		musica.dispose();
 	}
 }

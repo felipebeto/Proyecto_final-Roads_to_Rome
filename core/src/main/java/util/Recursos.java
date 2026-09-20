@@ -1,7 +1,6 @@
 package util;
 
 import com.badlogic.gdx.Gdx;
-import com.rtr.Main;
 
 public class Recursos {
 	public static final String FONDO_MENU = "fondos/fondomenu.jpg";

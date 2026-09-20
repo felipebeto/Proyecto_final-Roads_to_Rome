@@ -34,6 +34,9 @@ public abstract class Mapa {
 	public Imagen getFondo(){
 		return fondo;
 	}
+	public void dispose() {
+		fondo.dispose();
+	}
 	
 
 }

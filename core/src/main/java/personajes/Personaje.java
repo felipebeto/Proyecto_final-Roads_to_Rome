@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 import elementos.Imagen;
 import mapas.Mapa;
-import util.Aleatorio;
 import util.Colisiones;
 import util.Recursos;
 
@@ -21,8 +20,8 @@ public abstract class Personaje {
     protected boolean isRetrocediendo = false;
     protected float origenRetroX, origenRetroY, destinoRetroX, destinoRetroY;
     protected float tiempoRetroceso = 0;
-    protected final float duracionRetroceso = 0.15f;
-    protected final float distanciaRetroceso = 100;
+    protected final float DURACION_RETROCESO = 0.15f;
+    protected final float DISTANCIA_RETROCESO = 100;
 
     public Personaje(float x, float y, int vida, int velocidad, String ruta, float ancho, float alto, int alcance) {
         this.x = x;
@@ -82,15 +81,15 @@ public abstract class Personaje {
 
         this.origenRetroX = this.x;
         this.origenRetroY = this.y;
-        this.destinoRetroX = this.x + (direccionX / longitud) * distanciaRetroceso;
-        this.destinoRetroY = this.y + (direccionY / longitud) * distanciaRetroceso;
+        this.destinoRetroX = this.x + (direccionX / longitud) * DISTANCIA_RETROCESO;
+        this.destinoRetroY = this.y + (direccionY / longitud) * DISTANCIA_RETROCESO;
         this.tiempoRetroceso = 0;
         this.isRetrocediendo = true;
     }
 
     protected float[] actualizarRetroceso(float delta) {
         tiempoRetroceso += delta;
-        float progreso = Math.min(tiempoRetroceso / duracionRetroceso, 1f);
+        float progreso = Math.min(tiempoRetroceso / DURACION_RETROCESO, 1f);
         float nuevaX = origenRetroX + (destinoRetroX - origenRetroX) * progreso;
         float nuevaY = origenRetroY + (destinoRetroY - origenRetroY) * progreso;
         if (progreso >= 1f) {

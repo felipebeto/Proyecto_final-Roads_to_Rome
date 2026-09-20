@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import util.Render;
-
 public class Imagen {
 	private Sprite s;
 	private Texture t;

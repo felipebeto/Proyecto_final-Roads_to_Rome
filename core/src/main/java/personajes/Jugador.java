@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import elementos.Imagen;
 import mapas.Mapa;
-import util.Colisiones;
 import util.Recursos;
 
 public class Jugador extends Personaje {
@@ -21,7 +18,7 @@ public class Jugador extends Personaje {
     private Animation<TextureRegion> animacionAtacar;
     private boolean atacando = false;
     private float tiempoAtaque = 0;
-    private final float duracionAtaque = 0.32f;
+    private final float DURACION_ATAQUE = 0.32f;
 
     public Jugador() {
         super(Recursos.ancho/2-35, Recursos.alto/2-41, 100, 200, "gambit1.png", 70, 82, 100);
@@ -45,7 +42,7 @@ public class Jugador extends Personaje {
     public void calcularMovimiento(float delta, Mapa mapa, Personaje enemigo) {
         if (atacando) {
             tiempoAtaque += delta;
-            if (tiempoAtaque >= duracionAtaque) atacando = false;
+            if (tiempoAtaque >= DURACION_ATAQUE) atacando = false;
             return;
         }
 

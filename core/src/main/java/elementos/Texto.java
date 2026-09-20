@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-import util.Render;
-
 public class Texto {
 	private BitmapFont fuente;
 	private GlyphLayout layout;

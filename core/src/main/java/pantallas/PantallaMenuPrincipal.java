@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rtr.Main;
 
@@ -115,7 +114,14 @@ public class PantallaMenuPrincipal implements Screen{
 
 	@Override
 	public void dispose() {
-		
+		fondo.dispose();
+		titulo.dispose();
+		subtitulo1.dispose();
+		subtitulo2.dispose();
+		subtitulo3.dispose();
+		subtitulo4.dispose();
+		musica.dispose();
+		sonidoClick.dispose();
 	}
 
 }

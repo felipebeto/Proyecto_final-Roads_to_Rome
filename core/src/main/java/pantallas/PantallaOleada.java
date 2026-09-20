@@ -2,23 +2,10 @@ package pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.rtr.Main;
-
 import Enums.Finales;
-import elementos.Audio;
-import elementos.BarraVida;
-import elementos.Camara;
-import elementos.Imagen;
-import mapas.Dungeon1;
-import personajes.Enemigo;
-import personajes.Jugador;
-import personajes.Personaje;
 import util.Colisiones;
-import util.Recursos;
 import util.Render;
 
 public class PantallaOleada extends PantallaJuego{
