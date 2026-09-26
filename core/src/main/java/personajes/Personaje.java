@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import elementos.Imagen;
-import mapas.Mapa;
+import mapas.Sala;
 import util.Colisiones;
 import util.Recursos;
 
@@ -50,17 +50,17 @@ public abstract class Personaje {
         return true;
     }
 
-    public abstract void calcularMovimiento(float delta, Mapa mapa, Personaje p);
+    public abstract void calcularMovimiento(float delta, Sala mapa, Personaje p);
     public abstract void atacar(Personaje p);
 
     protected void revisarLimite() {
         if (x < 0) x = 0;
         if (y < 0) y = 0;
-        if (x > Recursos.ancho - hitbox.width) x = Recursos.ancho - hitbox.width;
-        if (y > Recursos.alto - hitbox.height) y = Recursos.alto - hitbox.height;
+        if (x > Recursos.ANCHO_MAPA - hitbox.width) x = Recursos.ANCHO_MAPA - hitbox.width;
+        if (y > Recursos.ALTO_MAPA - hitbox.height) y = Recursos.ALTO_MAPA - hitbox.height;
     }
 
-    protected void revisarHitbox(float nuevaX, float nuevaY, Mapa mapa) {
+    protected void revisarHitbox(float nuevaX, float nuevaY, Sala mapa) {
         this.hitbox.setPosition(nuevaX, y);
         if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) x = nuevaX;
 
@@ -124,7 +124,6 @@ public abstract class Personaje {
     	
     }
 
-    public abstract Personaje aparecer(Mapa mapa, Personaje jugador);
 
 	public abstract boolean prepararAtaque();
 

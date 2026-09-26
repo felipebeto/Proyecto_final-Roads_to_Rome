@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import mapas.Mapa;
+import mapas.Sala;
 import util.InputManager;
 import util.Recursos;
 
@@ -26,7 +26,7 @@ public class Jugador extends Personaje {
     
 
     public Jugador() {
-        super(Recursos.ancho/2-35, Recursos.alto/2-41, 100, 200, "gambit1.png", 70, 82, 100);
+        super(Recursos.ancho/2-35, Recursos.alto/2-41, 100, 400, "gambit1.png", 70, 82, 100);
         cargarSpriteSheets();
     }
 
@@ -44,7 +44,7 @@ public class Jugador extends Personaje {
     }
 
     @Override
-    public void calcularMovimiento(float delta, Mapa mapa, Personaje enemigo) {
+    public void calcularMovimiento(float delta, Sala mapa, Personaje enemigo) {
     	Gdx.input.setInputProcessor(input);
         if (atacando) {
             tiempoAtaque += delta;
@@ -118,9 +118,4 @@ public class Jugador extends Personaje {
 		sheetAtaque.dispose();
 	}
 
-	@Override
-	public Personaje aparecer(Mapa mapa, Personaje jugador) {
-		
-		return null;
-	}
 }

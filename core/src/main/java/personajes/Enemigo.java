@@ -1,6 +1,6 @@
 package personajes;
 
-import mapas.Mapa;
+import mapas.Sala;
 import util.Aleatorio;
 import util.Colisiones;
 import util.Recursos;
@@ -19,7 +19,7 @@ public class Enemigo extends Personaje{
 	}
 
 	@Override
-		public void calcularMovimiento(float delta, Mapa mapa, Personaje personaje) {
+		public void calcularMovimiento(float delta, Sala mapa, Personaje personaje) {
 			if(vida<=0) {
 				return;
 			}
@@ -124,14 +124,14 @@ public class Enemigo extends Personaje{
 		}
 	    
 	}
-	@Override
-	public Personaje aparecer(Mapa mapa, Personaje jugador) {
+	
+	public Enemigo aparecer(Sala mapa, Personaje jugador) {
 		float x2;
 		float y2;
 		
 		do {
-			x2 = Aleatorio.generarEntero(Recursos.ancho);
-			y2 = Aleatorio.generarEntero(Recursos.alto);
+			x2 = Aleatorio.generarEntero(Recursos.ANCHO_MAPA);
+			y2 = Aleatorio.generarEntero(Recursos.ALTO_MAPA);
 			this.hitbox.setPosition(x2, y2);
 			if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()) && !Colisiones.colisionaConEntidad(hitbox, jugador.getHitbox())) {
 				y = y2;

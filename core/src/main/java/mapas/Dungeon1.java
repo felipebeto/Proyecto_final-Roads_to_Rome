@@ -2,7 +2,7 @@ package mapas;
 
 import util.Recursos;
 
-public class Dungeon1 extends Mapa{
+public class Dungeon1 extends Sala{
 
 	public Dungeon1() {
 		super(Recursos.ancho, Recursos.alto, Recursos.FONDO_JUEGO);
@@ -12,7 +12,7 @@ public class Dungeon1 extends Mapa{
 
 
 	@Override
-	protected void cargarObstaculos() {
+	protected void cargarElementos() {
 		//agregarObstaculo(395, 365, 65, 40); // cofre
         //agregarObstaculo(130, 350, 80, 40); // vasijas arriba-izq
         //agregarObstaculo(130, 270, 80, 60); // pila de huesos

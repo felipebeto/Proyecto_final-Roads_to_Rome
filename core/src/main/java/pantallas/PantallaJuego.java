@@ -11,6 +11,7 @@ import elementos.BarraVida;
 import elementos.Camara;
 import elementos.Imagen;
 import mapas.Dungeon1;
+import mapas.*;
 import personajes.*;
 import util.InputManager;
 import util.Recursos;
@@ -18,7 +19,7 @@ import util.Recursos;
 public abstract class PantallaJuego implements Screen{
 	protected Personaje jugador;
 	protected Personaje enemigo;
-	protected Dungeon1 mapa;
+	protected SalaLR mapa;
 	protected Imagen rojo;
 	protected Audio musica;
 	protected Sound sonidoGolpe;
@@ -42,11 +43,10 @@ public abstract class PantallaJuego implements Screen{
 	public void show() {
 		jugador = new Jugador();
 		enemigo = new Enemigo(500, 200);
-		mapa = new Dungeon1();
+		mapa = new SalaLR();
 		rojo = new Imagen("fondos/peligro.jfif");
 		rojo.ajustarTamaño();
 		rojo.setTrans(a);
-		mapa.getFondo().ajustarTamaño();
 		musica = new Audio(Recursos.MUSICA_JUEGO);
 		sonidoGolpe = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_GOLPE));
 		sonidoOof = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_OOF));
