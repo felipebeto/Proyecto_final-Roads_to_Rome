@@ -6,6 +6,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.rtr.Main;
+
+import Enums.Finales;
 import elementos.Audio;
 import elementos.BarraVida;
 import elementos.Camara;
@@ -13,12 +15,13 @@ import elementos.Imagen;
 import mapas.Dungeon1;
 import mapas.*;
 import personajes.*;
+import util.Colisiones;
 import util.InputManager;
 import util.Recursos;
+import util.Render;
 
 public abstract class PantallaJuego implements Screen{
 	protected Personaje jugador;
-	protected Personaje enemigo;
 	protected SalaLR mapa;
 	protected Imagen rojo;
 	protected Audio musica;
@@ -31,6 +34,7 @@ public abstract class PantallaJuego implements Screen{
 	protected Main main;
 	protected SpriteBatch batch;
 	protected InputManager input;
+	protected int contador;
 	public PantallaJuego(Main main, SpriteBatch batch, InputManager input) {
 		this.main = main;
 		this.batch = batch;
@@ -42,7 +46,6 @@ public abstract class PantallaJuego implements Screen{
 	@Override
 	public void show() {
 		jugador = new Jugador();
-		enemigo = new Enemigo(500, 200);
 		mapa = new SalaLR();
 		rojo = new Imagen("fondos/peligro.jfif");
 		rojo.ajustarTamaño();
@@ -56,7 +59,45 @@ public abstract class PantallaJuego implements Screen{
 	}
 
 	@Override
-	public abstract void render(float delta);
+	public void render(float delta) {
+		musica.comenzar();
+		jugador.calcularMovimiento(delta, mapa, jugador);
+		for (Personaje e : mapa.getEnemigos()) {
+			e.calcularMovimiento(delta, mapa, jugador);
+		}
+		Render.limpiar(0, 0, 0);
+		camara.actualizarPosicion(jugador, batch);
+		
+		batch.begin();
+		mapa.dibujarFondo(batch);
+		for (Personaje e : mapa.getEnemigos()) {
+			e.dibujar(batch);
+		}
+		jugador.dibujar(batch);
+		for (Personaje e : mapa.getEnemigos()) {
+			if (Colisiones.colisionaConEntidad(jugador.getHitbox(), e.getHitbox())) {
+				sonidoOof.play();
+				e.atacar(jugador);
+			}
+		}
+		if (jugador.prepararAtaque()) {
+			for (Enemigo e : mapa.getEnemigos()) {
+				if (calcularRangoAtaque(e)) {
+					sonidoGolpe.play();
+					jugador.atacar(e);
+					if (mapa.revisarMuerto(e)) {
+						contador++;
+						break;
+					}
+						
+				}
+			}
+		}
+		batch.end();
+		porcentajeVida = (float) jugador.getVida() / 100;
+		barraVida.pintar(porcentajeVida);
+		
+	}
 
 	protected boolean calcularRangoAtaque(Personaje e) {
 		float centroJugadorX = jugador.getX() + jugador.getHitbox().width/2;
@@ -89,7 +130,6 @@ public abstract class PantallaJuego implements Screen{
 	@Override
 	public void dispose() {
 		jugador.dispose();
-		enemigo.dispose();
 		mapa.dispose();
 		rojo.dispose();
 		musica.dispose();

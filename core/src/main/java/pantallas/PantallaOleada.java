@@ -13,8 +13,7 @@ import util.Render;
 import java.util.ArrayList;
 
 public class PantallaOleada extends PantallaJuego {
-
-	private int contador = 0;
+	
 	private int contRonda = 0;
 
 	public PantallaOleada(Main main, SpriteBatch batch, InputManager input) {
@@ -23,49 +22,10 @@ public class PantallaOleada extends PantallaJuego {
 
 	@Override
 	public void render(float delta) {
-		musica.comenzar();
-
-		jugador.calcularMovimiento(delta, mapa, enemigo);
-		for (Personaje e : mapa.getEnemigos()) {
-			e.calcularMovimiento(delta, mapa, jugador);
-		}
-
-		Render.limpiar(0, 0, 0);
-		camara.actualizarPosicion(jugador, batch);
-
-		batch.begin();
-		mapa.dibujarFondo(batch);
-		for (Personaje e : mapa.getEnemigos()) {
-			e.dibujar(batch);
-		}
-
-		jugador.dibujar(batch);
-
-		for (Personaje e : mapa.getEnemigos()) {
-			if (Colisiones.colisionaConEntidad(jugador.getHitbox(), e.getHitbox())) {
-				sonidoOof.play();
-				e.atacar(jugador);
-			}
-		}
-		if (jugador.prepararAtaque()) {
-			for (Enemigo e : mapa.getEnemigos()) {
-				if (calcularRangoAtaque(e)) {
-					sonidoGolpe.play();
-					jugador.atacar(e);
-					if (mapa.revisarMuerto(e)) {
-						contador++;
-						break;
-					}
-						
-				}
-			}
-		}
-		batch.end();
-		porcentajeVida = (float) jugador.getVida() / 100;
-		barraVida.pintar(porcentajeVida);
+		super.render(delta);
 		if (jugador.isMuerto()) {
 			musica.detener();
-			main.setScreen(new PantallaFinal(contador, Finales.DERROTA, main, batch, input));
+			main.setScreen(new PantallaFinal(contador, contRonda, Finales.DERROTA, main, batch, input));
 		}
 		if (mapa.isLimpia()) {
 			contRonda++;

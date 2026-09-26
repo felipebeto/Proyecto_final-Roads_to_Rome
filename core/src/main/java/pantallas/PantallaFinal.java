@@ -20,6 +20,7 @@ import Enums.*;
 			private Texto titulo;
 			private Texto subtitulo;
 			private Texto kills;
+			private Texto ronda;
 			private int contK = 0;
 			private boolean finFadeIn = false;
 			private float a = 0;
@@ -28,6 +29,7 @@ import Enums.*;
 			private Main main;
 			private SpriteBatch batch;
 			private InputManager input;
+			private int contR = 0;
 			public PantallaFinal(int contK, Finales f, Main main, SpriteBatch batch, InputManager input) {
 				this.contK = contK;
 				this.f = f;
@@ -37,6 +39,17 @@ import Enums.*;
 				Gdx.input.setInputProcessor(input);
 			}
 			
+			public PantallaFinal(int contador, int contRonda, Finales derrota, Main main2, SpriteBatch batch2, InputManager input2) {
+				this.contK = contador;
+				this.f = derrota;
+				this.main = main2;
+				this.batch = batch2;
+				this.input = input2;
+				this.contR = contRonda;
+				ronda = new Texto("Ronda alcanzada: " + contR, 130, 410);
+				Gdx.input.setInputProcessor(input);
+			}
+
 			@Override
 			public void show() {
 				fondo = new Imagen(f.getFondo());
@@ -45,6 +58,7 @@ import Enums.*;
 				titulo = new Texto(f.getMsj(), 40, 450);
 				titulo.agrandar(2);
 				kills = new Texto("Kills: " + contK, 50, 410);
+				
 				subtitulo = new Texto("clickea la pantalla para volver al menú", 60, 350);
 				musica = new Audio(f.getMusica());
 				batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
@@ -81,7 +95,9 @@ import Enums.*;
 						musica.detener();
 						main.setScreen(new PantallaMenuPrincipal(main, batch, input));
 					}
-					
+					if(contR != 0) {
+						ronda.escribir(batch);
+					}
 				}
 				
 				batch.end();

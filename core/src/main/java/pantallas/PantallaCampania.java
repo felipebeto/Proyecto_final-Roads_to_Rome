@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rtr.Main;
 
 import Enums.Finales;
+import personajes.Enemigo;
+import personajes.Personaje;
 import util.Colisiones;
 import util.InputManager;
 import util.Render;
@@ -17,36 +19,14 @@ public class PantallaCampania extends PantallaJuego{
 	}
 	@Override
 	public void render(float delta) {
-		musica.comenzar();
-		jugador.calcularMovimiento(delta, mapa, enemigo);
-		//enemigo.calcularMovimiento(delta, mapa, jugador);
-		Render.limpiar(0, 0, 0);
-		camara.actualizarPosicion(jugador, batch);
-		
-		batch.begin();
-		mapa.dibujarFondo(batch);
-		//enemigo.dibujar(batch);
-		jugador.dibujar(batch);
-		rojo.dibujar(batch);
-		rojo.setTrans(a);
-		//if(Colisiones.colisionaConEntidad(jugador.getHitbox(), enemigo.getHitbox())) {
-			//sonidoOof.play();
-			//enemigo.atacar(jugador);
-		//}
-		if(jugador.prepararAtaque() && calcularRangoAtaque(enemigo)) {
-			sonidoGolpe.play();
-			jugador.atacar(enemigo);
-		}
-		batch.end();
-		porcentajeVida = (float) jugador.getVida() / 100;
-		barraVida.pintar(porcentajeVida);
+		super.render(delta);
 		if(jugador.isMuerto()) {
 			musica.detener();
-			main.setScreen(new PantallaFinal(0, Finales.DERROTA, main, batch, input));
+			main.setScreen(new PantallaFinal(contador, Finales.DERROTA, main, batch, input));
 		}
-		if(enemigo.isMuerto()) {
+		if(mapa.isLimpia()) {
 			musica.detener();
-			main.setScreen(new PantallaFinal(1, Finales.VICTORIA, main, batch, input));
+			main.setScreen(new PantallaFinal(contador, Finales.VICTORIA, main, batch, input));
 		}
 		
 	}
