@@ -12,17 +12,18 @@ import elementos.Audio;
 import elementos.BarraVida;
 import elementos.Camara;
 import elementos.Imagen;
-import mapas.Dungeon1;
 import mapas.*;
 import personajes.*;
+import util.Aleatorio;
 import util.Colisiones;
+import util.GeneradorMazmorra;
 import util.InputManager;
 import util.Recursos;
 import util.Render;
 
 public abstract class PantallaJuego implements Screen{
 	protected Personaje jugador;
-	protected SalaLR mapa;
+	protected Mazmorra mazmorra;
 	protected Imagen rojo;
 	protected Audio musica;
 	protected Sound sonidoGolpe;
@@ -35,6 +36,7 @@ public abstract class PantallaJuego implements Screen{
 	protected SpriteBatch batch;
 	protected InputManager input;
 	protected int contador;
+	protected Sala mapa;
 	public PantallaJuego(Main main, SpriteBatch batch, InputManager input) {
 		this.main = main;
 		this.batch = batch;
@@ -46,7 +48,7 @@ public abstract class PantallaJuego implements Screen{
 	@Override
 	public void show() {
 		jugador = new Jugador();
-		mapa = new SalaLR();
+		mazmorra = GeneradorMazmorra.generar(Aleatorio.generarEntero(6, 8));
 		rojo = new Imagen("fondos/peligro.jfif");
 		rojo.ajustarTamaño();
 		rojo.setTrans(a);
@@ -60,6 +62,7 @@ public abstract class PantallaJuego implements Screen{
 
 	@Override
 	public void render(float delta) {
+		mapa = mazmorra.getSalaActual();
 		musica.comenzar();
 		jugador.calcularMovimiento(delta, mapa, jugador);
 		for (Personaje e : mapa.getEnemigos()) {

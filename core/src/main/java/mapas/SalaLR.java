@@ -2,13 +2,14 @@ package mapas;
 
 import com.badlogic.gdx.Gdx;
 
+import Enums.Direccion;
 import personajes.Enemigo;
 import util.Recursos;
 
 public class SalaLR extends Sala{
 
 	public SalaLR() {
-		super(1000, 1000, Recursos.SALA_LR);
+		super(1000, 1000, Recursos.SALA_LR, Direccion.IZQUIERDA, Direccion.DERECHA);
 		
 	}
 

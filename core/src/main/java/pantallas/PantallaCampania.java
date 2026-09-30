@@ -25,8 +25,15 @@ public class PantallaCampania extends PantallaJuego{
 			main.setScreen(new PantallaFinal(contador, Finales.DERROTA, main, batch, input));
 		}
 		if(mapa.isLimpia()) {
-			musica.detener();
-			main.setScreen(new PantallaFinal(contador, Finales.VICTORIA, main, batch, input));
+			
+			if(jugador.revisarLimite()) {
+				jugador.avanzarSala();
+				mazmorra.avanzarSala();
+			}
+			if(mazmorra.isUltima()) {
+				//musica.detener();
+				//main.setScreen(new PantallaFinal(contador, Finales.VICTORIA, main, batch, input));
+			}
 		}
 		
 	}

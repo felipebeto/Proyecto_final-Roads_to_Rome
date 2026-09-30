@@ -53,8 +53,15 @@ public abstract class Personaje {
     public abstract void calcularMovimiento(float delta, Sala mapa, Personaje p);
     public abstract void atacar(Personaje p);
 
-    protected void revisarLimite() {
-        if (x < 0) x = 0;
+    public boolean revisarLimite() {
+        if (x == 0) return true;
+        if (y == 0) return true;
+        if (x == Recursos.ANCHO_MAPA - hitbox.width) return true;
+        if (y == Recursos.ALTO_MAPA - hitbox.height) return true;
+        return false;
+    }
+    protected void corregirLimite() {
+    	if (x < 0) x = 0;
         if (y < 0) y = 0;
         if (x > Recursos.ANCHO_MAPA - hitbox.width) x = Recursos.ANCHO_MAPA - hitbox.width;
         if (y > Recursos.ALTO_MAPA - hitbox.height) y = Recursos.ALTO_MAPA - hitbox.height;
@@ -66,7 +73,7 @@ public abstract class Personaje {
 
         this.hitbox.setPosition(x, nuevaY);
         if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) y = nuevaY;
-        revisarLimite();
+        corregirLimite();
         this.hitbox.setPosition(x, y);
     }
 
@@ -126,5 +133,12 @@ public abstract class Personaje {
 
 
 	public abstract boolean prepararAtaque();
+
+	public void avanzarSala() {
+		if (x == 0) this.x = 700;
+        if (y == 0) this.y = 700;
+        if (x == Recursos.ANCHO_MAPA - hitbox.width) this.x = 200;
+        if (y == Recursos.ALTO_MAPA - hitbox.height) this.y = 200;
+	}
 
 }
