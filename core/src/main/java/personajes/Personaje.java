@@ -3,6 +3,7 @@ package personajes;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
+import Enums.Direccion;
 import elementos.Imagen;
 import mapas.Sala;
 import util.Colisiones;
@@ -134,11 +135,25 @@ public abstract class Personaje {
 
 	public abstract boolean prepararAtaque();
 
-	public void avanzarSala() {
-		if (x == 0) this.x = 700;
-        if (y == 0) this.y = 700;
-        if (x == Recursos.ANCHO_MAPA - hitbox.width) this.x = 200;
-        if (y == Recursos.ALTO_MAPA - hitbox.height) this.y = 200;
+	public boolean avanzarSala(Sala mapa) {
+		if (x == 0) {
+			this.x = 700;
+			if(mapa.dEntrada == Direccion.IZQUIERDA) return false;
+		}
+        if (y == 0) {
+        	this.y = 700;
+        	if(mapa.dEntrada == Direccion.ABAJO) return false;
+        }
+        if (x == Recursos.ANCHO_MAPA - hitbox.width) {
+        	this.x = 200;
+        	if(mapa.dEntrada == Direccion.DERECHA) return false;
+        }
+        if (y == Recursos.ALTO_MAPA - hitbox.height) {
+        	this.y = 200;
+        	if(mapa.dEntrada == Direccion.ARRIBA) return false;
+        }
+        return true;
+        
 	}
 
 }

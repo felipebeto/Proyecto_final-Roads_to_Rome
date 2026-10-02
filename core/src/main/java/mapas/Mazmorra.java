@@ -17,4 +17,12 @@ public class Mazmorra {
 		return indiceSala==salas.size()-1;
 	}
 
+	public void retrocederSala() {
+		if(!isPrimera())indiceSala--;
+	}
+
+	private boolean isPrimera() {
+		return indiceSala==0;
+	}
+
 }

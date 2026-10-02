@@ -27,8 +27,12 @@ public class PantallaCampania extends PantallaJuego{
 		if(mapa.isLimpia()) {
 			
 			if(jugador.revisarLimite()) {
-				jugador.avanzarSala();
-				mazmorra.avanzarSala();
+				if(jugador.avanzarSala(mapa)) {
+					mazmorra.avanzarSala();
+				}else {
+					mazmorra.retrocederSala();
+				}
+				
 			}
 			if(mazmorra.isUltima()) {
 				//musica.detener();

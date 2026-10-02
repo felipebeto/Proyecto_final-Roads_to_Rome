@@ -16,6 +16,7 @@ public abstract class Sala {
 	private ArrayList<Enemigo> enemigos;
 	private Direccion puerta1;
 	private Direccion puerta2;
+	public Direccion dEntrada;
 	public boolean usado1 = false;
 	public boolean usado2 = false;
 	public Sala(float ancho, float alto, String rutaFondo, Direccion puerta1, Direccion puerta2) {
@@ -27,6 +28,9 @@ public abstract class Sala {
 		this.obstaculos = new ArrayList<>();
 		this.enemigos = new ArrayList<>();
 		cargarElementos();
+	}
+	public void setearEntrada(Direccion d) {
+		this.dEntrada = d;
 	}
 	public Direccion getPuerta1() {
 		return puerta1;
@@ -40,7 +44,7 @@ public abstract class Sala {
 		obstaculos.add(new Rectangle(x, y, ancho, alto));
 	}
 	protected void agregarEnemigos(Enemigo e) {
-		//enemigos.add(e);
+		enemigos.add(e);
 		
 	}
 	

@@ -12,12 +12,15 @@ public class GeneradorMazmorra {
 		for(int i =0; i<cantSalas; i++) {
 			cont = 0;
 			if(i==0) {
-				mazmorra.salas.add(new SalaInicio());
-				
+				Sala primera = new SalaInicio();
+				primera.setearEntrada(null);
+				mazmorra.salas.add(primera);
 			}else {
 				salaAnt=mazmorra.salas.get(i-1);
 				if(i+1==cantSalas) {
-					mazmorra.salas.add(new SalaFinal());
+					Sala ultima = new SalaFinal();
+					ultima.setearEntrada(ultima.getPuerta1());
+					mazmorra.salas.add(ultima);
 				}else if(i+2==cantSalas){
 					do {
 						cont++;
@@ -26,22 +29,26 @@ public class GeneradorMazmorra {
 						if(!salaAnt.usado1 && salaNueva.getPuerta1().getOpuesto() == salaAnt.getPuerta1() && salaNueva.getPuerta2()==Direccion.ABAJO) {
 							conecta = true;
 							salaNueva.setearUsado1();
+							salaNueva.setearEntrada(salaNueva.getPuerta1());
 							mazmorra.salas.add(salaNueva);
 						}else {
 							if(!salaAnt.usado1 && salaNueva.getPuerta2().getOpuesto() == salaAnt.getPuerta1() && salaNueva.getPuerta1()==Direccion.ABAJO) {
 								conecta = true;
 								salaNueva.setearUsado2();
+								salaNueva.setearEntrada(salaNueva.getPuerta2());
 								mazmorra.salas.add(salaNueva);
 							}
 							else {
 								if(!salaAnt.usado2 && salaNueva.getPuerta1().getOpuesto() == salaAnt.getPuerta2() && salaNueva.getPuerta2()==Direccion.ABAJO) {
 									conecta = true;
 									salaNueva.setearUsado1();
+									salaNueva.setearEntrada(salaNueva.getPuerta1());
 									mazmorra.salas.add(salaNueva);
 								}else {
 									if(!salaAnt.usado2 && salaNueva.getPuerta2().getOpuesto() == salaAnt.getPuerta2() && salaNueva.getPuerta1()==Direccion.ABAJO) {
 										conecta = true;
 										salaNueva.setearUsado2();
+										salaNueva.setearEntrada(salaNueva.getPuerta2());
 										mazmorra.salas.add(salaNueva);
 									}
 								}
@@ -57,22 +64,26 @@ public class GeneradorMazmorra {
 						if(!salaAnt.usado1 && salaNueva.getPuerta1().getOpuesto() == salaAnt.getPuerta1()) {
 							conecta = true;
 							salaNueva.setearUsado1();
+							salaNueva.setearEntrada(salaNueva.getPuerta1());
 							mazmorra.salas.add(salaNueva);
 						}else {
 							if(!salaAnt.usado1 && salaNueva.getPuerta2().getOpuesto() == salaAnt.getPuerta1()) {
 								conecta = true;
 								salaNueva.setearUsado2();
+								salaNueva.setearEntrada(salaNueva.getPuerta2());
 								mazmorra.salas.add(salaNueva);
 							}
 							else {
 								if(!salaAnt.usado2 && salaNueva.getPuerta1().getOpuesto() == salaAnt.getPuerta2()) {
 									conecta = true;
 									salaNueva.setearUsado1();
+									salaNueva.setearEntrada(salaNueva.getPuerta1());
 									mazmorra.salas.add(salaNueva);
 								}else {
 									if(!salaAnt.usado2 && salaNueva.getPuerta2().getOpuesto() == salaAnt.getPuerta2()) {
 										conecta = true;
 										salaNueva.setearUsado2();
+										salaNueva.setearEntrada(salaNueva.getPuerta2());
 										mazmorra.salas.add(salaNueva);
 									}
 								}
