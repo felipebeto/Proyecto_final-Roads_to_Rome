@@ -22,7 +22,7 @@ public class Recursos {
 	public static final String SALA_DL = "fondos/dl.png";
 	public static final String SALA_DR = "fondos/dr.png";
 	public static final String SALA_LR = "fondos/lr.png";
-	public static final String SALA_FINAL = "fondos/final.png";
+	public static final String SALA_FINAL = "fondos/final2.png";
 	public static final String SALA_INICIO = "fondos/inicio.png";
 	public static final int ANCHO_MAPA = 1000;
 	public static final int ALTO_MAPA = 1000;

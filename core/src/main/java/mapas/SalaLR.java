@@ -22,10 +22,16 @@ public class SalaLR extends Sala{
 		agregarObstaculo(0, 840, 1000, 1000); //arriba
 		agregarObstaculo(0, 0, 1000, 160); //abajo
 		
-		agregarEnemigos(new Enemigo(700, 500));
-		agregarEnemigos(new Enemigo(700, 400));
-		agregarEnemigos(new Enemigo(700, 600));
-		agregarEnemigos(new Enemigo(700, 700));
+		agregarEnemigos(new Enemigo(500, 500));
+		agregarEnemigos(new Enemigo(500, 400));
+		agregarEnemigos(new Enemigo(500, 600));
+		agregarEnemigos(new Enemigo(500, 700));
+	}
+
+	@Override
+	public boolean revisarPortal(float x, float y) {
+		
+		return false;
 	}
 
 }

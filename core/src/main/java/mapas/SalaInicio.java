@@ -19,4 +19,10 @@ public class SalaInicio extends Sala{
 		agregarObstaculo(600, 0, 1000, 160); //abajo2
 		
 	}
+
+	@Override
+	public boolean revisarPortal(float x, float y) {
+		
+		return false;
+	}
 }

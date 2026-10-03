@@ -19,4 +19,8 @@ public class SalaFinal extends Sala{
 		agregarObstaculo(0, 0, 1000, 160); //abajo
 		
 	}
+	public boolean revisarPortal(float x, float y) {
+		if(x>460&&x<540&&y>460&&y<540) return true;
+		return false;
+	}
 }

@@ -43,9 +43,9 @@ public abstract class Sala {
 	protected void agregarObstaculo(float x, float y, float ancho, float alto) {
 		obstaculos.add(new Rectangle(x, y, ancho, alto));
 	}
+	
 	protected void agregarEnemigos(Enemigo e) {
 		enemigos.add(e);
-		
 	}
 	
 	public void dibujarFondo(SpriteBatch batch) {
@@ -92,4 +92,5 @@ public abstract class Sala {
 	public void setearUsado2() {
 		this.usado2 = true;
 	}
+	public abstract boolean revisarPortal(float x, float y);
 }

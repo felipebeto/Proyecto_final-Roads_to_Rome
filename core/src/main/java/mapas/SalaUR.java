@@ -21,10 +21,16 @@ public class SalaUR extends Sala {
 		agregarObstaculo(840, 0, 1000, 400); //derecha1
 		agregarObstaculo(840, 600, 1000, 1000); //derecha2
 		agregarObstaculo(0, 0, 1000, 160); //abajo
-		agregarEnemigos(new Enemigo(700, 500));
-		agregarEnemigos(new Enemigo(700, 400));
-		agregarEnemigos(new Enemigo(700, 600));
-		agregarEnemigos(new Enemigo(700, 700));
+		agregarEnemigos(new Enemigo(500, 500));
+		agregarEnemigos(new Enemigo(500, 400));
+		agregarEnemigos(new Enemigo(500, 600));
+		agregarEnemigos(new Enemigo(500, 700));
+	}
+
+	@Override
+	public boolean revisarPortal(float x, float y) {
+		
+		return false;
 	}
 
 }

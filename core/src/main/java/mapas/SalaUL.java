@@ -27,4 +27,10 @@ public class SalaUL extends Sala {
 		agregarEnemigos(new Enemigo(700, 700));
 	}
 
+	@Override
+	public boolean revisarPortal(float x, float y) {
+		
+		return false;
+	}
+
 }
