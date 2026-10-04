@@ -22,16 +22,18 @@ public class PantallaCampania extends PantallaJuego{
 			musica.detener();
 			main.setScreen(new PantallaFinal(contador, Finales.DERROTA, main, batch, input));
 		}
-		if(mapa.isLimpia()) {
+		//if(mapa.isLimpia()) {
 			if(mazmorra.isUltima()) {
 				if(mapa.revisarPortal(jugador.getX(), jugador.getY())) {
 					if(nivelActual==2) {
 						musica.detener();
 						main.setScreen(new PantallaFinal(contador, Finales.VICTORIA, main, batch, input));
+					}else {
+						mazmorra.salas.clear();
+						nivelActual++;
+						mazmorra = GeneradorMazmorra.generar(Aleatorio.generarEntero(6, 8));
 					}
-					mazmorra.salas.clear();
-					nivelActual++;
-					mazmorra = GeneradorMazmorra.generar(Aleatorio.generarEntero(6, 8));
+					
 				}
 			}
 			if(jugador.revisarLimite()) {
@@ -44,6 +46,6 @@ public class PantallaCampania extends PantallaJuego{
 			}
 		}
 		
-	}
+	//}
 
 }

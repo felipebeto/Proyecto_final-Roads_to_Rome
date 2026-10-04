@@ -24,7 +24,6 @@ import util.Render;
 public abstract class PantallaJuego implements Screen{
 	protected Personaje jugador;
 	protected Mazmorra mazmorra;
-	protected Imagen rojo;
 	protected Audio musica;
 	protected Sound sonidoGolpe;
 	protected Sound sonidoOof;
@@ -49,9 +48,6 @@ public abstract class PantallaJuego implements Screen{
 	public void show() {
 		jugador = new Jugador();
 		mazmorra = GeneradorMazmorra.generar(Aleatorio.generarEntero(6, 8));
-		rojo = new Imagen("fondos/peligro.jfif");
-		rojo.ajustarTamaño();
-		rojo.setTrans(a);
 		musica = new Audio(Recursos.MUSICA_JUEGO);
 		sonidoGolpe = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_GOLPE));
 		sonidoOof = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_OOF));
@@ -134,7 +130,6 @@ public abstract class PantallaJuego implements Screen{
 	public void dispose() {
 		jugador.dispose();
 		mapa.dispose();
-		rojo.dispose();
 		musica.dispose();
 		sonidoGolpe.dispose();
 		sonidoOof.dispose();
