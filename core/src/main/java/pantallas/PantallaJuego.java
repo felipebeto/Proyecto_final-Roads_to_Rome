@@ -53,7 +53,7 @@ public abstract class PantallaJuego implements Screen{
 		sonidoOof = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_OOF));
 		camara = new Camara();
 		barraVida  = new BarraVida();
-		
+		barraVida.recalcularCoords();
 	}
 
 	@Override
@@ -112,6 +112,7 @@ public abstract class PantallaJuego implements Screen{
 	@Override
 	public void resize(int width, int height) {
 		camara.actualizarPantalla(width, height);
+		Recursos.recalcularPantalla(width, height);
 	}
 
 	@Override

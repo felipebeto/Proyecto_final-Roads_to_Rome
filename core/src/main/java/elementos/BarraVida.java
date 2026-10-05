@@ -7,8 +7,8 @@ import util.Recursos;
 
 public class BarraVida {
 	private ShapeRenderer barra = new ShapeRenderer();
-	float barraX = 20, barraY = Recursos.alto - 40;
-	float barraAncho = 200, barraAlto = 20;
+	float barraX = Recursos.ancho/2, barraY = Recursos.alto/2 + 65;
+	float barraAncho = 50, barraAlto = 5;
 	public void pintar(float porcentajeVida) {
 		barra.begin(ShapeRenderer.ShapeType.Filled);
 		barra.setColor(Color.DARK_GRAY);
@@ -17,6 +17,10 @@ public class BarraVida {
 		barra.setColor(Color.RED);
 		barra.rect(barraX, barraY, barraAncho * porcentajeVida, barraAlto); 
 		barra.end();
+	}
+	public void recalcularCoords() {
+		this.barraX = Recursos.ancho/2;
+		this.barraY = Recursos.alto/2 + 65;
 	}
 
 }
