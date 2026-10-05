@@ -25,7 +25,13 @@ public class SalaLR extends Sala{
 		agregarEnemigos(new Enemigo(500, 500));
 		agregarEnemigos(new Enemigo(500, 400));
 		agregarEnemigos(new Enemigo(500, 600));
-		agregarEnemigos(new Enemigo(500, 700));
+		agregarEnemigos(new Enemigo(700, 700));
+		
+		agregarObstaculo(240, 320, 80, 40);
+		agregarObstaculo(440, 720, 160, 40);
+		agregarObstaculo(520, 240, 80, 40);
+		agregarObstaculo(600, 280, 40, 40);
+		agregarObstaculo(720, 600, 40, 40);
 	}
 
 	@Override

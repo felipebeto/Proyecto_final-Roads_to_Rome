@@ -26,7 +26,7 @@ public class Jugador extends Personaje {
     
 
     public Jugador() {
-        super(Recursos.ancho/2-35, Recursos.alto/2-41, 100, 400, "gambit1.png", 70, 82, 100);
+        super(500, 500, 100, 400, "gambit1.png", 39, 39, 100);
         cargarSpriteSheets();
     }
 

@@ -24,7 +24,12 @@ public class SalaDR extends Sala {
 		agregarEnemigos(new Enemigo(500, 500));
 		agregarEnemigos(new Enemigo(500, 400));
 		agregarEnemigos(new Enemigo(500, 600));
-		agregarEnemigos(new Enemigo(500, 700));
+		agregarEnemigos(new Enemigo(300, 700));
+		agregarObstaculo(240, 360, 80, 80);
+		agregarObstaculo(280, 440, 40, 40);
+		agregarObstaculo(640, 280, 40, 40);
+		agregarObstaculo(680, 320, 40, 40);
+		agregarObstaculo(440, 720, 200, 40);
 	}
 
 	@Override

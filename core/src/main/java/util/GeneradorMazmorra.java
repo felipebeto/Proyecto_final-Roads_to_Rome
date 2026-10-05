@@ -55,7 +55,10 @@ public class GeneradorMazmorra {
 							}
 						}
 					}while(!conecta && cont<200);
-					if(!conecta) return generar(cantSalas);
+					if(!conecta) {
+						System.out.println("demora");
+						return generar(cantSalas);
+					}
 				}else {
 					do {
 						cont++;
@@ -90,7 +93,10 @@ public class GeneradorMazmorra {
 							}
 						}
 					}while(!conecta && cont<200);
-					if(!conecta) return generar(cantSalas);
+					if(!conecta) {
+						System.out.println("demora");
+						return generar(cantSalas);
+					}
 				}
 			}
 			

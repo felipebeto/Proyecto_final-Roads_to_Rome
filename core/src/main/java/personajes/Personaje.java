@@ -141,7 +141,7 @@ public abstract class Personaje {
 			if(mapa.dEntrada == Direccion.IZQUIERDA) return false;
 		}
         if (y == 0) {
-        	this.y = 700;
+        	this.y = 800;
         	if(mapa.dEntrada == Direccion.ABAJO) return false;
         }
         if (x == Recursos.ANCHO_MAPA - hitbox.width) {

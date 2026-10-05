@@ -22,9 +22,15 @@ public class SalaUL extends Sala {
 		agregarObstaculo(0, 0, 160, 400); //izquierda1
 		agregarObstaculo(0, 600, 160, 1000); //izquierda2
 		agregarEnemigos(new Enemigo(700, 500));
-		agregarEnemigos(new Enemigo(700, 400));
+		agregarEnemigos(new Enemigo(700, 200));
 		agregarEnemigos(new Enemigo(700, 600));
-		agregarEnemigos(new Enemigo(700, 700));
+		agregarEnemigos(new Enemigo(600, 600));
+		agregarObstaculo(280, 280, 40, 40);
+		agregarObstaculo(280, 640, 40, 40);
+		agregarObstaculo(320, 680, 40, 40);
+		agregarObstaculo(600, 720, 160, 40);
+		agregarObstaculo(680, 360, 40, 80);
+		
 	}
 
 	@Override

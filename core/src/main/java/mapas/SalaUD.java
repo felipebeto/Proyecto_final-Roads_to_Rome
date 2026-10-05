@@ -21,10 +21,15 @@ public class SalaUD extends Sala {
 		agregarObstaculo(0, 0, 160, 1000); //izquierda
 		agregarObstaculo(0, 0, 400, 160); //abajo1
 		agregarObstaculo(600, 0, 1000, 160); //abajo2
-		agregarEnemigos(new Enemigo(700, 500));
+		agregarEnemigos(new Enemigo(700, 300));
 		agregarEnemigos(new Enemigo(700, 400));
-		agregarEnemigos(new Enemigo(700, 600));
-		agregarEnemigos(new Enemigo(700, 700));
+		agregarEnemigos(new Enemigo(300, 300));
+		agregarEnemigos(new Enemigo(600, 350));
+		agregarObstaculo(400, 680, 40, 40);
+		agregarObstaculo(240, 480, 40, 40);
+		agregarObstaculo(280, 440, 40, 40);
+		agregarObstaculo(600, 240, 160, 40);
+		agregarObstaculo(720, 560, 40, 80);
 	}
 
 	@Override

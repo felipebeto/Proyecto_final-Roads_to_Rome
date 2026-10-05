@@ -21,10 +21,15 @@ public class SalaDL extends Sala {
 		agregarObstaculo(600, 0, 1000, 160); //abajo2
 		agregarObstaculo(0, 0, 160, 400); //izquierda1
 		agregarObstaculo(0, 600, 160, 1000); //izquierda2
-		agregarEnemigos(new Enemigo(700, 500));
+		agregarEnemigos(new Enemigo(600, 700));
 		agregarEnemigos(new Enemigo(700, 400));
-		agregarEnemigos(new Enemigo(700, 600));
+		agregarEnemigos(new Enemigo(700, 300));
 		agregarEnemigos(new Enemigo(700, 700));
+		agregarObstaculo(240, 640, 40, 80);
+		agregarObstaculo(280, 280, 40, 40);
+		agregarObstaculo(320, 240, 40, 40);
+		agregarObstaculo(440, 720, 80, 40);
+		agregarObstaculo(720, 520, 40, 120);
 	}
 
 	@Override

@@ -24,7 +24,13 @@ public class SalaUR extends Sala {
 		agregarEnemigos(new Enemigo(500, 500));
 		agregarEnemigos(new Enemigo(500, 400));
 		agregarEnemigos(new Enemigo(500, 600));
-		agregarEnemigos(new Enemigo(500, 700));
+		agregarEnemigos(new Enemigo(500, 300));
+		agregarObstaculo(640, 720, 80, 40); 
+		agregarObstaculo(280, 640, 40, 80);
+		agregarObstaculo(240, 320, 40, 80);
+		agregarObstaculo(280, 320, 40, 40);
+		agregarObstaculo(640, 240, 120, 40);
+		
 	}
 
 	@Override
