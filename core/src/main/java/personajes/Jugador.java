@@ -1,16 +1,23 @@
 package personajes;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import items.Inventario;
+import items.Objeto;
 import mapas.Sala;
 import util.InputManager;
 import util.Recursos;
 
 public class Jugador extends Personaje {
+	private Inventario inventario;
+	
     private Animation<TextureRegion> animacionCaminar;
     private TextureRegion frameQuieto;
     private float tiempoAnimacion = 0;
