@@ -3,7 +3,9 @@ package mapas;
 import com.badlogic.gdx.Gdx;
 
 import Enums.Direccion;
+import personajes.Borracho;
 import personajes.Enemigo;
+import personajes.Esqueleto;
 import util.Recursos;
 
 public class SalaLR extends Sala{
@@ -22,17 +24,20 @@ public class SalaLR extends Sala{
 		agregarObstaculo(0, 840, 1000, 1000); //arriba
 		agregarObstaculo(0, 0, 1000, 160); //abajo
 		
-		agregarEnemigos(new Enemigo(500, 500));
-		agregarEnemigos(new Enemigo(500, 400));
-		agregarEnemigos(new Enemigo(500, 600));
-		agregarEnemigos(new Enemigo(700, 700));
+		agregarEnemigos(new Borracho(500, 500));
+		agregarEnemigos(new Borracho(500, 400));
+		agregarEnemigos(new Esqueleto(500, 600));
+		agregarEnemigos(new Esqueleto(700, 700));
 		
 		agregarObstaculo(240, 320, 80, 40);
 		agregarObstaculo(440, 720, 160, 40);
 		agregarObstaculo(520, 240, 80, 40);
 		agregarObstaculo(600, 280, 40, 40);
 		agregarObstaculo(720, 600, 40, 40);
+		
+		agregarCofre(500, 500);
 	}
+
 
 	@Override
 	public boolean revisarPortal(float x, float y) {

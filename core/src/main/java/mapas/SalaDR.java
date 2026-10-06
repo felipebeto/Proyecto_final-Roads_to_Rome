@@ -3,7 +3,9 @@ package mapas;
 import com.badlogic.gdx.Gdx;
 
 import Enums.Direccion;
+import personajes.Borracho;
 import personajes.Enemigo;
+import personajes.Esqueleto;
 import util.Recursos;
 
 public class SalaDR extends Sala {
@@ -21,10 +23,10 @@ public class SalaDR extends Sala {
 		agregarObstaculo(840, 600, 1000, 1000); //derecha2
 		agregarObstaculo(0, 840, 1000, 1000); //arriba
 		agregarObstaculo(0, 0, 160, 1000); //izquierda
-		agregarEnemigos(new Enemigo(500, 500));
-		agregarEnemigos(new Enemigo(500, 400));
-		agregarEnemigos(new Enemigo(500, 600));
-		agregarEnemigos(new Enemigo(300, 700));
+		agregarEnemigos(new Borracho(500, 500));
+		agregarEnemigos(new Borracho(500, 400));
+		agregarEnemigos(new Esqueleto(500, 600));
+		agregarEnemigos(new Esqueleto(300, 700));
 		agregarObstaculo(240, 360, 80, 80);
 		agregarObstaculo(280, 440, 40, 40);
 		agregarObstaculo(640, 280, 40, 40);

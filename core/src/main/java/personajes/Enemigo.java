@@ -5,7 +5,7 @@ import util.Aleatorio;
 import util.Colisiones;
 import util.Recursos;
 
-public class Enemigo extends Personaje{
+public abstract class Enemigo extends Personaje{
 	private float cooldownMove = 0;
 	private float maxCooldown = 1.5f;
 	private float tiempoAnim = 0.5f;
@@ -13,8 +13,8 @@ public class Enemigo extends Personaje{
 	private float contAnimacion = 0;
 	private float nuevaX, nuevaY, direccionX, direccionY, objX, objY, difX, difY;
 
-	public Enemigo(float x, float y) {
-		super(x, y, 100, 100, "momo.png", 80, 87, 30);
+	public Enemigo(float x, float y, String ruta) {
+		super(x, y, 100, 100, ruta, 80, 87, 30);
 
 	}
 
@@ -116,14 +116,7 @@ public class Enemigo extends Personaje{
 	}
 
 	@Override
-	public void atacar(Personaje jugador) {
-		if(vida>0) {
-			if (jugador.recibirDanio(20)) {
-				jugador.iniciarRetroceso(this);
-			}
-		}
-	    
-	}
+	public abstract void atacar(Personaje jugador);
 	
 	public Enemigo aparecer(Sala mapa, Personaje jugador) {
 		float x2;
@@ -139,7 +132,7 @@ public class Enemigo extends Personaje{
 			}
 		}while(Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()) || Colisiones.colisionaConEntidad(hitbox, jugador.getHitbox()));
 		
-		return new Enemigo(x, y);
+		return new Borracho(x, y);
 	}
 
 	@Override

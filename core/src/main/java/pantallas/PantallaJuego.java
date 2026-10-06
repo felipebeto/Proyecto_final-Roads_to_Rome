@@ -69,6 +69,10 @@ public abstract class PantallaJuego implements Screen{
 		
 		batch.begin();
 		mapa.dibujarFondo(batch);
+		if(mapa.hayCofre()) {
+			mapa.getCofre().dibujar(batch);
+		}
+		
 		for (Personaje e : mapa.getEnemigos()) {
 			e.dibujar(batch);
 		}
