@@ -4,17 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rtr.Main;
 
 import elementos.Audio;
+import elementos.Camara;
 import elementos.Imagen;
 import elementos.Texto;
+import util.InputManager;
 import util.Recursos;
 import util.Render;
 
 public class PantallaMenuPrincipal implements Screen{
-	
+	private InputManager input;
 	private Imagen fondo;
 	private Texto titulo;
 	private Texto subtitulo1;
@@ -26,7 +28,16 @@ public class PantallaMenuPrincipal implements Screen{
 	private float mouseX, mouseY;
 	private Audio musica;
 	private Sound sonidoClick;
+	private Main main;
+	private SpriteBatch batch;
+	private Camara camara;
 
+	public PantallaMenuPrincipal(Main main, SpriteBatch batch, InputManager input) {
+		this.main = main;
+		this.batch = batch;
+		this.input = input;
+		Gdx.input.setInputProcessor(input);
+	}
 	@Override
 	public void show() {
 		fondo = new Imagen(Recursos.FONDO_MENU);
@@ -41,6 +52,8 @@ public class PantallaMenuPrincipal implements Screen{
 		musica = new Audio(Recursos.MUSICA_MENU);
 		musica.cambiarVolumen(1);
 		sonidoClick = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_CLICK));
+		camara = new Camara();
+		
 	}
 	private void calcularFade() {
 		if(!finFadeIn ) {
@@ -58,40 +71,41 @@ public class PantallaMenuPrincipal implements Screen{
 	    mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 		Render.limpiar(0, 0, 0);
 		musica.comenzar();
-		Render.batch.begin();
-		fondo.dibujar();
+		batch.begin();
+		fondo.dibujar(batch);
 		if (!finFadeIn) {
 			calcularFade();
 			fondo.setTrans(a);
 		}else {
-			titulo.escribir();
-			subtitulo1.setColor(subtitulo1.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
-			subtitulo1.escribir();
-			subtitulo2.setColor(subtitulo2.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
-			subtitulo2.escribir();
-			subtitulo3.setColor(subtitulo3.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
-			subtitulo3.escribir();
-			subtitulo4.setColor(subtitulo4.isHover(mouseX, mouseY) ? Color.RED : Color.WHITE);
-			subtitulo4.escribir();
+			titulo.escribir(batch);
+			subtitulo1.setColor(subtitulo1.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo1.escribir(batch);
+			subtitulo2.setColor(subtitulo2.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo2.escribir(batch);
+			subtitulo3.setColor(subtitulo3.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo3.escribir(batch);
+			subtitulo4.setColor(subtitulo4.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
+			subtitulo4.escribir(batch);
 		}
-		if(Gdx.input.justTouched()) {
-			if(subtitulo1.isHover(mouseX, mouseY)) {
+		if(input.isClick()) {
+			if(subtitulo1.isSobre(mouseX, mouseY)) {
 				sonidoClick.play();
 				musica.detener();
-				Recursos.MAIN.setScreen(new PantallaJuego());
+				main.setScreen(new PantallaCampania(main, batch, input));
 			}
-			if(subtitulo2.isHover(mouseX, mouseY)) {
+			if(subtitulo2.isSobre(mouseX, mouseY)) {
 					sonidoClick.play();
 					musica.detener();
-					Recursos.MAIN.setScreen(new PantallaOleada());
+					main.setScreen(new PantallaOleada(main, batch, input));
 			}
-			if(subtitulo3.isHover(mouseX, mouseY)) sonidoClick.play();
-			if(subtitulo4.isHover(mouseX, mouseY)) sonidoClick.play();
+			if(subtitulo3.isSobre(mouseX, mouseY)) sonidoClick.play();
+			if(subtitulo4.isSobre(mouseX, mouseY)) sonidoClick.play();
 		}
-		Render.batch.end();
+		batch.end();
 	}
 	@Override
 	public void resize(int width, int height) {
+		camara.actualizarPantalla(width, height);
 	}
 
 	@Override
@@ -108,7 +122,14 @@ public class PantallaMenuPrincipal implements Screen{
 
 	@Override
 	public void dispose() {
-		
+		fondo.dispose();
+		titulo.dispose();
+		subtitulo1.dispose();
+		subtitulo2.dispose();
+		subtitulo3.dispose();
+		subtitulo4.dispose();
+		musica.dispose();
+		sonidoClick.dispose();
 	}
 
 }

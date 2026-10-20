@@ -1,17 +1,25 @@
 package personajes;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import elementos.Imagen;
-import mapas.Mapa;
-import util.Colisiones;
+import items.Daga;
+import items.Espada;
+import items.Inventario;
+import items.Objeto;
+import mapas.Sala;
+import util.InputManager;
 import util.Recursos;
 
 public class Jugador extends Personaje {
+	private Inventario inventario = new Inventario();
+	private float cooldownAtaque = 0;
     private Animation<TextureRegion> animacionCaminar;
     private TextureRegion frameQuieto;
     private float tiempoAnimacion = 0;
@@ -20,31 +28,38 @@ public class Jugador extends Personaje {
     private Animation<TextureRegion> animacionAtacar;
     private boolean atacando = false;
     private float tiempoAtaque = 0;
-    private final float duracionAtaque = 0.32f;
+    private final float DURACION_ATAQUE = 0.32f;
+    private Texture sheetCaminar;
+    private Texture sheetAtaque;
+    private InputManager input = new InputManager();
+    
 
     public Jugador() {
-        super(Recursos.ancho/2-35, Recursos.alto/2-41, 100, 200, "gambit1.png", 70, 82, 100);
+        super(500, 500, 100, 400, "gambit1.png", 39, 39, 100);
         cargarSpriteSheets();
     }
 
     private void cargarSpriteSheets() {
-        Texture sheet = new Texture(Gdx.files.internal("sheetCaminando.png"));
-        TextureRegion[] framesCaminando = TextureRegion.split(sheet, 56, 81)[0];
+        sheetCaminar = new Texture(Gdx.files.internal("sheetCaminando.png"));
+        TextureRegion[] framesCaminando = TextureRegion.split(sheetCaminar, 56, 81)[0];
         frameQuieto = framesCaminando[0];
         animacionCaminar = new Animation<>(0.12f, framesCaminando);
         animacionCaminar.setPlayMode(Animation.PlayMode.LOOP);
 
-        Texture sheetAtaque = new Texture(Gdx.files.internal("sheetGolpe.png"));
+        sheetAtaque = new Texture(Gdx.files.internal("sheetGolpe.png"));
         TextureRegion[] framesAtaque = TextureRegion.split(sheetAtaque, 89, 77)[0];
         animacionAtacar = new Animation<>(0.08f, framesAtaque);
         animacionAtacar.setPlayMode(Animation.PlayMode.NORMAL);
     }
 
     @Override
-    public void calcularMovimiento(float delta, Mapa mapa, Personaje enemigo) {
+    public void calcularMovimiento(float delta, Sala mapa, Personaje enemigo) {
+    	Gdx.input.setInputProcessor(input);
+    	if (cooldownDanio > 0) cooldownDanio -= delta;
+    	if (cooldownAtaque > 0) cooldownAtaque -= delta;
         if (atacando) {
             tiempoAtaque += delta;
-            if (tiempoAtaque >= duracionAtaque) atacando = false;
+            if (tiempoAtaque >= DURACION_ATAQUE) atacando = false;
             return;
         }
 
@@ -56,17 +71,22 @@ public class Jugador extends Personaje {
             nuevaY = pos[1];
         } else {
             moviendose = false;
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) { nuevaX -= velocidad*delta; moviendose=true; mirandoDerecha=false; }
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) { nuevaX += velocidad*delta; moviendose=true; mirandoDerecha=true; }
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) { nuevaY += velocidad*delta; moviendose=true; }
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) { nuevaY -= velocidad*delta; moviendose=true; }
+            if (input.isIzquierda()) { nuevaX -= velocidad*delta; moviendose=true; mirandoDerecha=false; }
+            if (input.isDerecha()) { nuevaX += velocidad*delta; moviendose=true; mirandoDerecha=true; }
+            if (input.isArriba()) { nuevaY += velocidad*delta; moviendose=true; }
+            if (input.isAbajo()) { nuevaY -= velocidad*delta; moviendose=true; }
             if (moviendose) tiempoAnimacion += delta;
         }
 
         revisarHitbox(nuevaX, nuevaY, mapa);
-        if (cooldownDanio > 0) cooldownDanio -= delta;
+        
     }
 
+    @Override
+	public boolean prepararAtaque() {
+    	if(input.isClick()) return true;
+    	return false;
+    }
     @Override
     public boolean recibirDanio(int cantidad) {
         if (cooldownDanio <= 0) {
@@ -79,17 +99,20 @@ public class Jugador extends Personaje {
 
     @Override
     public void atacar(Personaje enemigo) {
+    	if(cooldownAtaque>0) return;
         if (!atacando) {
             atacando = true;
+            cooldownAtaque = this.inventario.getObjActual().getCooldown();
+            System.out.println(this.inventario.getObjActual().getCooldown());
             tiempoAtaque = 0;
-            if (enemigo.recibirDanio(50)) {
-                enemigo.iniciarRetroceso(this);
+            if (enemigo.recibirDanio(this.inventario.getObjActual().getDanio())) {
+                enemigo.iniciarRetroceso(this, this.inventario.getObjActual().getEmpuje());
             }
         }
     }
 
     @Override
-    public void dibujar() {
+    public void dibujar(SpriteBatch batch) {
         TextureRegion frameActual;
         if (atacando) frameActual = animacionAtacar.getKeyFrame(tiempoAtaque, false);
         else if (moviendose) frameActual = animacionCaminar.getKeyFrame(tiempoAnimacion, true);
@@ -98,12 +121,19 @@ public class Jugador extends Personaje {
         sprite.setRegion(frameActual);
         sprite.setFlip(!mirandoDerecha);
         sprite.setPosicion(x, y);
-        sprite.dibujar();
+        sprite.dibujar(batch);
     }
 
+
 	@Override
-	public Personaje aparecer(Mapa mapa) {
-		// TODO Auto-generated method stub
-		return null;
+	public void dispose() {
+		super.dispose();
+		sheetCaminar.dispose();
+		sheetAtaque.dispose();
 	}
+	@Override
+	public Inventario getInventario() {
+		return inventario;
+	}
+
 }

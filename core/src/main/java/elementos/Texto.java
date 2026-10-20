@@ -3,9 +3,8 @@ package elementos;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-
-import util.Render;
 
 public class Texto {
 	private BitmapFont fuente;
@@ -26,16 +25,16 @@ public class Texto {
 	public void agrandar(float num) {
 		fuente.getData().setScale(num);
 	}
-	public void cambiarMsj(String nuevo) {
-		msj = nuevo;
+	public void escribir(SpriteBatch batch) {
+		fuente.draw(batch, msj, x, y);
 	}
-	public void escribir() {
-		fuente.draw(Render.batch, msj, x, y);
-	}
-	public boolean isHover(float mouseX, float mouseY) {
+	public boolean isSobre(float mouseX, float mouseY) {
 		return hitbox.contains(mouseX, mouseY);
 	}
 	public void setColor(Color color) {
 		fuente.setColor(color);
+	}
+	public void dispose() {
+		fuente.dispose();
 	}
 }

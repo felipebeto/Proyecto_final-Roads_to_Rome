@@ -1,28 +1,26 @@
 package personajes;
 
-import com.badlogic.gdx.math.Rectangle;
-
-import elementos.Imagen;
-import mapas.Mapa;
+import mapas.Sala;
 import util.Aleatorio;
 import util.Colisiones;
 import util.Recursos;
 
-public class Enemigo extends Personaje{
+public abstract class Enemigo extends Personaje{
 	private float cooldownMove = 0;
 	private float maxCooldown = 1.5f;
 	private float tiempoAnim = 0.5f;
 	private boolean animacion = false;
 	private float contAnimacion = 0;
+	protected int distanciaRetro = 100;
 	private float nuevaX, nuevaY, direccionX, direccionY, objX, objY, difX, difY;
 
-	public Enemigo(float x, float y) {
-		super(x, y, 100, 100, "momo.png", 80, 87, 30);
+	public Enemigo(float x, float y, String ruta) {
+		super(x, y, 100, 100, ruta, 80, 87, 30);
 
 	}
 
 	@Override
-		public void calcularMovimiento(float delta, Mapa mapa, Personaje personaje) {
+		public void calcularMovimiento(float delta, Sala mapa, Personaje personaje) {
 			if(vida<=0) {
 				return;
 			}
@@ -43,7 +41,8 @@ public class Enemigo extends Personaje{
 						objX = personaje.getX();
 						objY = personaje.getY();
 					}
-				
+					nuevaX = x;
+					nuevaY = y;
 			}else {
 				if(animacion) {
 					calcularDistanciaObjetivo();
@@ -118,31 +117,31 @@ public class Enemigo extends Personaje{
 	}
 
 	@Override
-	public void atacar(Personaje jugador) {
-		if(vida>0) {
-			if (jugador.recibirDanio(20)) {
-				jugador.iniciarRetroceso(this);
-			}
-		}
-	    
-	}
-	@Override
-	public Personaje aparecer(Mapa mapa) {
+	public abstract void atacar(Personaje jugador);
+	
+	public Enemigo aparecer(Sala mapa, Personaje jugador) {
 		float x2;
 		float y2;
 		
 		do {
-			x2 = Aleatorio.generarEntero(Recursos.ancho);
-			y2 = Aleatorio.generarEntero(Recursos.alto);
-			this.hitbox.setPosition(x2, Recursos.alto / 2);
-			if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()))x = x2;
-			this.hitbox.setPosition(Recursos.ancho / 2, y2);
-			if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos())) y = y2;
-		}while(!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()) && 
-				!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()));
+			x2 = Aleatorio.generarEntero(Recursos.ANCHO_MAPA);
+			y2 = Aleatorio.generarEntero(Recursos.ALTO_MAPA);
+			this.hitbox.setPosition(x2, y2);
+			if (!Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()) && !Colisiones.colisionaConEntidad(hitbox, jugador.getHitbox())) {
+				y = y2;
+				x = x2;
+			}
+		}while(Colisiones.colisionaConAlguno(hitbox, mapa.getObstaculos()) || Colisiones.colisionaConEntidad(hitbox, jugador.getHitbox()));
 		
-		return new Enemigo(x, y);
+		return new Borracho(x, y);
 	}
+
+	@Override
+	public boolean prepararAtaque() {
+		
+		return false;
+	}
+
 
 	
 

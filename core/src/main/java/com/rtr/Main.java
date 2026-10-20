@@ -1,29 +1,25 @@
 package com.rtr;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-
 import pantallas.PantallaMenuPrincipal;
-import util.Recursos;
-import util.Render;
+import util.InputManager;
 
 
 public class Main extends Game {
-	
-    public BitmapFont fuente;
+	private InputManager input;
+    private Main main;
+    private SpriteBatch batch;
 
     @Override
     public void create() {
-       Render.batch = new SpriteBatch();
-       Recursos.MAIN = this;
-       fuente = new BitmapFont();
-       this.setScreen(new PantallaMenuPrincipal());
+       batch = new SpriteBatch();
+       main = this;
+       input = new InputManager();
+	Gdx.input.setInputProcessor(input);
+       batch = new SpriteBatch();
+       this.setScreen(new PantallaMenuPrincipal(main, batch, input));
     }
 
     @Override
@@ -33,7 +29,6 @@ public class Main extends Game {
 
     @Override
     public void dispose() {
-        Render.batch.dispose();
-        fuente.dispose();
+        batch.dispose();
     }
 }

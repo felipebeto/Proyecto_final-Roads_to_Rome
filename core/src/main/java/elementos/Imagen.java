@@ -3,9 +3,8 @@ package elementos;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import util.Render;
 
 public class Imagen {
 	private Sprite s;
@@ -20,8 +19,8 @@ public class Imagen {
 	public void setTamanio(float w, float h) {
 		s.setSize(w, h);
 	}
-	public void dibujar() {
-		s.draw(Render.batch);
+	public void dibujar(SpriteBatch batch) {
+		s.draw(batch);
 	}
 	public void setTrans(float a) {
 		s.setAlpha(a);

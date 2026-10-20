@@ -1,123 +1,122 @@
 package pantallas;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.rtr.Main;
 
+import Enums.Finales;
 import elementos.Audio;
 import elementos.BarraVida;
 import elementos.Camara;
 import elementos.Imagen;
-import mapas.Dungeon1;
-import mapas.Mapa;
+import mapas.*;
 import personajes.*;
+import util.Aleatorio;
 import util.Colisiones;
+import util.GeneradorMazmorra;
+import util.InputManager;
 import util.Recursos;
 import util.Render;
 
-public class PantallaJuego implements Screen{
-	
-	private Personaje jugador;
-	private Personaje enemigo;
-	private Dungeon1 mapa;
-	private Imagen rojo;
-	private Audio musica;
-	private Sound sonidoGolpe;
-	private Sound sonidoOof;
-	private Camara camara;	
-	private BarraVida barraVida;
-	private boolean efectoDanio = false;
-	private float a = 0;
-	private boolean animacionT = true;
-	float porcentajeVida = 0;
+public abstract class PantallaJuego implements Screen{
+	protected Personaje jugador;
+	protected Mazmorra mazmorra;
+	protected Audio musica;
+	protected Sound sonidoGolpe;
+	protected Sound sonidoOof;
+	protected Camara camara;	
+	protected BarraVida barraVida;
+	protected float a = 0;
+	protected float porcentajeVida = 0;
+	protected Main main;
+	protected SpriteBatch batch;
+	protected InputManager input;
+	protected int contador;
+	protected Sala mapa;
+	public PantallaJuego(Main main, SpriteBatch batch, InputManager input) {
+		this.main = main;
+		this.batch = batch;
+		this.input = input;
+		Gdx.input.setInputProcessor(input);
+		input.resetearClick();
+	}
+
 	@Override
 	public void show() {
 		jugador = new Jugador();
-		enemigo = new Enemigo(500, 200);
-		mapa = new Dungeon1();
-		rojo = new Imagen("fondos/peligro.jfif");
-		rojo.ajustarTamaño();
-		rojo.setTrans(a);
-		mapa.getFondo().ajustarTamaño();
+		mazmorra = GeneradorMazmorra.generar(Aleatorio.generarEntero(6, 8));
 		musica = new Audio(Recursos.MUSICA_JUEGO);
 		sonidoGolpe = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_GOLPE));
 		sonidoOof = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_OOF));
 		camara = new Camara();
 		barraVida  = new BarraVida();
+		barraVida.recalcularCoords();
 	}
 
 	@Override
 	public void render(float delta) {
+		mapa = mazmorra.getSalaActual();
 		musica.comenzar();
-		
-		jugador.calcularMovimiento(delta, mapa, enemigo);
-		enemigo.calcularMovimiento(delta, mapa, jugador);
+		jugador.calcularMovimiento(delta, mapa, jugador);
+		for (Personaje e : mapa.getEnemigos()) {
+			e.calcularMovimiento(delta, mapa, jugador);
+		}
 		Render.limpiar(0, 0, 0);
-		Render.batch.begin();
-		mapa.dibujarFondo();
-		enemigo.dibujar();
-		jugador.dibujar();
-		rojo.dibujar();
-		camara.actualizarPosicion(jugador);
-		fadeDanio(jugador);
-		rojo.setTrans(a);
+		camara.actualizarPosicion(jugador, batch);
 		
-		if(Colisiones.colisionaConEntidad(jugador.getHitbox(), enemigo.getHitbox())) {
-			sonidoOof.play();
-			enemigo.atacar(jugador);
+		batch.begin();
+		mapa.dibujarFondo(batch);
+		if(mapa.hayCofre()) {
+			mapa.getCofre().dibujar(batch);
 		}
-		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && calcularRangoAtaque()) {
-			sonidoGolpe.play();
-			jugador.atacar(enemigo);
+		
+		for (Personaje e : mapa.getEnemigos()) {
+			e.dibujar(batch);
 		}
-		Render.batch.end();
+		jugador.dibujar(batch);
+		for (Personaje e : mapa.getEnemigos()) {
+			if (Colisiones.colisionaConEntidad(jugador.getHitbox(), e.getHitbox())) {
+				sonidoOof.play();
+				e.atacar(jugador);
+			}
+		}
+		if (jugador.prepararAtaque()) {
+			for (Enemigo e : mapa.getEnemigos()) {
+				if (calcularRangoAtaque(e)) {
+					sonidoGolpe.play();
+					jugador.atacar(e);
+					if (mapa.revisarMuerto(e)) {
+						contador++;
+						break;
+					}
+						
+				}
+			}
+		}
+		batch.end();
 		porcentajeVida = (float) jugador.getVida() / 100;
 		barraVida.pintar(porcentajeVida);
-		if(jugador.isMuerto()) {
-			musica.detener();
-			Recursos.MAIN.setScreen(new PantallaGameOver(0));
-		}
-		if(enemigo.isMuerto()) {
-			musica.detener();
-			Recursos.MAIN.setScreen(new PantallaYouWin());
-		}
+		
 	}
 
-	private boolean calcularRangoAtaque() {
+	protected boolean calcularRangoAtaque(Personaje e) {
 		float centroJugadorX = jugador.getX() + jugador.getHitbox().width/2;
 		float centroJugadorY = jugador.getY() + jugador.getHitbox().height/2;
-		float centroEnemigoX = enemigo.getX() + enemigo.getHitbox().width/2;
-		float centroEnemigoY = enemigo.getY() + enemigo.getHitbox().height/2;
+		float centroEnemigoX = e.getX() + e.getHitbox().width/2;
+		float centroEnemigoY = e.getY() + e.getHitbox().height/2;
 
 		float distancia = Vector2.dst(centroJugadorX, centroJugadorY, centroEnemigoX, centroEnemigoY);
-		if(distancia<=jugador.getAlcance()) return true;
+		if(distancia<=jugador.getInventario().getObjActual().getAlcance()) return true;
 		else return false;
-	}
-
-	private void fadeDanio(Personaje jugador) {
-		if (efectoDanio || !animacionT) {
-			if(animacionT) {
-				a=1;
-				rojo.setTrans(a);
-				rojo.dibujar();
-			}
-			a -= 0.05f;
-			animacionT = false;
-			if (a < 0) {
-				efectoDanio = false;
-				a = 0;
-				animacionT = true;
-			}
-		}
-
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		camara.actualizarPantalla();
+		camara.actualizarPantalla(width, height);
+		Recursos.recalcularPantalla(width, height);
 	}
 
 	@Override
@@ -134,6 +133,11 @@ public class PantallaJuego implements Screen{
 
 	@Override
 	public void dispose() {
+		jugador.dispose();
+		mapa.dispose();
+		musica.dispose();
+		sonidoGolpe.dispose();
+		sonidoOof.dispose();
 	}
 
 }
