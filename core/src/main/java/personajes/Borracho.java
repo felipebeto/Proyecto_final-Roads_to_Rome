@@ -1,5 +1,7 @@
 package personajes;
 
+import items.Inventario;
+
 public class Borracho extends Enemigo{
 
 	public Borracho(float x, float y) {
@@ -9,10 +11,15 @@ public class Borracho extends Enemigo{
 	public void atacar(Personaje jugador) {
 		if(vida>0) {
 			if (jugador.recibirDanio(20)) {
-				jugador.iniciarRetroceso(this);
+				jugador.iniciarRetroceso(this, distanciaRetro);
 			}
 		}
 	    
+	}
+	@Override
+	public Inventario getInventario() {
+		
+		return null;
 	}
 
 }

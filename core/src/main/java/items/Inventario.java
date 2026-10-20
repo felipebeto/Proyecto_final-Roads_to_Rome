@@ -3,37 +3,44 @@ package items;
 import java.util.ArrayList;
 
 public class Inventario {
-	private ArrayList<Objeto> contenido;
+	private Objeto[] contenido = new Objeto[2];
 	private Objeto objetoAct;
-	private int indiceAct = 1;
+	private int indiceAct = 0;
+	
 	public void agregar(Objeto o) {
-		if(!isLleno()) {
-			contenido.add(o);
-			
+		for(int i = 0;i<contenido.length;i++) {
+			if(!isOcupado(i)) {
+				contenido[i] = o;
+				return;
+			}
 		}
 		
 	}
+	private boolean isOcupado(int i) {
+		return contenido[i] != null;
+	}
 	public Objeto tirar(int i) {
-		Objeto o = contenido.get(i);
-		contenido.remove(i);
+		Objeto o = contenido[i];
+		contenido[i] = null;
 		return o;
 	}
 	public boolean isLleno() {
-		return (contenido.size() >=2);
+		return isOcupado(0) && isOcupado(1);
 	}
 	public void cambiarObjeto() {
-		if (indiceAct ==1) {
-			indiceAct = 2;
-			objetoAct = contenido.get(indiceAct);
-		}else {
+		if (indiceAct ==0) {
 			indiceAct = 1;
-			objetoAct = contenido.get(indiceAct);
+			objetoAct = contenido[1];
+		}else {
+			indiceAct = 0;
+			objetoAct = contenido[0];
 		}
 	}
 	public Objeto getObjActual(){
-		return objetoAct;
+		if(contenido[indiceAct] == null) return new Mano();
+		return contenido[indiceAct];
 	}
 	public boolean isVacio() {
-		return contenido.isEmpty();
+		return !isOcupado(0) && !isOcupado(1);
 	}
 }

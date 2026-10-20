@@ -109,7 +109,7 @@ public abstract class PantallaJuego implements Screen{
 		float centroEnemigoY = e.getY() + e.getHitbox().height/2;
 
 		float distancia = Vector2.dst(centroJugadorX, centroJugadorY, centroEnemigoX, centroEnemigoY);
-		if(distancia<=jugador.getAlcance()) return true;
+		if(distancia<=jugador.getInventario().getObjActual().getAlcance()) return true;
 		else return false;
 	}
 

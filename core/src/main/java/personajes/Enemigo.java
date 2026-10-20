@@ -11,6 +11,7 @@ public abstract class Enemigo extends Personaje{
 	private float tiempoAnim = 0.5f;
 	private boolean animacion = false;
 	private float contAnimacion = 0;
+	protected int distanciaRetro = 100;
 	private float nuevaX, nuevaY, direccionX, direccionY, objX, objY, difX, difY;
 
 	public Enemigo(float x, float y, String ruta) {

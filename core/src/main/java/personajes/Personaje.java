@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import Enums.Direccion;
 import elementos.Imagen;
+import items.Inventario;
 import mapas.Sala;
 import util.Colisiones;
 import util.Recursos;
@@ -79,7 +80,7 @@ public abstract class Personaje {
     }
 
     
-    public void iniciarRetroceso(Personaje atacante) {
+    public void iniciarRetroceso(Personaje atacante, int distanciaRetroceso) {
         float direccionX = this.x - atacante.getX();
         float direccionY = this.y - atacante.getY();
         float longitud = (float) Math.sqrt(direccionX * direccionX + direccionY * direccionY);
@@ -89,8 +90,8 @@ public abstract class Personaje {
 
         this.origenRetroX = this.x;
         this.origenRetroY = this.y;
-        this.destinoRetroX = this.x + (direccionX / longitud) * DISTANCIA_RETROCESO;
-        this.destinoRetroY = this.y + (direccionY / longitud) * DISTANCIA_RETROCESO;
+        this.destinoRetroX = this.x + (direccionX / longitud) * distanciaRetroceso;
+        this.destinoRetroY = this.y + (direccionY / longitud) * distanciaRetroceso;
         this.tiempoRetroceso = 0;
         this.isRetrocediendo = true;
     }
@@ -132,7 +133,7 @@ public abstract class Personaje {
     	
     }
 
-
+    public abstract Inventario getInventario();
 	public abstract boolean prepararAtaque();
 
 	public boolean avanzarSala(Sala mapa) {

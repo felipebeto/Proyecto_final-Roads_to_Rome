@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import items.Daga;
+import items.Espada;
 import items.Inventario;
 import items.Objeto;
 import mapas.Sala;
@@ -16,8 +18,8 @@ import util.InputManager;
 import util.Recursos;
 
 public class Jugador extends Personaje {
-	private Inventario inventario;
-	
+	private Inventario inventario = new Inventario();
+	private float cooldownAtaque = 0;
     private Animation<TextureRegion> animacionCaminar;
     private TextureRegion frameQuieto;
     private float tiempoAnimacion = 0;
@@ -53,6 +55,8 @@ public class Jugador extends Personaje {
     @Override
     public void calcularMovimiento(float delta, Sala mapa, Personaje enemigo) {
     	Gdx.input.setInputProcessor(input);
+    	if (cooldownDanio > 0) cooldownDanio -= delta;
+    	if (cooldownAtaque > 0) cooldownAtaque -= delta;
         if (atacando) {
             tiempoAtaque += delta;
             if (tiempoAtaque >= DURACION_ATAQUE) atacando = false;
@@ -75,7 +79,7 @@ public class Jugador extends Personaje {
         }
 
         revisarHitbox(nuevaX, nuevaY, mapa);
-        if (cooldownDanio > 0) cooldownDanio -= delta;
+        
     }
 
     @Override
@@ -95,11 +99,14 @@ public class Jugador extends Personaje {
 
     @Override
     public void atacar(Personaje enemigo) {
+    	if(cooldownAtaque>0) return;
         if (!atacando) {
             atacando = true;
+            cooldownAtaque = this.inventario.getObjActual().getCooldown();
+            System.out.println(this.inventario.getObjActual().getCooldown());
             tiempoAtaque = 0;
-            if (enemigo.recibirDanio(50)) {
-                enemigo.iniciarRetroceso(this);
+            if (enemigo.recibirDanio(this.inventario.getObjActual().getDanio())) {
+                enemigo.iniciarRetroceso(this, this.inventario.getObjActual().getEmpuje());
             }
         }
     }
@@ -123,6 +130,10 @@ public class Jugador extends Personaje {
 		super.dispose();
 		sheetCaminar.dispose();
 		sheetAtaque.dispose();
+	}
+	@Override
+	public Inventario getInventario() {
+		return inventario;
 	}
 
 }
