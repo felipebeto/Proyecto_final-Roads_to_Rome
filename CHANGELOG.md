@@ -4,6 +4,14 @@ Todos los cambios importantes de este proyecto se documentarán en este archivo.
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [1.0.5] - 2026-10-20
+### Agregado
+- Realiza correcciones hechas por el profesor
+- Optimiza código de pantallas.
+- Agrega el InputManager y lo pone en funcionamiento.
+- Implementa sistema de salas y mazmorras, la generación procedural y el conjunto de enemigos por sala.
+- Agrega base del sistema de inventario, cofres e ítems.
+
 ## [1.0.4] - 2026-09-18
 ### Agregado
 - Agrega beta del modo oleada.
