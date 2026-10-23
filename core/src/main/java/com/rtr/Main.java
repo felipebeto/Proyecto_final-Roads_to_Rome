@@ -5,7 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pantallas.PantallaMenuPrincipal;
 import util.InputManager;
-
+import datos.BaseDatos;
+import datos.Perfil;
+import pantallas.PantallaNombre;
 
 public class Main extends Game {
 	private InputManager input;
@@ -14,12 +16,18 @@ public class Main extends Game {
 
     @Override
     public void create() {
+       BaseDatos.iniciar();
        batch = new SpriteBatch();
        main = this;
        input = new InputManager();
 	Gdx.input.setInputProcessor(input);
        batch = new SpriteBatch();
-       this.setScreen(new PantallaMenuPrincipal(main, batch, input));
+       //cambio
+       if (Perfil.getNombre() == null) {
+           this.setScreen(new PantallaNombre(main, batch, input));
+        } else {
+           this.setScreen(new PantallaMenuPrincipal(main, batch, input));
+        }
     }
 
     @Override

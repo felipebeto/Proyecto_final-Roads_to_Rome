@@ -20,7 +20,7 @@ import util.GeneradorMazmorra;
 import util.InputManager;
 import util.Recursos;
 import util.Render;
-
+import datos.Perfil;
 public abstract class PantallaJuego implements Screen{
 	protected Personaje jugador;
 	protected Mazmorra mazmorra;
@@ -101,6 +101,12 @@ public abstract class PantallaJuego implements Screen{
 		barraVida.pintar(porcentajeVida);
 		
 	}
+	
+	//cambio
+	protected int getNivelActual() {
+		return 0;
+	}
+	
 
 	protected boolean calcularRangoAtaque(Personaje e) {
 		float centroJugadorX = jugador.getX() + jugador.getHitbox().width/2;
@@ -129,6 +135,8 @@ public abstract class PantallaJuego implements Screen{
 
 	@Override
 	public void hide() {
+		//cambio
+		Perfil.guardarPartida(contador, getNivelActual());
 	}
 
 	@Override

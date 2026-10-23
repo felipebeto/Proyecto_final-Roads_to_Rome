@@ -14,10 +14,14 @@ import elementos.Texto;
 import util.InputManager;
 import util.Recursos;
 import util.Render;
+import datos.Perfil;
 
 public class PantallaMenuPrincipal implements Screen{
 	private InputManager input;
 	private Imagen fondo;
+	private Texto nombreJugador;
+	private Texto oroJugador;
+	private Texto killsJugador;
 	private Texto titulo;
 	private Texto subtitulo1;
 	private Texto subtitulo2;
@@ -45,6 +49,9 @@ public class PantallaMenuPrincipal implements Screen{
 		fondo.ajustarTamaño();
 		titulo = new Texto("Roads to Rome ", 40, 450);
 		titulo.agrandar(2);
+		nombreJugador = new Texto("Jugador: " + Perfil.getNombre(), 60, 350);
+		oroJugador = new Texto("Oro en la caja fuerte: " + Perfil.getOroCajaFuerte(), 250, 350);
+		killsJugador = new Texto("La cantidad de enemigos asesinados es: " + Perfil.getEnemigosTotales(), 400, 350);
 		subtitulo1 = new Texto("Nueva partida", 60, 300);
 		subtitulo2 = new Texto("Modo oleada", 60, 250);
 		subtitulo3 = new Texto("Logros", 60, 200);
@@ -78,6 +85,8 @@ public class PantallaMenuPrincipal implements Screen{
 			fondo.setTrans(a);
 		}else {
 			titulo.escribir(batch);
+			nombreJugador.escribir(batch);
+			oroJugador.escribir(batch);
 			subtitulo1.setColor(subtitulo1.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
 			subtitulo1.escribir(batch);
 			subtitulo2.setColor(subtitulo2.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
@@ -124,6 +133,9 @@ public class PantallaMenuPrincipal implements Screen{
 	public void dispose() {
 		fondo.dispose();
 		titulo.dispose();
+		nombreJugador.dispose();
+		oroJugador.dispose();
+		killsJugador.dispose();
 		subtitulo1.dispose();
 		subtitulo2.dispose();
 		subtitulo3.dispose();

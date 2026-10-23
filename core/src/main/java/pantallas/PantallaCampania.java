@@ -16,6 +16,12 @@ public class PantallaCampania extends PantallaJuego{
 	public PantallaCampania(Main main, SpriteBatch batch, InputManager input) {
 		super(main, batch, input);
 	}
+	//cambio
+	@Override 
+	protected int getNivelActual() {
+		return nivelActual + 1;
+	}
+	
 	@Override
 	public void render(float delta) {
 		super.render(delta);
