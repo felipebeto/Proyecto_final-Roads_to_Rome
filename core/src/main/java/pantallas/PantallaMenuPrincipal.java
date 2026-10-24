@@ -56,7 +56,7 @@ public class PantallaMenuPrincipal implements Screen{
 		nivelMaxAlcanzado = new Texto("El nivel maximo alcanzado fue: " + Perfil.getNivelMaximo(), 60, 150);
 		subtitulo1 = new Texto("Nueva partida", 400, 300);
 		subtitulo2 = new Texto("Modo oleada", 400, 250);
-		subtitulo3 = new Texto("Logros", 400, 200);
+		subtitulo3 = new Texto("Mejoras", 400, 200);
 		subtitulo4 = new Texto("Salir del juego", 400, 150);
 		musica = new Audio(Recursos.MUSICA_MENU);
 		musica.cambiarVolumen(1);
@@ -111,7 +111,11 @@ public class PantallaMenuPrincipal implements Screen{
 					musica.detener();
 					main.setScreen(new PantallaOleada(main, batch, input));
 			}
-			if(subtitulo3.isSobre(mouseX, mouseY)) sonidoClick.play();
+			if(subtitulo3.isSobre(mouseX, mouseY)) {
+				sonidoClick.play();
+				musica.detener();
+				main.setScreen(new PantallaMejoras(main, batch, input));
+			}
 			if(subtitulo4.isSobre(mouseX, mouseY)) {
 			    musica.detener();
 			    Gdx.app.exit();

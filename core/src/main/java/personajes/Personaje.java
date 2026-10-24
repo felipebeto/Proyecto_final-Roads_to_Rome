@@ -13,6 +13,7 @@ import util.Recursos;
 public abstract class Personaje {
     protected float x, y;
     protected int vida;
+    protected int vidaMaxima;
     protected int velocidad;
     protected Rectangle hitbox;
     protected Imagen sprite;
@@ -29,6 +30,7 @@ public abstract class Personaje {
         this.x = x;
         this.y = y;
         this.vida = vida;
+        this.vidaMaxima = vida;
         this.velocidad = velocidad;
         this.sprite = new Imagen(ruta);
         sprite.setTamanio(ancho, alto);
@@ -131,6 +133,10 @@ public abstract class Personaje {
     public void dispose() {
     	sprite.dispose();
     	
+    }
+    
+    public int getVidaMaxima() {
+    	return vidaMaxima;
     }
 
     public abstract Inventario getInventario();

@@ -13,12 +13,11 @@ import com.badlogic.gdx.Gdx;
  * nombre, enemigos totales, nivel maximo, oro en la caja fuerte y mejoras del personaje.
  */
 public class Perfil {
-	/** Oro que se gana por cada enemigo derrotado. */
-	public static final int ORO_POR_ENEMIGO = 10;
+	public static final int OroPorEnemigo = 10;
 
-	private Perfil() {}
+	// private Perfil() {}
 
-	/** Nombre del jugador, o null si todavia no lo ingreso. */
+	
 	public static String getNombre() {
 		try (Statement st = BaseDatos.getConexion().createStatement();
 				ResultSet rs = st.executeQuery("SELECT nombre FROM jugador WHERE id = 1")) {
@@ -38,6 +37,62 @@ public class Perfil {
 			Gdx.app.error("Perfil", "No se pudo guardar el nombre", e);
 		}
 	}
+	
+	
+	
+	
+	 // Compra una mejora con el oro de la caja fuerte. Si la mejora ya existe, sube un nivel.
+	 //Devuelve false si no alcanza el oro. El cobro y el registro van juntos en una transaccion.
+	 
+	public static boolean comprarMejora(String nombre, int costo) {
+		Connection c = BaseDatos.getConexion();
+		try {
+			c.setAutoCommit(false);
+			try {
+				try (PreparedStatement cobro = c.prepareStatement(
+						"UPDATE jugador SET oro_caja_fuerte = oro_caja_fuerte - ? "
+						+ "WHERE id = 1 AND oro_caja_fuerte >= ?")) {
+					cobro.setInt(1, costo);
+					cobro.setInt(2, costo);
+					if (cobro.executeUpdate() == 0) {
+						c.rollback();
+						return false;
+					}
+				}
+				try (PreparedStatement mejora = c.prepareStatement(
+						"INSERT INTO mejora (nombre, nivel) VALUES (?, 1) "
+						+ "ON CONFLICT(nombre) DO UPDATE SET nivel = nivel + 1")) {
+					mejora.setString(1, nombre);
+					mejora.executeUpdate();
+				}
+				c.commit();
+				return true;
+			} catch (SQLException e) {
+				c.rollback();
+				throw e;
+			} finally {
+				c.setAutoCommit(true);
+			}
+		} catch (SQLException e) {
+			Gdx.app.error("Perfil", "No se pudo comprar la mejora " + nombre, e);
+			return false;
+		}
+	}
+	
+	//hay q ver bien esto
+	// Mejoras realizadas al personaje: nombre -> nivel. 
+	public static LinkedHashMap<String, Integer> getMejoras() {
+		LinkedHashMap<String, Integer> mejoras = new LinkedHashMap<>();
+		try (Statement st = BaseDatos.getConexion().createStatement();
+				ResultSet rs = st.executeQuery("SELECT nombre, nivel FROM mejora ORDER BY nombre")) {
+			while (rs.next()) mejoras.put(rs.getString("nombre"), rs.getInt("nivel"));
+		} catch (SQLException e) {
+			Gdx.app.error("Perfil", "No se pudieron leer las mejoras", e);
+		}
+		return mejoras;
+	}
+	 
+	
 
 	public static int getEnemigosTotales() {
 		return leerEntero("enemigos_totales");
@@ -63,7 +118,7 @@ public class Perfil {
 				+ "WHERE id = 1";
 		try (PreparedStatement ps = BaseDatos.getConexion().prepareStatement(sql)) {
 			ps.setInt(1, enemigos);
-			ps.setInt(2, enemigos * ORO_POR_ENEMIGO);
+			ps.setInt(2, enemigos * OroPorEnemigo);
 			ps.setInt(3, nivelAlcanzado);
 			ps.executeUpdate();
 		} catch (SQLException e) {

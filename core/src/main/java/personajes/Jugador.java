@@ -1,6 +1,7 @@
 package personajes;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,10 +17,13 @@ import items.Objeto;
 import mapas.Sala;
 import util.InputManager;
 import util.Recursos;
+import datos.Perfil;
+import Enums.Mejoras;
 
 public class Jugador extends Personaje {
 	private Inventario inventario = new Inventario();
 	private float cooldownAtaque = 0;
+	private int bonusDanio = 0;
     private Animation<TextureRegion> animacionCaminar;
     private TextureRegion frameQuieto;
     private float tiempoAnimacion = 0;
@@ -39,6 +43,16 @@ public class Jugador extends Personaje {
         cargarSpriteSheets();
     }
 
+    //cambios. Aplica las mejoras al empezar la partida
+    private void aplicarMejoras() {
+        LinkedHashMap<String, Integer> mejoras = Perfil.getMejoras();
+        vidaMaxima += Mejoras.VIDA.getBonus(Mejoras.VIDA.getNivel(mejoras));
+        vida = vidaMaxima;
+        velocidad += Mejoras.VELOCIDAD.getBonus(Mejoras.VELOCIDAD.getNivel(mejoras));
+        bonusDanio = Mejoras.DANIO.getBonus(Mejoras.DANIO.getNivel(mejoras));
+    }
+    
+    
     private void cargarSpriteSheets() {
         sheetCaminar = new Texture(Gdx.files.internal("sheetCaminando.png"));
         TextureRegion[] framesCaminando = TextureRegion.split(sheetCaminar, 56, 81)[0];
