@@ -120,7 +120,7 @@ public class Jugador extends Personaje {
             cooldownAtaque = this.inventario.getObjActual().getCooldown();
             System.out.println(this.inventario.getObjActual().getCooldown());
             tiempoAtaque = 0;
-            if (enemigo.recibirDanio(this.inventario.getObjActual().getDanio())) {
+            if (enemigo.recibirDanio(this.inventario.getObjActual().getDanio() + bonusDanio)) {
                 enemigo.iniciarRetroceso(this, this.inventario.getObjActual().getEmpuje());
             }
         }
