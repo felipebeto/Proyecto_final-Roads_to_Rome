@@ -41,6 +41,7 @@ public class Jugador extends Personaje {
     public Jugador() {
         super(500, 500, 100, 400, "gambit1.png", 39, 39, 100);
         cargarSpriteSheets();
+        aplicarMejoras();
     }
 
     //cambios. Aplica las mejoras al empezar la partida

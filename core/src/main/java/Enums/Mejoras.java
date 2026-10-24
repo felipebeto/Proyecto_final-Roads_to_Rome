@@ -5,7 +5,7 @@ import java.util.Map;
 public enum Mejoras {
 	VIDA("vida", "Vida", " de vida", 20),
 	DANIO("danio", "Daño base", " de daño", 5),
-	VELOCIDAD("velocidad", "Velocidad base", " de velocidad", 25);
+	VELOCIDAD("velocidad", "Velocidad base", " de velocidad", 5);
 
 	public static final int NIVEL_MAXIMO = 5;
 	private static final int COSTO_BASE = 50;

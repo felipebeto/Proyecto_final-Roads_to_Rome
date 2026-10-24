@@ -135,7 +135,7 @@ public abstract class PantallaJuego implements Screen{
 
 	@Override
 	public void hide() {
-		//cambio
+		//guarda el contador de kills y el nivel q llego al finalizar
 		Perfil.guardarPartida(contador, getNivelActual());
 	}
 
