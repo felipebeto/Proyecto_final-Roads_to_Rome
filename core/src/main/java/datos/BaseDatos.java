@@ -48,7 +48,6 @@ public class BaseDatos {
 
 	private static void crearTablas() throws SQLException {
 		try (Statement st = conexion.createStatement()) {
-			// Una sola fila (id = 1) con los datos del jugador
 			st.execute("CREATE TABLE IF NOT EXISTS jugador ("
 					+ "id INTEGER PRIMARY KEY CHECK (id = 1), "
 					+ "nombre TEXT, "
