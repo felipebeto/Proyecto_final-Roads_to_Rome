@@ -157,4 +157,10 @@ public abstract class Personaje {
         
 	}
 
+	public abstract void tirarObjeto(Sala sala);
+
+	public abstract void agarrarObjeto(Sala sala);
+
+	public abstract void calcularAcciones(Sala mapa, float delta);
+
 }

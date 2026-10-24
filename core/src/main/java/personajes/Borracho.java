@@ -1,6 +1,7 @@
 package personajes;
 
 import items.Inventario;
+import mapas.Sala;
 
 public class Borracho extends Enemigo{
 
@@ -20,6 +21,15 @@ public class Borracho extends Enemigo{
 	public Inventario getInventario() {
 		
 		return null;
+	}
+	@Override
+	public void tirarObjeto(Sala sala) {
+	}
+	@Override
+	public void agarrarObjeto(Sala sala) {
+	}
+	@Override
+	public void calcularAcciones(Sala mapa, float delta) {
 	}
 
 }

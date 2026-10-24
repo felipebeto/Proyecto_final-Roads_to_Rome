@@ -1,9 +1,11 @@
 package items;
 
+import util.Recursos;
+
 public class Llave extends Consumible{
 
-	public Llave(String nombre) {
-		super(nombre);
+	public Llave() {
+		super("Llave", Recursos.LLAVE);
 		
 	}
 

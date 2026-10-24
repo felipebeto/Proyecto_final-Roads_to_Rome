@@ -25,6 +25,11 @@ public class Recursos {
 	public static final String SALA_INICIO = "fondos/inicio2.png";
 	public static final int ANCHO_MAPA = 1000;
 	public static final int ALTO_MAPA = 1000;
+	public static final String ESPADA = "espada.png";
+	public static final String DAGA = "daga.png";
+	public static final String LANZA = "lanza.png";
+	public static final String LLAVE = "llave.png";
+	public static final String POCION = "poti.png";
 	public static void recalcularPantalla(int width, int height) {
 		ancho = width;
 		alto = height;

@@ -72,7 +72,7 @@ public abstract class PantallaJuego implements Screen{
 		if(mapa.hayCofre()) {
 			mapa.getCofre().dibujar(batch);
 		}
-		
+		mapa.dibujarSuelo(batch);
 		for (Personaje e : mapa.getEnemigos()) {
 			e.dibujar(batch);
 		}
@@ -96,11 +96,13 @@ public abstract class PantallaJuego implements Screen{
 				}
 			}
 		}
+		jugador.calcularAcciones(mapa, delta);
 		batch.end();
 		porcentajeVida = (float) jugador.getVida() / 100;
 		barraVida.pintar(porcentajeVida);
 		
 	}
+	
 
 	protected boolean calcularRangoAtaque(Personaje e) {
 		float centroJugadorX = jugador.getX() + jugador.getHitbox().width/2;

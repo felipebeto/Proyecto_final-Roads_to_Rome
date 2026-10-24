@@ -20,9 +20,9 @@ public class Inventario {
 		return contenido[i] != null;
 	}
 	public Objeto tirar(int i) {
-		Objeto o = contenido[i];
+		Objeto objeto = contenido[i];
 		contenido[i] = null;
-		return o;
+		return objeto;
 	}
 	public boolean isLleno() {
 		return isOcupado(0) && isOcupado(1);
@@ -42,5 +42,9 @@ public class Inventario {
 	}
 	public boolean isVacio() {
 		return !isOcupado(0) && !isOcupado(1);
+	}
+	public int getIndiceAct() {
+		
+		return indiceAct;
 	}
 }

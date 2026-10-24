@@ -1,9 +1,11 @@
 package items;
 
+import elementos.Imagen;
+
 public class Consumible extends Objeto{
 
-	public Consumible(String nombre) {
-		super(nombre);
+	public Consumible(String nombre, String ruta) {
+		super(nombre, ruta);
 		
 	}
 

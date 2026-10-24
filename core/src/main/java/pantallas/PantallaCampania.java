@@ -47,7 +47,6 @@ public class PantallaCampania extends PantallaJuego{
 			}
 			if(mapa.hayCofre()) {
 				mapa.revelarCofre();
-				mapa.revisarColisionCofre(jugador);
 			}
 			
 		}

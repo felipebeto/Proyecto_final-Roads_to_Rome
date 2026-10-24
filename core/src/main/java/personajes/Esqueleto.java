@@ -1,6 +1,7 @@
 package personajes;
 
 import items.Inventario;
+import mapas.Sala;
 
 public class Esqueleto extends Enemigo{
 
@@ -17,6 +18,18 @@ public class Esqueleto extends Enemigo{
 	public Inventario getInventario() {
 		
 		return null;
+	}
+
+	@Override
+	public void tirarObjeto(Sala sala) {
+	}
+
+	@Override
+	public void agarrarObjeto(Sala sala) {
+	}
+
+	@Override
+	public void calcularAcciones(Sala mapa, float delta) {
 	}
 
 }

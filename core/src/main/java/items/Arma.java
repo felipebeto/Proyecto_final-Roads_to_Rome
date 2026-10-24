@@ -1,5 +1,7 @@
 package items;
 
+import elementos.Imagen;
+
 public class Arma extends Objeto{
 
 	protected int danio;
@@ -7,8 +9,8 @@ public class Arma extends Objeto{
 	protected int empuje;
 	protected float cooldown;
 	
-	public Arma(String nombre, int danio, int alcance, int empuje, float cooldown) {
-		super(nombre);
+	public Arma(String nombre, String ruta, int danio, int alcance, int empuje, float cooldown) {
+		super(nombre, ruta);
 		this.danio = danio;
 		this.alcance = alcance;
 		this.empuje = empuje;

@@ -13,13 +13,17 @@ import items.Daga;
 import items.Espada;
 import items.Inventario;
 import items.Objeto;
+import mapas.Cofre;
+import mapas.ObjetoTirado;
 import mapas.Sala;
+import util.Colisiones;
 import util.InputManager;
 import util.Recursos;
 
 public class Jugador extends Personaje {
 	private Inventario inventario = new Inventario();
 	private float cooldownAtaque = 0;
+	private float cooldownAccion = 0;
     private Animation<TextureRegion> animacionCaminar;
     private TextureRegion frameQuieto;
     private float tiempoAnimacion = 0;
@@ -37,6 +41,7 @@ public class Jugador extends Personaje {
     public Jugador() {
         super(500, 500, 100, 400, "gambit1.png", 39, 39, 100);
         cargarSpriteSheets();
+        inventario.agregar(new Espada());
     }
 
     private void cargarSpriteSheets() {
@@ -81,8 +86,32 @@ public class Jugador extends Personaje {
         revisarHitbox(nuevaX, nuevaY, mapa);
         
     }
-
     @Override
+    public void calcularAcciones(Sala mapa, float delta) {
+    	if(cooldownAccion >0) {
+    		cooldownAccion-=delta;
+    	}else {
+    		cooldownAccion = 0.5f;
+    		if(input.isTirar()) tirarObjeto(mapa);
+    		if(input.isCambiar()) inventario.cambiarObjeto();
+    		if(input.isInteractuar()) interactuar(mapa);
+    	}
+    	
+    	System.out.println("slot actual: "+inventario.getIndiceAct());
+    }
+
+
+	private void interactuar(Sala mapa) {
+    	Cofre cofre = mapa.getCofre();
+	    if (cofre != null && cofre.isVisible() && !cofre.isAbierto() && Colisiones.colisionaConEntidad(cofre.getHitbox(), hitbox)) {
+	        cofre.abrir();
+	        mapa.soltarObjeto(cofre.getX(), cofre.getY(), cofre.getContenido());
+	        return;
+	    }
+	    agarrarObjeto(mapa);
+	}
+
+	@Override
 	public boolean prepararAtaque() {
     	if(input.isClick()) return true;
     	return false;
@@ -124,7 +153,23 @@ public class Jugador extends Personaje {
         sprite.dibujar(batch);
     }
 
-
+    @Override
+    public void tirarObjeto(Sala sala) {
+        Objeto objeto = inventario.tirar(inventario.getIndiceAct());
+        if (objeto != null) sala.soltarObjeto(x, y, objeto);
+    }
+    @Override
+    public void agarrarObjeto(Sala sala) {
+        if (!inventario.isLleno()) {
+        	ObjetoTirado objeto = sala.revisarObjeto(this);
+        	if (objeto != null) {
+        		inventario.agregar(objeto.getObjeto());
+        		sala.quitarObjeto(objeto);
+        	}
+        }
+        
+    }
+    
 	@Override
 	public void dispose() {
 		super.dispose();

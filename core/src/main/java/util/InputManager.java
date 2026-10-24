@@ -7,6 +7,7 @@ public class InputManager extends InputAdapter{
 	private boolean a, d, w, s;
     private boolean izq, der, arriba, abajo;
 	private boolean click;
+	private boolean e, q, f;
 	
 
 	@Override
@@ -19,6 +20,9 @@ public class InputManager extends InputAdapter{
         if (keycode == Input.Keys.RIGHT) der = true;
         if (keycode == Input.Keys.UP) arriba = true;
         if (keycode == Input.Keys.DOWN) abajo = true;
+        if (keycode == Input.Keys.E) e = true;
+        if (keycode == Input.Keys.Q) q = true;
+        if (keycode == Input.Keys.F) f = true;
 		return true;
 	}
 	@Override
@@ -31,13 +35,16 @@ public class InputManager extends InputAdapter{
 	     if (keycode == Input.Keys.RIGHT) der = false;
 	     if (keycode == Input.Keys.UP) arriba = false;
 	     if (keycode == Input.Keys.DOWN) abajo = false;
+	     if (keycode == Input.Keys.E) e = false;
+	     if (keycode == Input.Keys.Q) q = false;
+	     if (keycode == Input.Keys.F) f = false;
 		return true;
 	}
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if(button == Input.Buttons.LEFT) {
 			click = true;
-			System.out.println("clickeado");
+			//System.out.println("clickeado");
 		}
 		return true;
 	}
@@ -45,7 +52,7 @@ public class InputManager extends InputAdapter{
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if(button == Input.Buttons.LEFT) {
 			click = false; 
-			System.out.println("dejo de clickear");
+			//System.out.println("dejo de clickear");
 		}
 		return true;
 	}
@@ -65,8 +72,18 @@ public class InputManager extends InputAdapter{
 	public boolean isAbajo() {
 		return abajo||s;
 	}
+	public boolean isTirar() {
+		//System.out.println(q);
+		return q;
+	}
+	public boolean isInteractuar() {
+		return e;
+	}
 	public boolean isClick() {
-		if(click) System.out.println("clickeando...");
+		//if(click) System.out.println("clickeando...");
 		return click;
+	}
+	public boolean isCambiar() {
+		return f;
 	}
 }

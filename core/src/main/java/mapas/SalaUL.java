@@ -32,7 +32,7 @@ public class SalaUL extends Sala {
 		agregarObstaculo(320, 680, 40, 40);
 		agregarObstaculo(600, 720, 160, 40);
 		agregarObstaculo(680, 360, 40, 80);
-		
+		agregarCofre(500, 500);
 	}
 
 	@Override

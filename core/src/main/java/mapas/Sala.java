@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import Enums.Direccion;
 import elementos.Imagen;
+import items.Objeto;
 import personajes.Enemigo;
 import personajes.Personaje;
 import util.Colisiones;
@@ -16,6 +17,7 @@ public abstract class Sala {
 	protected ArrayList <Rectangle> obstaculos;
 	protected Imagen fondo;
 	private ArrayList<Enemigo> enemigos;
+	private ArrayList<ObjetoTirado> objetos;
 	private Direccion puerta1;
 	private Direccion puerta2;
 	public Direccion dEntrada;
@@ -30,6 +32,7 @@ public abstract class Sala {
 		this.puerta2 = puerta2;
 		this.obstaculos = new ArrayList<>();
 		this.enemigos = new ArrayList<>();
+		this.objetos = new ArrayList<>();
 		cargarElementos();
 	}
 	public void setearEntrada(Direccion d) {
@@ -104,11 +107,26 @@ public abstract class Sala {
 		this.usado2 = true;
 	}
 	public abstract boolean revisarPortal(float x, float y);
-	public void revisarColisionCofre(Personaje j) {
-		if(Colisiones.colisionaConEntidad(cofre.getHitbox(), j.getHitbox())) cofre.abrir();
-	}
+	
 	public Cofre getCofre() {
 		return cofre;
+	}
+	public void soltarObjeto(float x, float y, Objeto objeto) {
+	    if (objeto != null) objetos.add(new ObjetoTirado(x, y, objeto));
+	}
+	public ObjetoTirado revisarObjeto(Personaje jugador){
+		for(ObjetoTirado objeto : objetos) {
+			if(Colisiones.colisionaConEntidad(objeto.getHitbox(), jugador.getHitbox())) {
+				return objeto;
+			}
+		}
+		return null;
+	}
+	public void quitarObjeto(ObjetoTirado s){ 
+		objetos.remove(s); 
+	}
+	public void dibujarSuelo(SpriteBatch batch) {
+	    for (ObjetoTirado objeto : objetos) objeto.dibujar(batch);
 	}
 	public boolean hayCofre() {
 		return cofre!=null;

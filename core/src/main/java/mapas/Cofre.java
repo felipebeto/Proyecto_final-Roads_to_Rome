@@ -63,5 +63,25 @@ public class Cofre {
 	public Rectangle getHitbox() {
 		return hitbox;
 	}
+	public boolean isVisible() {
+		
+		return visible;
+	}
+	public boolean isAbierto() {
+		
+		return abierto;
+	}
+	public float getY() {
+		
+		return y;
+	}
+	public Objeto getContenido() {
+		
+		return contenido;
+	}
+	public float getX() {
+		
+		return x;
+	}
 
 }
