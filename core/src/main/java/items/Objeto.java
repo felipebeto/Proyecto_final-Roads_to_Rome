@@ -1,6 +1,7 @@
 package items;
 
 import elementos.Imagen;
+import personajes.Personaje;
 
 public abstract class Objeto {
 	protected String nombre;
@@ -9,6 +10,9 @@ public abstract class Objeto {
 	public Objeto(String nombre, String ruta) {
 		this.nombre = nombre;
 		if(ruta != null) this.imagen = new Imagen(ruta);
+	}
+	public void usar(Personaje pj) {
+		
 	}
 	public int getDanio() {
 		return 0;

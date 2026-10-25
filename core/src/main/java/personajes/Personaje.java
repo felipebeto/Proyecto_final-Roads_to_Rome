@@ -12,7 +12,7 @@ import util.Recursos;
 
 public abstract class Personaje {
     protected float x, y;
-    protected int vida;
+    protected int vida, maxVida;
     protected int velocidad;
     protected Rectangle hitbox;
     protected Imagen sprite;
@@ -28,7 +28,8 @@ public abstract class Personaje {
     public Personaje(float x, float y, int vida, int velocidad, String ruta, float ancho, float alto, int alcance) {
         this.x = x;
         this.y = y;
-        this.vida = vida;
+        maxVida = vida;
+        this.vida = maxVida;
         this.velocidad = velocidad;
         this.sprite = new Imagen(ruta);
         sprite.setTamanio(ancho, alto);
@@ -162,5 +163,10 @@ public abstract class Personaje {
 	public abstract void agarrarObjeto(Sala sala);
 
 	public abstract void calcularAcciones(Sala mapa, float delta);
+
+	public void curar(int cantidad) {
+		vida +=cantidad;
+		if (vida>maxVida) vida = maxVida;
+	}
 
 }

@@ -91,10 +91,19 @@ public class Jugador extends Personaje {
     	if(cooldownAccion >0) {
     		cooldownAccion-=delta;
     	}else {
-    		cooldownAccion = 0.5f;
-    		if(input.isTirar()) tirarObjeto(mapa);
-    		if(input.isCambiar()) inventario.cambiarObjeto();
-    		if(input.isInteractuar()) interactuar(mapa);
+    		
+    		if(input.isTirar()) {
+    			tirarObjeto(mapa);
+    			cooldownAccion = 0.5f;
+    		}
+    		if(input.isCambiar()) {
+    			inventario.cambiarObjeto();
+    			cooldownAccion = 0.5f;
+    		}
+    		if(input.isInteractuar()) {
+    			interactuar(mapa);
+    			cooldownAccion = 0.5f;
+    		}
     	}
     	
     	System.out.println("slot actual: "+inventario.getIndiceAct());
@@ -109,6 +118,7 @@ public class Jugador extends Personaje {
 	        return;
 	    }
 	    agarrarObjeto(mapa);
+	    inventario.getObjActual().usar(this);
 	}
 
 	@Override

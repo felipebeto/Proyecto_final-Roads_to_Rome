@@ -8,5 +8,6 @@ public class Consumible extends Objeto{
 		super(nombre, ruta);
 		
 	}
+	
 
 }
