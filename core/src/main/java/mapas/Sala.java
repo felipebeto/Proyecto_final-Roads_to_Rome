@@ -49,14 +49,19 @@ public abstract class Sala {
 	protected void agregarObstaculo(float x, float y, float ancho, float alto) {
 		obstaculos.add(new Rectangle(x, y, ancho, alto));
 	}
+	protected void sacarObstaculo(int i) {
+		obstaculos.remove(i);
+	}
 	
 	protected void agregarEnemigos(Enemigo e) {
 		enemigos.add(e);
 	}
 	protected void agregarCofre(int w, int h) {
-		cofre = new Cofre(w, h);
+		cofre = new Cofre(w, h, false);
 	}
-	
+	protected void agregarCofre(int w, int h, boolean especial) {
+		cofre = new Cofre(w, h, especial);
+	}
 	public void dibujarFondo(SpriteBatch batch) {
 		fondo.dibujar(batch);
 	}
@@ -131,4 +136,5 @@ public abstract class Sala {
 	public boolean hayCofre() {
 		return cofre!=null;
 	}
+	public abstract void abrirPuerta();
 }

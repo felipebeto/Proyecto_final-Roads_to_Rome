@@ -30,6 +30,8 @@ public class Recursos {
 	public static final String LANZA = "lanza.png";
 	public static final String LLAVE = "llave.png";
 	public static final String POCION = "poti.png";
+	public static final String SALA_ESCAPE = "fondos/finalce.png";
+	public static final String SALA_ESCAPEAB = "fondos/finalAb.png";
 	public static void recalcularPantalla(int width, int height) {
 		ancho = width;
 		alto = height;

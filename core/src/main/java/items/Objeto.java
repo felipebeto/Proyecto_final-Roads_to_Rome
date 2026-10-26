@@ -1,6 +1,7 @@
 package items;
 
 import elementos.Imagen;
+import mapas.Sala;
 import personajes.Personaje;
 
 public abstract class Objeto {
@@ -11,7 +12,7 @@ public abstract class Objeto {
 		this.nombre = nombre;
 		if(ruta != null) this.imagen = new Imagen(ruta);
 	}
-	public void usar(Personaje pj) {
+	public void usar(Personaje pj, Sala mapa) {
 		
 	}
 	public int getDanio() {

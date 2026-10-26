@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import items.Daga;
+import items.Dios;
 import items.Espada;
 import items.Inventario;
 import items.Objeto;
@@ -39,9 +40,9 @@ public class Jugador extends Personaje {
     
 
     public Jugador() {
-        super(500, 500, 100, 400, "gambit1.png", 39, 39, 100);
+        super(500, 500, 100, 700, "gambit1.png", 39, 39, 100);
         cargarSpriteSheets();
-        inventario.agregar(new Espada());
+        inventario.agregar(new Dios());
     }
 
     private void cargarSpriteSheets() {
@@ -118,7 +119,7 @@ public class Jugador extends Personaje {
 	        return;
 	    }
 	    agarrarObjeto(mapa);
-	    inventario.getObjActual().usar(this);
+	    inventario.getObjActual().usar(this, mapa);
 	}
 
 	@Override

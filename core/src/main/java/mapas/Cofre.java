@@ -18,10 +18,15 @@ public class Cofre {
 	private Objeto contenido;
 	private boolean abierto = false;
 	private boolean visible = false;
-	public Cofre(float x, float y) {
+	public Cofre(float x, float y, boolean especial) {
 		this.x = x;
 		this.y = y;
-		this.contenido = elegirContenido();
+		if(especial) {
+			this.contenido = new Llave();
+		}else {
+			this.contenido = elegirContenido();
+		}
+		
 		this.hitbox = new Rectangle(x, y, ancho, alto);
 		imagenC.setTamanio(ancho, alto);
 		imagenA.setTamanio(ancho, alto);

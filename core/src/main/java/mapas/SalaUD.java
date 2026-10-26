@@ -41,4 +41,8 @@ public class SalaUD extends Sala {
 		return false;
 	}
 
+	@Override
+	public void abrirPuerta() {
+	}
+
 }

@@ -169,4 +169,9 @@ public abstract class Personaje {
 		if (vida>maxVida) vida = maxVida;
 	}
 
+	public void setPosicion(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 }

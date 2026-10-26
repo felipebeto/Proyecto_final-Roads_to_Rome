@@ -25,4 +25,8 @@ public class SalaInicio extends Sala{
 		
 		return false;
 	}
+
+	@Override
+	public void abrirPuerta() {
+	}
 }

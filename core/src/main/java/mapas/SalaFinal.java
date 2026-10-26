@@ -29,4 +29,8 @@ public class SalaFinal extends Sala{
 		if(x>460&&x<540&&y>460&&y<540) return true;
 		return false;
 	}
+
+	@Override
+	public void abrirPuerta() {
+	}
 }

@@ -47,23 +47,14 @@ public abstract class PantallaJuego implements Screen{
 	@Override
 	public void show() {
 		jugador = new Jugador();
-		mazmorra = GeneradorMazmorra.generar(Aleatorio.generarEntero(6, 8));
-		musica = new Audio(Recursos.MUSICA_JUEGO);
-		sonidoGolpe = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_GOLPE));
-		sonidoOof = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_OOF));
 		camara = new Camara();
-		barraVida  = new BarraVida();
-		barraVida.recalcularCoords();
 	}
 
 	@Override
 	public void render(float delta) {
-		mapa = mazmorra.getSalaActual();
-		musica.comenzar();
+		
 		jugador.calcularMovimiento(delta, mapa, jugador);
-		for (Personaje e : mapa.getEnemigos()) {
-			e.calcularMovimiento(delta, mapa, jugador);
-		}
+		
 		Render.limpiar(0, 0, 0);
 		camara.actualizarPosicion(jugador, batch);
 		
@@ -73,33 +64,13 @@ public abstract class PantallaJuego implements Screen{
 			mapa.getCofre().dibujar(batch);
 		}
 		mapa.dibujarSuelo(batch);
-		for (Personaje e : mapa.getEnemigos()) {
-			e.dibujar(batch);
-		}
+		
 		jugador.dibujar(batch);
-		for (Personaje e : mapa.getEnemigos()) {
-			if (Colisiones.colisionaConEntidad(jugador.getHitbox(), e.getHitbox())) {
-				sonidoOof.play();
-				e.atacar(jugador);
-			}
-		}
-		if (jugador.prepararAtaque()) {
-			for (Enemigo e : mapa.getEnemigos()) {
-				if (calcularRangoAtaque(e)) {
-					sonidoGolpe.play();
-					jugador.atacar(e);
-					if (mapa.revisarMuerto(e)) {
-						contador++;
-						break;
-					}
-						
-				}
-			}
-		}
+		
 		jugador.calcularAcciones(mapa, delta);
 		batch.end();
 		porcentajeVida = (float) jugador.getVida() / 100;
-		barraVida.pintar(porcentajeVida);
+		
 		
 	}
 	
@@ -137,9 +108,6 @@ public abstract class PantallaJuego implements Screen{
 	public void dispose() {
 		jugador.dispose();
 		mapa.dispose();
-		musica.dispose();
-		sonidoGolpe.dispose();
-		sonidoOof.dispose();
 	}
 
 }
