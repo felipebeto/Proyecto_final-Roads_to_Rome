@@ -27,5 +27,8 @@ public class ObjetoTirado {
 		
 		return objeto;
 	}
+	public void dispose() {
+		objeto.dispose();
+	}
 
 }

@@ -25,4 +25,10 @@ public class Mazmorra {
 		return indiceSala==0;
 	}
 
+	public void dispose() {
+		for(int i = 0; i<salas.size();i++) {
+			salas.get(i).dispose();
+		}
+	}
+
 }

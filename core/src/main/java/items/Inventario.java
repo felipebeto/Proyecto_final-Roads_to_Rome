@@ -47,4 +47,9 @@ public class Inventario {
 		
 		return indiceAct;
 	}
+	public void dispose() {
+		for(int i = 0;i<contenido.length;i++) {
+			contenido[i].dispose();	
+		}
+	}
 }

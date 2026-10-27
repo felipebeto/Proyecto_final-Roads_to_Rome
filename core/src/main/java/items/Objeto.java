@@ -31,5 +31,9 @@ public abstract class Objeto {
 		
 		return imagen;
 	}
+	public void dispose() {
+		imagen.dispose();
+		
+	}
 
 }

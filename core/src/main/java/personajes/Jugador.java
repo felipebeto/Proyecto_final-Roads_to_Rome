@@ -43,6 +43,7 @@ public class Jugador extends Personaje {
         super(500, 500, 100, 700, "gambit1.png", 39, 39, 100);
         cargarSpriteSheets();
         inventario.agregar(new Dios());
+        
     }
 
     private void cargarSpriteSheets() {
@@ -186,6 +187,7 @@ public class Jugador extends Personaje {
 		super.dispose();
 		sheetCaminar.dispose();
 		sheetAtaque.dispose();
+		inventario.dispose();
 	}
 	@Override
 	public Inventario getInventario() {

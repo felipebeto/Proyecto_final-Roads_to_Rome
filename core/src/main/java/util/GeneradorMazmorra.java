@@ -54,7 +54,7 @@ public class GeneradorMazmorra {
 								}
 							}
 						}
-					}while(!conecta && cont<200);
+					}while(!conecta && cont<50);
 					if(!conecta) {
 						System.out.println("demora");
 						return generar(cantSalas);

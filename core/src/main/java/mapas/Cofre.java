@@ -88,5 +88,10 @@ public class Cofre {
 		
 		return x;
 	}
+	public void dispose() {
+		imagenC.dispose();
+		imagenA.dispose();
+		contenido.dispose();
+	}
 
 }

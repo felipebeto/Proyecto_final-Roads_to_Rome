@@ -77,6 +77,13 @@ public abstract class Sala {
 
 	public void dispose() {
 		fondo.dispose();
+		if (cofre != null) cofre.dispose();
+		for(int i = 0; i<enemigos.size();i++) {
+			enemigos.get(i).dispose();
+		}
+		for(int i = 0; i<objetos.size();i++) {
+			objetos.get(i).dispose();
+		}
 	}
 
 	public ArrayList<Enemigo> getEnemigos() {
@@ -137,4 +144,5 @@ public abstract class Sala {
 		return cofre!=null;
 	}
 	public abstract void abrirPuerta();
+	
 }

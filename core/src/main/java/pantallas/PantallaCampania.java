@@ -24,6 +24,7 @@ public class PantallaCampania extends PantallaJuego{
 	
 	public PantallaCampania(Main main, SpriteBatch batch, InputManager input) {
 		super(main, batch, input);
+		
 	}
 	
 	@Override
@@ -35,6 +36,7 @@ public class PantallaCampania extends PantallaJuego{
 		sonidoOof = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_OOF));
 		barraVida  = new BarraVida();
 		barraVida.recalcularCoords();
+		
 	}
 	@Override
 	public void render(float delta) {
@@ -123,6 +125,7 @@ public class PantallaCampania extends PantallaJuego{
 		musica.dispose();
 		sonidoGolpe.dispose();
 		sonidoOof.dispose();
+		mazmorra.dispose();
 	}
 
 }
