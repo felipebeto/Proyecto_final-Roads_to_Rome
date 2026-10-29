@@ -54,7 +54,7 @@ public abstract class Personaje {
     }
 
     public abstract void calcularMovimiento(float delta, Sala mapa, Personaje p);
-    public abstract void atacar(Personaje p);
+    public abstract void atacar();
 
     public boolean revisarLimite() {
         if (x == 0) return true;
@@ -172,6 +172,9 @@ public abstract class Personaje {
 	public void setPosicion(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	public void daniar(Personaje enemigo) {
 	}
 
 }

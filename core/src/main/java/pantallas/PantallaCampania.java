@@ -64,14 +64,15 @@ public class PantallaCampania extends PantallaJuego{
 		for (Personaje e : mapa.getEnemigos()) {
 			if (Colisiones.colisionaConEntidad(jugador.getHitbox(), e.getHitbox())) {
 				sonidoOof.play();
-				e.atacar(jugador);
+				e.daniar(jugador);
 			}
 		}
 		if (jugador.prepararAtaque()) {
+			jugador.atacar();
 			for (Enemigo e : mapa.getEnemigos()) {
 				if (calcularRangoAtaque(e)) {
 					sonidoGolpe.play();
-					jugador.atacar(e);
+					jugador.daniar(e);
 					if (mapa.revisarMuerto(e)) {
 						contador++;
 						break;

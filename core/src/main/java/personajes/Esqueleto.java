@@ -6,12 +6,7 @@ import mapas.Sala;
 public class Esqueleto extends Enemigo{
 
 	public Esqueleto(float x, float y) {
-		super(x, y, "esqueleto.png");
-	}
-
-	@Override
-	public void atacar(Personaje jugador) {
-		
+		super(x, y, "esqueleto.png", 60, 0.5f, 55, 15, 80);
 	}
 
 	@Override

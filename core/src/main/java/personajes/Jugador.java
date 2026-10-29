@@ -69,7 +69,6 @@ public class Jugador extends Personaje {
     public Jugador() {
         super(500, 500, 100, 400, "gambit1.png", 48, 60, 100);
         cargarSpriteSheets();
-        inventario.agregar(new Dios());
         
     }
 
@@ -197,7 +196,7 @@ public class Jugador extends Personaje {
 
 	@Override
 	public boolean prepararAtaque() {
-    	if(input.isClick()) return true;
+    	if(input.isClick()&& cooldownAtaque<=0 && !atacando) return true;
     	return false;
     }
     @Override
@@ -207,20 +206,22 @@ public class Jugador extends Personaje {
             cooldownDanio = 1;
             return true;
         }
-        return false;
-    }
+		return false;
+	}
 
-    @Override
-    public void atacar(Personaje enemigo) {
-    	if(cooldownAtaque>0) return;
-        if (!atacando) {
-            atacando = true;
-            cooldownAtaque = this.inventario.getObjActual().getCooldown();
-            System.out.println(this.inventario.getObjActual().getCooldown());
-            tiempoAtaque = 0;
-            if (enemigo.recibirDanio(this.inventario.getObjActual().getDanio())) {
+	@Override
+	public void atacar() {
+		atacando = true;
+		cooldownAtaque = this.inventario.getObjActual().getCooldown();
+		tiempoAtaque = 0;
+
+	}
+
+	@Override
+    public void daniar(Personaje enemigo) {
+    	
+    	if (enemigo.recibirDanio(this.inventario.getObjActual().getDanio())) {
                 enemigo.iniciarRetroceso(this, this.inventario.getObjActual().getEmpuje());
-            }
         }
     }
 

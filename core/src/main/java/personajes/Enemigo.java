@@ -6,17 +6,21 @@ import util.Colisiones;
 import util.Recursos;
 
 public abstract class Enemigo extends Personaje{
+	private int danio;
+	private int concentracion;
 	private float cooldownMove = 0;
-	private float maxCooldown = 1.5f;
+	private float maxCooldown;
 	private float tiempoAnim = 0.5f;
 	private boolean animacion = false;
 	private float contAnimacion = 0;
 	protected int distanciaRetro = 100;
 	private float nuevaX, nuevaY, direccionX, direccionY, objX, objY, difX, difY;
 
-	public Enemigo(float x, float y, String ruta) {
-		super(x, y, 100, 100, ruta, 80, 87, 30);
-
+	public Enemigo(float x, float y, String ruta, int vida, float maxCooldown, int alcance, int danio, int concentracion) {
+		super(x, y, vida, 100, ruta, 80, 87, alcance);
+		this.maxCooldown = maxCooldown;
+		this.danio = danio;
+		this.concentracion = concentracion;
 	}
 
 	@Override
@@ -33,8 +37,8 @@ public abstract class Enemigo extends Personaje{
 					direccionX = 0;
 					direccionY = 0;
 					cooldownMove = maxCooldown;
-					int op = Aleatorio.generarEntero(2);
-					if (op ==1) {
+					int op = Aleatorio.generarEntero(100);
+					if (op < concentracion) {
 						objX = x + Aleatorio.generarEntero(-alcance*2, alcance*2);
 						objY =  y + Aleatorio.generarEntero(-alcance*2, alcance*2);
 					}else{
@@ -117,7 +121,17 @@ public abstract class Enemigo extends Personaje{
 	}
 
 	@Override
-	public abstract void atacar(Personaje jugador);
+	public void atacar() {
+		
+	}
+	@Override
+	public  void daniar(Personaje jugador) {
+		if(vida>0) {
+			if (jugador.recibirDanio(danio)) {
+				jugador.iniciarRetroceso(this, distanciaRetro);
+			}
+		}
+	}
 	
 	public Enemigo aparecer(Sala mapa, Personaje jugador) {
 		float x2;

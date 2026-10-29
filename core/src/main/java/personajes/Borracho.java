@@ -6,16 +6,7 @@ import mapas.Sala;
 public class Borracho extends Enemigo{
 
 	public Borracho(float x, float y) {
-		super(x, y, "momo.png");
-	}
-	@Override
-	public void atacar(Personaje jugador) {
-		if(vida>0) {
-			if (jugador.recibirDanio(20)) {
-				jugador.iniciarRetroceso(this, distanciaRetro);
-			}
-		}
-	    
+		super(x, y, "momo.png", 120, 2, 20, 40, 45);
 	}
 	@Override
 	public Inventario getInventario() {
