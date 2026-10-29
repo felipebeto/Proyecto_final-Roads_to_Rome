@@ -12,7 +12,7 @@ public class Llave extends Consumible{
 		
 	}
 	public void usar(Personaje pj, Sala mapa) {
-		if(pj.getX()>400 && pj.getX()<480 && pj.getY()>720){
+		if(pj.getX()>400 && pj.getX()<520 && pj.getY()>720){
 			pj.getInventario().tirar(pj.getInventario().getIndiceAct());
 			mapa.abrirPuerta();
 		}

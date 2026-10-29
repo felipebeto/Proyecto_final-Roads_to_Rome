@@ -25,38 +25,110 @@ public class Jugador extends Personaje {
 	private Inventario inventario = new Inventario();
 	private float cooldownAtaque = 0;
 	private float cooldownAccion = 0;
-    private Animation<TextureRegion> animacionCaminar;
-    private TextureRegion frameQuieto;
     private float tiempoAnimacion = 0;
     private boolean mirandoDerecha = true;
     private boolean moviendose = false;
-    private Animation<TextureRegion> animacionAtacar;
     private boolean atacando = false;
     private float tiempoAtaque = 0;
     private final float DURACION_ATAQUE = 0.32f;
+    
+    private TextureRegion frameQuieto;
+    private TextureRegion frameQuietoEspada;
+    private TextureRegion frameQuietoDaga;
+    private TextureRegion frameQuietoLanza;
+    private TextureRegion frameQuietoPocion;
+    private TextureRegion frameQuietoLlave;
+    
+    private Animation<TextureRegion> animacionCaminar;
+    private Animation<TextureRegion> animacionCaminarLlave;
+    private Animation<TextureRegion> animacionCaminarPocion;
+    private Animation<TextureRegion> animacionCaminarEspada;
+    private Animation<TextureRegion> animacionCaminarDaga;
+    private Animation<TextureRegion> animacionCaminarLanza;
+    
+    private Animation<TextureRegion> animacionAtacar;
+    private Animation<TextureRegion> animacionEspada;
+    private Animation<TextureRegion> animacionDaga;
+    private Animation<TextureRegion> animacionLanza;
+    
     private Texture sheetCaminar;
-    private Texture sheetAtaque;
+    private Texture sheetCaminarLlave;
+    private Texture sheetCaminarPocion;
+    private Texture sheetCaminarEspada;
+    private Texture sheetCaminarDaga;
+    private Texture sheetCaminarLanza;
+    
+    private Texture sheetGolpe;
+    private Texture sheetEspadazo;
+    private Texture sheetDagazo;
+    private Texture sheetLanzazo;
+    
     private InputManager input = new InputManager();
     
 
     public Jugador() {
-        super(500, 500, 100, 700, "gambit1.png", 39, 39, 100);
+        super(500, 500, 100, 400, "gambit1.png", 48, 60, 100);
         cargarSpriteSheets();
         inventario.agregar(new Dios());
         
     }
 
     private void cargarSpriteSheets() {
-        sheetCaminar = new Texture(Gdx.files.internal("sheetCaminando.png"));
-        TextureRegion[] framesCaminando = TextureRegion.split(sheetCaminar, 56, 81)[0];
+        sheetCaminar = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        TextureRegion[] framesCaminando = TextureRegion.split(sheetCaminar, 64, 80)[0];
         frameQuieto = framesCaminando[0];
         animacionCaminar = new Animation<>(0.12f, framesCaminando);
         animacionCaminar.setPlayMode(Animation.PlayMode.LOOP);
+        
+        sheetCaminarLlave = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        TextureRegion[] framesCaminandoLlave = TextureRegion.split(sheetCaminarLlave, 64, 80)[0];
+        frameQuietoLlave = framesCaminandoLlave[0];
+        animacionCaminarLlave = new Animation<>(0.12f, framesCaminandoLlave);
+        animacionCaminarLlave.setPlayMode(Animation.PlayMode.LOOP);
+        
+        sheetCaminarPocion = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        TextureRegion[] framesCaminandoPocion = TextureRegion.split(sheetCaminarPocion, 64, 80)[0];
+        frameQuietoPocion = framesCaminandoPocion[0];
+        animacionCaminarPocion = new Animation<>(0.12f, framesCaminandoPocion);
+        animacionCaminarPocion.setPlayMode(Animation.PlayMode.LOOP);
+        
+        sheetCaminarEspada = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        TextureRegion[] framesCaminandoEspada = TextureRegion.split(sheetCaminarEspada, 64, 80)[0];
+        frameQuietoEspada = framesCaminandoEspada[0];
+        animacionCaminarEspada = new Animation<>(0.12f, framesCaminandoEspada);
+        animacionCaminarEspada.setPlayMode(Animation.PlayMode.LOOP);
+        
+        sheetCaminarDaga = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        TextureRegion[] framesCaminandoDaga = TextureRegion.split(sheetCaminarDaga, 64, 80)[0];
+        frameQuietoDaga = framesCaminandoDaga[0];
+        animacionCaminarDaga = new Animation<>(0.12f, framesCaminandoDaga);
+        animacionCaminarDaga.setPlayMode(Animation.PlayMode.LOOP);
+        
+        sheetCaminarLanza = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        TextureRegion[] framesCaminandoLanza = TextureRegion.split(sheetCaminarLanza, 64, 80)[0];
+        frameQuietoLanza = framesCaminandoLanza[0];
+        animacionCaminarLanza = new Animation<>(0.12f, framesCaminandoLanza);
+        animacionCaminarLanza.setPlayMode(Animation.PlayMode.LOOP);
 
-        sheetAtaque = new Texture(Gdx.files.internal("sheetGolpe.png"));
-        TextureRegion[] framesAtaque = TextureRegion.split(sheetAtaque, 89, 77)[0];
+        sheetGolpe = new Texture(Gdx.files.internal("sheetgolp.png"));
+        TextureRegion[] framesAtaque = TextureRegion.split(sheetGolpe, 72, 80)[0];
         animacionAtacar = new Animation<>(0.08f, framesAtaque);
         animacionAtacar.setPlayMode(Animation.PlayMode.NORMAL);
+        
+        sheetEspadazo = new Texture(Gdx.files.internal("sheetEspada.png"));
+        TextureRegion[] framesEspada = TextureRegion.split(sheetEspadazo, 72, 80)[0];
+        animacionEspada = new Animation<>(0.08f, framesEspada);
+        animacionEspada.setPlayMode(Animation.PlayMode.NORMAL);
+        
+        sheetDagazo = new Texture(Gdx.files.internal("sheetDaga.png"));
+        TextureRegion[] framesDaga = TextureRegion.split(sheetDagazo, 72, 80)[0];
+        animacionDaga = new Animation<>(0.08f, framesDaga);
+        animacionDaga.setPlayMode(Animation.PlayMode.NORMAL);
+        
+        sheetLanzazo = new Texture(Gdx.files.internal("sheetLanza.png"));
+        TextureRegion[] framesLanza = TextureRegion.split(sheetLanzazo, 72, 80)[0];
+        animacionLanza = new Animation<>(0.08f, framesLanza);
+        animacionLanza.setPlayMode(Animation.PlayMode.NORMAL);
     }
 
     @Override
@@ -155,9 +227,50 @@ public class Jugador extends Personaje {
     @Override
     public void dibujar(SpriteBatch batch) {
         TextureRegion frameActual;
-        if (atacando) frameActual = animacionAtacar.getKeyFrame(tiempoAtaque, false);
-        else if (moviendose) frameActual = animacionCaminar.getKeyFrame(tiempoAnimacion, true);
-        else frameActual = frameQuieto;
+        if (atacando) {
+        	if(inventario.getObjActual().getNombre().equals("Espada")) {
+        		frameActual = animacionEspada.getKeyFrame(tiempoAtaque, false);
+        	}else if(inventario.getObjActual().getNombre().equals("Lanza")) {
+        		frameActual = animacionLanza.getKeyFrame(tiempoAtaque, false);
+        	}else if(inventario.getObjActual().getNombre().equals("Daga")) {
+        		frameActual = animacionDaga.getKeyFrame(tiempoAtaque, false);
+        	}else {
+        		frameActual = animacionAtacar.getKeyFrame(tiempoAtaque, false);
+        	}
+        	
+        }
+        else if (moviendose) {
+        	if(inventario.getObjActual().getNombre().equals("Espada")) {
+        		
+        	}else if(inventario.getObjActual().getNombre().equals("Lanza")) {
+        		
+        	}else if(inventario.getObjActual().getNombre().equals("Daga")) {
+        		
+        	}else if(inventario.getObjActual().getNombre().equals("Pocion")) {
+        		
+        	}else if(inventario.getObjActual().getNombre().equals("Llave")) {
+        		
+        	}else {
+        		frameActual = animacionAtacar.getKeyFrame(tiempoAtaque, false);
+        	}
+        	frameActual = animacionCaminar.getKeyFrame(tiempoAnimacion, true);
+        }
+        else {
+        	if(inventario.getObjActual().getNombre().equals("Espada")) {
+        		
+        	}else if(inventario.getObjActual().getNombre().equals("Lanza")) {
+        		
+        	}else if(inventario.getObjActual().getNombre().equals("Daga")) {
+        		
+        	}else if(inventario.getObjActual().getNombre().equals("Pocion")) {
+        		
+        	}else if(inventario.getObjActual().getNombre().equals("Llave")) {
+        		
+        	}else {
+        		frameActual = frameQuieto;
+        	}
+        	frameActual = frameQuieto;
+        }
 
         sprite.setRegion(frameActual);
         sprite.setFlip(!mirandoDerecha);
@@ -182,16 +295,17 @@ public class Jugador extends Personaje {
         
     }
     
-	@Override
-	public void dispose() {
-		super.dispose();
-		sheetCaminar.dispose();
-		sheetAtaque.dispose();
-		inventario.dispose();
-	}
-	@Override
-	public Inventario getInventario() {
-		return inventario;
-	}
+    @Override
+    public void dispose() {
+        super.dispose();
+        sheetCaminar.dispose();
+        sheetGolpe.dispose();
+        inventario.dispose();
+    }
+
+    @Override
+    public Inventario getInventario() {
+        return inventario;
+    }
 
 }

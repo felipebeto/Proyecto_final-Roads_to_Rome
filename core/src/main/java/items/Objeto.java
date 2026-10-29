@@ -33,7 +33,11 @@ public abstract class Objeto {
 	}
 	public void dispose() {
 		imagen.dispose();
-		
+	}
+
+	public String getNombre() {
+		return nombre;
 	}
 
 }
+
