@@ -69,7 +69,7 @@ public class Jugador extends Personaje {
     public Jugador() {
         super(500, 500, 100, 400, "gambit1.png", 48, 60, 100);
         cargarSpriteSheets();
-        
+        inventario.agregar(new Espada());
     }
 
     private void cargarSpriteSheets() {
@@ -79,31 +79,31 @@ public class Jugador extends Personaje {
         animacionCaminar = new Animation<>(0.12f, framesCaminando);
         animacionCaminar.setPlayMode(Animation.PlayMode.LOOP);
         
-        sheetCaminarLlave = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        sheetCaminarLlave = new Texture(Gdx.files.internal("sheetCaminan2Llave.png"));
         TextureRegion[] framesCaminandoLlave = TextureRegion.split(sheetCaminarLlave, 64, 80)[0];
         frameQuietoLlave = framesCaminandoLlave[0];
         animacionCaminarLlave = new Animation<>(0.12f, framesCaminandoLlave);
         animacionCaminarLlave.setPlayMode(Animation.PlayMode.LOOP);
         
-        sheetCaminarPocion = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        sheetCaminarPocion = new Texture(Gdx.files.internal("sheetCaminan2Pocion.png"));
         TextureRegion[] framesCaminandoPocion = TextureRegion.split(sheetCaminarPocion, 64, 80)[0];
         frameQuietoPocion = framesCaminandoPocion[0];
         animacionCaminarPocion = new Animation<>(0.12f, framesCaminandoPocion);
         animacionCaminarPocion.setPlayMode(Animation.PlayMode.LOOP);
         
-        sheetCaminarEspada = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        sheetCaminarEspada = new Texture(Gdx.files.internal("sheetCaminan2Espada.png"));
         TextureRegion[] framesCaminandoEspada = TextureRegion.split(sheetCaminarEspada, 64, 80)[0];
         frameQuietoEspada = framesCaminandoEspada[0];
         animacionCaminarEspada = new Animation<>(0.12f, framesCaminandoEspada);
         animacionCaminarEspada.setPlayMode(Animation.PlayMode.LOOP);
         
-        sheetCaminarDaga = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        sheetCaminarDaga = new Texture(Gdx.files.internal("sheetCaminan2Daga.png"));
         TextureRegion[] framesCaminandoDaga = TextureRegion.split(sheetCaminarDaga, 64, 80)[0];
         frameQuietoDaga = framesCaminandoDaga[0];
         animacionCaminarDaga = new Animation<>(0.12f, framesCaminandoDaga);
         animacionCaminarDaga.setPlayMode(Animation.PlayMode.LOOP);
         
-        sheetCaminarLanza = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        sheetCaminarLanza = new Texture(Gdx.files.internal("sheetCaminan2Lanza.png"));
         TextureRegion[] framesCaminandoLanza = TextureRegion.split(sheetCaminarLanza, 64, 80)[0];
         frameQuietoLanza = framesCaminandoLanza[0];
         animacionCaminarLanza = new Animation<>(0.12f, framesCaminandoLanza);
@@ -242,35 +242,34 @@ public class Jugador extends Personaje {
         }
         else if (moviendose) {
         	if(inventario.getObjActual().getNombre().equals("Espada")) {
-        		
+        		frameActual = animacionCaminarEspada.getKeyFrame(tiempoAnimacion, true);
         	}else if(inventario.getObjActual().getNombre().equals("Lanza")) {
-        		
+        		frameActual = animacionCaminarLanza.getKeyFrame(tiempoAnimacion, true);
         	}else if(inventario.getObjActual().getNombre().equals("Daga")) {
-        		
+        		frameActual = animacionCaminarDaga.getKeyFrame(tiempoAnimacion, true);
         	}else if(inventario.getObjActual().getNombre().equals("Pocion")) {
-        		
+        		frameActual = animacionCaminarPocion.getKeyFrame(tiempoAnimacion, true);
         	}else if(inventario.getObjActual().getNombre().equals("Llave")) {
-        		
+        		frameActual = animacionCaminarLlave.getKeyFrame(tiempoAnimacion, true);
         	}else {
-        		frameActual = animacionAtacar.getKeyFrame(tiempoAtaque, false);
+        		frameActual = animacionCaminar.getKeyFrame(tiempoAnimacion, true);
         	}
-        	frameActual = animacionCaminar.getKeyFrame(tiempoAnimacion, true);
+        	
         }
         else {
         	if(inventario.getObjActual().getNombre().equals("Espada")) {
-        		
+        		frameActual = frameQuietoEspada;
         	}else if(inventario.getObjActual().getNombre().equals("Lanza")) {
-        		
+        		frameActual = frameQuietoLanza;
         	}else if(inventario.getObjActual().getNombre().equals("Daga")) {
-        		
+        		frameActual = frameQuietoDaga;
         	}else if(inventario.getObjActual().getNombre().equals("Pocion")) {
-        		
+        		frameActual = frameQuietoPocion;
         	}else if(inventario.getObjActual().getNombre().equals("Llave")) {
-        		
+        		frameActual = frameQuietoLlave;
         	}else {
         		frameActual = frameQuieto;
         	}
-        	frameActual = frameQuieto;
         }
 
         sprite.setRegion(frameActual);
