@@ -1,5 +1,9 @@
 package personajes;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import mapas.Sala;
 import util.Aleatorio;
 import util.Colisiones;
@@ -15,13 +19,19 @@ public abstract class Enemigo extends Personaje{
 	private float contAnimacion = 0;
 	protected int distanciaRetro = 100;
 	private float nuevaX, nuevaY, direccionX, direccionY, objX, objY, difX, difY;
+	private boolean derecha;
+	protected TextureRegion frameQuieto;
+	protected Animation<TextureRegion> animacionCaminar;
 
 	public Enemigo(float x, float y, String ruta, int vida, float maxCooldown, int alcance, int danio, int concentracion) {
 		super(x, y, vida, 100, ruta, 80, 87, alcance);
 		this.maxCooldown = maxCooldown;
 		this.danio = danio;
 		this.concentracion = concentracion;
+		cargarSheet();
 	}
+
+	protected abstract void cargarSheet();
 
 	@Override
 		public void calcularMovimiento(float delta, Sala mapa, Personaje personaje) {
@@ -70,7 +80,12 @@ public abstract class Enemigo extends Personaje{
 				
 			}		
 			revisarHitbox((float)nuevaX, (float)nuevaY, mapa);
-			
+			if(this.x>personaje.getX()) {
+				derecha = false;
+			}
+			else {
+				derecha = true;
+			}
 		}
 	private void calcularDistanciaObjetivo() {
 		if(objX>x) {
@@ -154,6 +169,20 @@ public abstract class Enemigo extends Personaje{
 	public boolean prepararAtaque() {
 		
 		return false;
+	}
+	@Override
+	public void dibujar(SpriteBatch batch) {
+		TextureRegion frameActual;
+		if(animacion) {
+			frameActual = animacionCaminar.getKeyFrame(contAnimacion, true);
+		}
+		else {
+			frameActual = frameQuieto;
+		}
+		sprite.setRegion(frameActual);
+		sprite.setFlip(!derecha);
+		sprite.setPosicion(x, y);
+        sprite.dibujar(batch);
 	}
 
 

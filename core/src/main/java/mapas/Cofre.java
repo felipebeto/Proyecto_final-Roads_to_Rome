@@ -9,8 +9,8 @@ import items.*;
 import util.Aleatorio;
 
 public class Cofre {
-	private Imagen imagenC =new Imagen("cofre.jpg");
-	private Imagen imagenA= new Imagen("cofrea.jpg");
+	private Imagen imagenC =new Imagen("cofrec.png");
+	private Imagen imagenA= new Imagen("cofrea.png");
 	private Rectangle hitbox;
 	private int ancho = 60, alto = 40;
 	private float x;

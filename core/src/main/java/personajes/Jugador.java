@@ -69,7 +69,7 @@ public class Jugador extends Personaje {
     public Jugador() {
         super(500, 500, 100, 400, "gambit1.png", 48, 60, 100);
         cargarSpriteSheets();
-        inventario.agregar(new Espada());
+        inventario.agregar(new Dios());
     }
 
     private void cargarSpriteSheets() {
