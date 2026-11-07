@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rtr.Main;
 
@@ -17,17 +16,17 @@ import util.Render;
 
 
 public class PantallaNombre implements Screen {
-	private static final int MAX_LETRAS = 12;
+	private static final int MAX_LETRAS = 15;
 
 	private Main main;
 	private SpriteBatch batch;
 	private InputManager input;
 	private Imagen fondo;
 	private Texto titulo;
-	private Texto ayuda;
-	private BitmapFont fuente;
+	private Texto auxiliar;
 	private StringBuilder nombre = new StringBuilder();
 	private boolean terminado = false;
+	private Texto campoNombre;
 	private float tiempo = 0;
 
 	public PantallaNombre(Main main, SpriteBatch batch, InputManager input) {
@@ -43,10 +42,9 @@ public class PantallaNombre implements Screen {
 		titulo = new Texto("Roads to Rome", 
 				Gdx.graphics.getWidth() / 2 - 200, Gdx.graphics.getHeight() / 2 + 200);
 		titulo.agrandar(4);
-		ayuda = new Texto("Ingresa tu nombre y presiona enter", 
+		auxiliar = new Texto("Ingresa tu nombre y presiona enter", 
 				Gdx.graphics.getWidth() / 2 - 120, Gdx.graphics.getHeight() / 2 + 100);
-		fuente = new BitmapFont();
-		fuente.getData().setScale(2);
+		campoNombre = new Texto("_", Gdx.graphics.getWidth() / 2 - 120, Gdx.graphics.getHeight() / 2 + 50);
 
 		Gdx.input.setInputProcessor(new InputAdapter() {
 			@Override
@@ -78,13 +76,14 @@ public class PantallaNombre implements Screen {
 		}
 		tiempo += delta;
 		String cursor = ((int) (tiempo * 2) % 2 == 0) ? "_" : "";
+		campoNombre.setMensaje(nombre + cursor);
 
 		Render.limpiar(0, 0, 0);
 		batch.begin();
 		fondo.dibujar(batch);
 		titulo.escribir(batch);
-		ayuda.escribir(batch);
-		fuente.draw(batch, nombre + cursor, Gdx.graphics.getWidth() / 2 - 120, Gdx.graphics.getHeight() / 2 + 50);
+		auxiliar.escribir(batch);
+		campoNombre.escribir(batch);
 		batch.end();
 	}
 
@@ -104,8 +103,8 @@ public class PantallaNombre implements Screen {
 	public void hide() {
 		fondo.dispose();
 		titulo.dispose();
-		ayuda.dispose();
-		fuente.dispose();
+		auxiliar.dispose();
+		campoNombre.dispose();
 	}
 
 	@Override

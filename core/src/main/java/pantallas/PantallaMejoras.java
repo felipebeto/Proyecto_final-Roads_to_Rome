@@ -60,16 +60,20 @@ public class PantallaMejoras implements Screen {
 		construirTextos();
 	}
 
-	// Texto no permite cambiar su mensaje, asi que despues de cada compra se vuelven a crear los textos
 	private void construirTextos() {
-		liberarTextos();
 		int alto = Gdx.graphics.getHeight();
-		int ancho = Gdx.graphics.getWidth();
 		Map<String, Integer> niveles = Perfil.getMejoras();
+		boolean primeraVez = (oro == null);
 
-		oro = new Texto("Oro: " + Perfil.getOroCajaFuerte(), 80, 550);
-		mensaje = new Texto(textoMensaje, 60, 130);
-
+		String txtOro = "Oro: " + Perfil.getOroCajaFuerte();
+		if (primeraVez) {
+			oro = new Texto(txtOro, 80, 550);
+			mensaje = new Texto(textoMensaje, 60, 130);
+		} else {
+			oro.setMensaje(txtOro);
+			mensaje.setMensaje(textoMensaje);
+		}
+		
 		Mejoras[] lista = Mejoras.values();
 		for (int i = 0; i < lista.length; i++) {
 			Mejoras m = lista[i];
@@ -79,17 +83,25 @@ public class PantallaMejoras implements Screen {
 
 			String detalle = "Bonus actual: +" + m.getBonus(nivel) + m.getUnidad();
 			if (!enMaximo[i]) detalle += "  (siguiente: +" + m.getBonus(nivel + 1) + ")";
-			filas[i] = new Texto(m.getTitulo() + "  -  Nivel " + nivel + "/" + Mejoras.NIVEL_MAXIMO + "\n" + detalle, 60, y);
-			botones[i] = new Texto(enMaximo[i] ? "Nivel maximo" : "Mejorar - " + m.getCosto(nivel) + " de oro", 600, y);
+			String txtFila = m.getTitulo() + "  -  Nivel " + nivel + "/" + Mejoras.NIVEL_MAXIMO + "\n" + detalle;
+			String txtBoton = enMaximo[i] ? "Nivel maximo" : "Mejorar - " + m.getCosto(nivel) + " de oro";
+
+			if (primeraVez) {
+				filas[i] = new Texto(txtFila, 60, y);
+				botones[i] = new Texto(txtBoton, 600, y);
+			} else {
+				filas[i].setMensaje(txtFila);
+				botones[i].setMensaje(txtBoton);
+			}
 		}
 	}
 
 	private void liberarTextos() {
-		if (oro != null) oro.dispose();
-		if (mensaje != null) mensaje.dispose();
+		oro.dispose();
+		mensaje.dispose();
 		for (int i = 0; i < filas.length; i++) {
-			if (filas[i] != null) filas[i].dispose();
-			if (botones[i] != null) botones[i].dispose();
+			filas[i].dispose();
+			botones[i].dispose();
 		}
 	}
 

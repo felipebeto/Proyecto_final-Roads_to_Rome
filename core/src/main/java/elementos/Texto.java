@@ -11,6 +11,7 @@ public class Texto {
 	private GlyphLayout layout;
 	private Rectangle hitbox;
 	private String msj;
+	private String msj2;
 	private float x, y;
 
 	public Texto(String msj, float x, float y) {
@@ -21,6 +22,7 @@ public class Texto {
 		this.layout = new GlyphLayout();
 		layout.setText(fuente, msj);
 		hitbox = new Rectangle(x, y - layout.height, layout.width, layout.height);
+		
 	}
 	public void agrandar(float num) {
 		fuente.getData().setScale(num);
@@ -36,5 +38,11 @@ public class Texto {
 	}
 	public void dispose() {
 		fuente.dispose();
+	}
+	
+	public void setMensaje(String msj2) {
+		this.msj2 = msj2;
+		layout.setText(fuente, msj2);
+		hitbox.set(x, y - layout.height, layout.width, layout.height);
 	}
 }
