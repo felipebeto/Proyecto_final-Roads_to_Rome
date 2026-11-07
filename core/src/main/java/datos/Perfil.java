@@ -15,9 +15,6 @@ import com.badlogic.gdx.Gdx;
 public class Perfil {
 	public static final int OroPorEnemigo = 10;
 
-	// private Perfil() {}
-
-	
 	public static String getNombre() {
 		try (Statement st = BaseDatos.getConexion().createStatement();
 				ResultSet rs = st.executeQuery("SELECT nombre FROM jugador WHERE id = 1")) {
@@ -29,55 +26,31 @@ public class Perfil {
 	}
 
 	public static void setNombre(String nombre) {
-		try (PreparedStatement ps = BaseDatos.getConexion()
-				.prepareStatement("UPDATE jugador SET nombre = ? WHERE id = 1")) {
-			ps.setString(1, nombre);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			Gdx.app.error("Perfil", "No se pudo guardar el nombre", e);
-		}
+		ejecutar("UPDATE jugador SET nombre = ? WHERE id = 1", nombre);
 	}
 	
+	public static int getEnemigosTotales() {
+		return leerEntero("enemigos_totales");
+	}
+
+	public static int getNivelMaximo() {
+		return leerEntero("nivel_maximo");
+	}
+
+	public static int getOroCajaFuerte() {
+		return leerEntero("oro_caja_fuerte");
+	}
+
 	
 	
-	
-	 // Compra una mejora con el oro de la caja fuerte. Si la mejora ya existe, sube un nivel.
-	 //Devuelve false si no alcanza el oro. El cobro y el registro van juntos en una transaccion.
-	 
 	public static boolean comprarMejora(String nombre, int costo) {
-		Connection c = BaseDatos.getConexion();
-		try {
-			c.setAutoCommit(false);
-			try {
-				try (PreparedStatement cobro = c.prepareStatement(
-						"UPDATE jugador SET oro_caja_fuerte = oro_caja_fuerte - ? "
-						+ "WHERE id = 1 AND oro_caja_fuerte >= ?")) {
-					cobro.setInt(1, costo);
-					cobro.setInt(2, costo);
-					if (cobro.executeUpdate() == 0) {
-						c.rollback();
-						return false;
-					}
-				}
-				try (PreparedStatement mejora = c.prepareStatement(
-						"INSERT INTO mejora (nombre, nivel) VALUES (?, 1) "
-						+ "ON CONFLICT(nombre) DO UPDATE SET nivel = nivel + 1")) {
-					mejora.setString(1, nombre);
-					mejora.executeUpdate();
-				}
-				c.commit();
-				return true;
-			} catch (SQLException e) {
-				c.rollback();
-				throw e;
-			} finally {
-				c.setAutoCommit(true);
-			}
-		} catch (SQLException e) {
-			Gdx.app.error("Perfil", "No se pudo comprar la mejora " + nombre, e);
-			return false;
-		}
+		if (getOroCajaFuerte() < costo) return false;
+		// Primero se guarda la mejora y despues se cobra: si algo falla, no se pierde oro
+		return ejecutar("INSERT INTO mejora (nombre, nivel, id_jugador) VALUES (?, 1, 1) "
+				+ "ON CONFLICT(nombre) DO UPDATE SET nivel = nivel + 1", nombre)
+				&& ejecutar("UPDATE jugador SET oro_caja_fuerte = oro_caja_fuerte - ? WHERE id = 1", costo);
 	}
+	
 	
 	//hay q ver bien esto
 	// Mejoras realizadas al personaje: nombre -> nivel. 
@@ -91,41 +64,28 @@ public class Perfil {
 		}
 		return mejoras;
 	}
-	 
-	
-
-	public static int getEnemigosTotales() {
-		return leerEntero("enemigos_totales");
-	}
-
-	public static int getNivelMaximo() {
-		return leerEntero("nivel_maximo");
-	}
-
-	public static int getOroCajaFuerte() {
-		return leerEntero("oro_caja_fuerte");
-	}
 
 	/**
 	 * Se llama al terminar cada partida: suma los enemigos derrotados, deposita el oro ganado
 	 * en la caja fuerte (enemigos * ORO_POR_ENEMIGO) y actualiza el nivel maximo si se supero.
 	 */
 	public static void guardarPartida(int enemigos, int nivelAlcanzado) {
-		String sql = "UPDATE jugador SET "
-				+ "enemigos_totales = enemigos_totales + ?, "
-				+ "oro_caja_fuerte = oro_caja_fuerte + ?, "
-				+ "nivel_maximo = MAX(nivel_maximo, ?) "
-				+ "WHERE id = 1";
+		ejecutar("UPDATE jugador SET enemigos_totales = enemigos_totales + ?, "
+				+ "oro_caja_fuerte = oro_caja_fuerte + ?, nivel_maximo = MAX(nivel_maximo, ?) WHERE id = 1",
+				enemigos, enemigos * OroPorEnemigo, nivelAlcanzado);
+	}
+	
+	
+	private static boolean ejecutar(String sql, Object... parametros) {
 		try (PreparedStatement ps = BaseDatos.getConexion().prepareStatement(sql)) {
-			ps.setInt(1, enemigos);
-			ps.setInt(2, enemigos * OroPorEnemigo);
-			ps.setInt(3, nivelAlcanzado);
+			for (int i = 0; i < parametros.length; i++) ps.setObject(i + 1, parametros[i]);
 			ps.executeUpdate();
+			return true;
 		} catch (SQLException e) {
-			Gdx.app.error("Perfil", "No se pudo guardar la partida", e);
+			Gdx.app.error("Perfil", "Error al ejecutar: " + sql, e);
+			return false;
 		}
 	}
-
 
 	private static int leerEntero(String columna) {
 		try (Statement st = BaseDatos.getConexion().createStatement();

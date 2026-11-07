@@ -7,17 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import com.badlogic.gdx.Gdx;
 
-/**
- * Conexion con la base de datos SQLite. Clase utilitaria con metodos estaticos
- * (como Colisiones o Aleatorio): hay una unica conexion para todo el juego.
- * El archivo queda en la carpeta del usuario: RoadsToRome/datos.db
- */
 public class BaseDatos {
 	private static Connection conexion;
 
 	private BaseDatos() {}
 
-	/** Se llama una sola vez, en Main.create(). */
 	public static void iniciar() {
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -26,10 +20,8 @@ public class BaseDatos {
 			conexion = DriverManager.getConnection("jdbc:sqlite:" + archivo.getAbsolutePath());
 			crearTablas();
 			reiniciarPerfil();
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Falta la dependencia sqlite-jdbc en core/build.gradle", e);
-		} catch (SQLException e) {
-			throw new RuntimeException("No se pudo iniciar la base de datos", e);
+		} catch (Exception e) {
+			throw new RuntimeException("No se pudo iniciar la base de datos (esta sqlite-jdbc en core/build.gradle?)", e);
 		}
 	}
 
@@ -37,7 +29,6 @@ public class BaseDatos {
 		return conexion;
 	}
 
-	/** Se llama en Main.dispose(). */
 	public static void cerrar() {
 		try {
 			if (conexion != null && !conexion.isClosed()) conexion.close();
@@ -50,17 +41,16 @@ public class BaseDatos {
 		try (Statement st = conexion.createStatement()) {
 			st.execute("CREATE TABLE IF NOT EXISTS jugador ("
 					+ "id INTEGER PRIMARY KEY CHECK (id = 1), "
-					+ "nombre TEXT, "
+					+ "nombre VARCHAR, "
 					+ "enemigos_totales INTEGER NOT NULL DEFAULT 0, "
 					+ "nivel_maximo INTEGER NOT NULL DEFAULT 0, "
 					+ "oro_caja_fuerte INTEGER NOT NULL DEFAULT 0 CHECK (oro_caja_fuerte >= 0))");
 
-			/* Una fila por mejora comprada, con el nivel al que se mejoro
 			st.execute("CREATE TABLE IF NOT EXISTS mejora ("
-					+ "nombre TEXT PRIMARY KEY, "
-					+ "nivel INTEGER NOT NULL DEFAULT 0)");
-			*/
-			// OR IGNORE: la fila se crea solo la primera vez, nunca pisa lo guardado
+					+ "nombre VARCHAR PRIMARY KEY, "
+					+ "nivel INTEGER DEFAULT 0,"
+					+ "id_jugador INTEGER REFERENCES jugador(id))");
+			
 			st.execute("INSERT OR IGNORE INTO jugador (id) VALUES (1)");
 			
 		}
