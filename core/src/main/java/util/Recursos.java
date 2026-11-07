@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 
 public class Recursos {
 	public static final String FONDO_MENU = "fondos/fondomenu.jpg";
-	public static final String GAMEOVER = "fondos/gameover.jfif";
+	public static final String GAMEOVER = "fondos/FIN.png";
 	public static final String YOUWIN = "fondos/youwin.gif";
 	public static final String MUSICA_MENU = "audios/Ruins.mp3";
 	public static final String MUSICA_JUEGO = "audios/Moongrains.mp3";

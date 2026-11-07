@@ -90,7 +90,7 @@ public class PantallaCampania extends PantallaJuego{
 			musica.detener();
 			main.setScreen(new PantallaFinal(contador, Finales.DERROTA, main, batch, input));
 		}
-		if(mapa.isLimpia()) {
+		//if(mapa.isLimpia()) {
 			if(mazmorra.isUltima()) {
 				if(mapa.revisarPortal(jugador.getX(), jugador.getY())) {
 					if(nivelActual==2) {
@@ -117,7 +117,7 @@ public class PantallaCampania extends PantallaJuego{
 				mapa.revelarCofre();
 			}
 			
-		}
+		//}
 		
 	}
 	@Override
