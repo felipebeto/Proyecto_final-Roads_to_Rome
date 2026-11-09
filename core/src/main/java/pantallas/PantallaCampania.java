@@ -38,6 +38,12 @@ public class PantallaCampania extends PantallaJuego{
 		barraVida.recalcularCoords();
 		
 	}
+	//cambio
+	@Override 
+	protected int getNivelActual() {
+		return nivelActual + 1;
+	}
+	
 	@Override
 	public void render(float delta) {
 		mapa = mazmorra.getSalaActual();

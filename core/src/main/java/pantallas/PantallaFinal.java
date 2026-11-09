@@ -12,6 +12,7 @@ import elementos.Texto;
 import util.InputManager;
 import util.Render;
 import Enums.*;
+import datos.Perfil;
 
 		public class PantallaFinal implements Screen{
 			
@@ -21,6 +22,7 @@ import Enums.*;
 			private Texto subtitulo;
 			private Texto kills;
 			private Texto ronda;
+			private Texto oro;
 			private int contK = 0;
 			private boolean finFadeIn = false;
 			private float a = 0;
@@ -58,6 +60,8 @@ import Enums.*;
 				titulo = new Texto(f.getMsj(), 40, 450);
 				titulo.agrandar(2);
 				kills = new Texto("Kills: " + contK, 50, 410);
+				//cambio
+				oro = new Texto("Oro en la caja fuerte: " + Perfil.getOroCajaFuerte(), 50, 380);
 				
 				subtitulo = new Texto("clickea la pantalla para volver al menú", 60, 350);
 				musica = new Audio(f.getMusica());
@@ -86,6 +90,8 @@ import Enums.*;
 				}else {
 					titulo.escribir(batch);
 					subtitulo.escribir(batch);
+					//cambio
+					oro.escribir(batch);
 					if(contK!=0) {
 						kills.escribir(batch);
 					}
@@ -126,6 +132,8 @@ import Enums.*;
 				titulo.dispose();
 				subtitulo.dispose();
 				kills.dispose();
+				//cambio
+				oro.dispose();
 				musica.dispose();
 			}
 		}

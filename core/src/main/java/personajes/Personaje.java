@@ -133,6 +133,10 @@ public abstract class Personaje {
     	sprite.dispose();
     	
     }
+    
+    public int getVidaMaxima() {
+    	return maxVida;
+    }
 
     public abstract Inventario getInventario();
 	public abstract boolean prepararAtaque();

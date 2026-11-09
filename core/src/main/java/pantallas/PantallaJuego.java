@@ -20,7 +20,7 @@ import util.GeneradorMazmorra;
 import util.InputManager;
 import util.Recursos;
 import util.Render;
-
+import datos.Perfil;
 public abstract class PantallaJuego implements Screen{
 	protected Personaje jugador;
 	protected Mazmorra mazmorra;
@@ -69,9 +69,14 @@ public abstract class PantallaJuego implements Screen{
 		
 		jugador.calcularAcciones(mapa, delta);
 		batch.end();
-		porcentajeVida = (float) jugador.getVida() / 100;
+		porcentajeVida = (float) jugador.getVida() / jugador.getVidaMaxima();
+		barraVida.pintar(porcentajeVida);
 		
-		
+	}
+	
+	//cambio por defecto nmo hay nivel
+	protected int getNivelActual() {
+		return 0;
 	}
 	
 
@@ -102,6 +107,8 @@ public abstract class PantallaJuego implements Screen{
 
 	@Override
 	public void hide() {
+		//guarda el contador de kills y el nivel q llego al finalizar
+		Perfil.guardarPartida(contador, getNivelActual());
 	}
 
 	@Override

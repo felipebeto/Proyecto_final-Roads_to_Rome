@@ -14,11 +14,16 @@ import elementos.Texto;
 import util.InputManager;
 import util.Recursos;
 import util.Render;
+import datos.Perfil;
 
 public class PantallaMenuPrincipal implements Screen{
 	private InputManager input;
 	private Imagen fondo;
+	private Texto nombreJugador;
+	private Texto oroJugador;
+	private Texto killsJugador;
 	private Texto titulo;
+	private Texto nivelMaxAlcanzado;
 	private Texto subtitulo1;
 	private Texto subtitulo2;
 	private Texto subtitulo3;
@@ -43,12 +48,24 @@ public class PantallaMenuPrincipal implements Screen{
 		fondo = new Imagen(Recursos.FONDO_MENU);
 		fondo.setTrans(a);
 		fondo.ajustarTamaño();
-		titulo = new Texto("Roads to Rome ", 40, 450);
-		titulo.agrandar(2);
-		subtitulo1 = new Texto("Nueva partida", 60, 300);
-		subtitulo2 = new Texto("Modo oleada", 60, 250);
-		subtitulo3 = new Texto("Logros", 60, 200);
-		subtitulo4 = new Texto("Opciones", 60, 150);
+		titulo = new Texto("Roads to Rome ", Gdx.graphics.getWidth() / 2 - 200, Gdx.graphics.getHeight() / 2 + 200);
+		titulo.agrandar(4);
+		nombreJugador = new Texto("Jugador: " + Perfil.getNombre(), 60, 300);
+		nombreJugador.agrandar(1);
+		oroJugador = new Texto("Oro en la caja fuerte: " + Perfil.getOroCajaFuerte(), 60, 250);
+		oroJugador.agrandar(1);
+		killsJugador = new Texto("La cantidad de enemigos asesinados es: " + Perfil.getEnemigosTotales(), 60, 200);
+		killsJugador.agrandar(1);
+		nivelMaxAlcanzado = new Texto("El nivel maximo alcanzado fue: " + Perfil.getNivelMaximo(), 60, 150);
+		nivelMaxAlcanzado.agrandar(1);
+		subtitulo1 = new Texto("Nueva partida", 400, 300);
+		subtitulo1.agrandar(1);
+		subtitulo2 = new Texto("Modo oleada", 400, 250);
+		subtitulo2.agrandar(1);
+		subtitulo3 = new Texto("Mejoras", 400, 200);
+		subtitulo3.agrandar(1);
+		subtitulo4 = new Texto("Salir del juego", 400, 150);
+		subtitulo4.agrandar(1);
 		musica = new Audio(Recursos.MUSICA_MENU);
 		musica.cambiarVolumen(1);
 		sonidoClick = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_CLICK));
@@ -78,6 +95,10 @@ public class PantallaMenuPrincipal implements Screen{
 			fondo.setTrans(a);
 		}else {
 			titulo.escribir(batch);
+			nombreJugador.escribir(batch);
+			oroJugador.escribir(batch);
+			killsJugador.escribir(batch);
+			nivelMaxAlcanzado.escribir(batch);
 			subtitulo1.setColor(subtitulo1.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
 			subtitulo1.escribir(batch);
 			subtitulo2.setColor(subtitulo2.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
@@ -98,8 +119,15 @@ public class PantallaMenuPrincipal implements Screen{
 					musica.detener();
 					main.setScreen(new PantallaOleada(main, batch, input));
 			}
-			if(subtitulo3.isSobre(mouseX, mouseY)) sonidoClick.play();
-			if(subtitulo4.isSobre(mouseX, mouseY)) sonidoClick.play();
+			if(subtitulo3.isSobre(mouseX, mouseY)) {
+				sonidoClick.play();
+				musica.detener();
+				main.setScreen(new PantallaMejoras(main, batch, input));
+			}
+			if(subtitulo4.isSobre(mouseX, mouseY)) {
+			    musica.detener();
+			    Gdx.app.exit();
+			}
 		}
 		batch.end();
 	}
@@ -124,6 +152,10 @@ public class PantallaMenuPrincipal implements Screen{
 	public void dispose() {
 		fondo.dispose();
 		titulo.dispose();
+		nombreJugador.dispose();
+		oroJugador.dispose();
+		killsJugador.dispose();
+		nivelMaxAlcanzado.dispose();
 		subtitulo1.dispose();
 		subtitulo2.dispose();
 		subtitulo3.dispose();

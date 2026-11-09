@@ -22,6 +22,15 @@ public class Texto {
 		layout.setText(fuente, msj);
 		hitbox = new Rectangle(x, y - layout.height, layout.width, layout.height);
 	}
+	
+	
+	public void setMensaje(String msj) {
+		this.msj = msj;
+		layout.setText(fuente, msj);
+		hitbox.set(x, y - layout.height, layout.width, layout.height);
+	}
+	
+	
 	public void agrandar(float num) {
 		fuente.getData().setScale(num);
 	}
@@ -37,4 +46,6 @@ public class Texto {
 	public void dispose() {
 		fuente.dispose();
 	}
+	
+	
 }

@@ -1,6 +1,7 @@
 package personajes;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -20,11 +21,14 @@ import mapas.Sala;
 import util.Colisiones;
 import util.InputManager;
 import util.Recursos;
+import datos.Perfil;
+import Enums.Mejoras;
 
 public class Jugador extends Personaje {
 	private Inventario inventario = new Inventario();
 	private float cooldownAtaque = 0;
 	private float cooldownAccion = 0;
+	private int bonusDanio = 0;
     private float tiempoAnimacion = 0;
     private boolean mirandoDerecha = true;
     private boolean moviendose = false;
@@ -70,8 +74,19 @@ public class Jugador extends Personaje {
         super(500, 500, 100, 400, "gambit1.png", 48, 60, 100);
         cargarSpriteSheets();
         inventario.agregar(new Espada());
+        aplicarMejoras();
     }
 
+    //cambios. Aplica las mejoras al empezar la partida
+    private void aplicarMejoras() {
+        LinkedHashMap<String, Integer> mejoras = Perfil.getMejoras();
+        maxVida += Mejoras.VIDA.getBonus(Mejoras.VIDA.getNivel(mejoras));
+        vida = maxVida;
+        velocidad += Mejoras.VELOCIDAD.getBonus(Mejoras.VELOCIDAD.getNivel(mejoras));
+        bonusDanio = Mejoras.DANIO.getBonus(Mejoras.DANIO.getNivel(mejoras));
+    }
+    
+    
     private void cargarSpriteSheets() {
         sheetCaminar = new Texture(Gdx.files.internal("sheetCaminan2.png"));
         TextureRegion[] framesCaminando = TextureRegion.split(sheetCaminar, 64, 80)[0];
@@ -220,7 +235,7 @@ public class Jugador extends Personaje {
 	@Override
     public void daniar(Personaje enemigo) {
     	
-    	if (enemigo.recibirDanio(this.inventario.getObjActual().getDanio())) {
+    	if (enemigo.recibirDanio(this.inventario.getObjActual().getDanio() + bonusDanio)) {
                 enemigo.iniciarRetroceso(this, this.inventario.getObjActual().getEmpuje());
         }
     }
