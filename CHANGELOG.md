@@ -4,6 +4,14 @@ Todos los cambios importantes de este proyecto se documentarán en este archivo.
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [1.0.6] - 2026-11-09
+### Agregado
+- Termina de mejorar el sistema de objetos.
+- Agrega escena final.
+- Agrega animaciones.
+- Agrega oro y mejoras.
+- IImplementa base de datos con SQLite.
+
 ## [1.0.5] - 2026-10-20
 ### Agregado
 - Realiza correcciones hechas por el profesor
