@@ -7,8 +7,8 @@ import util.Recursos;
 
 public class BarraVida {
 	private ShapeRenderer barra = new ShapeRenderer();
-	float barraX = Recursos.ancho/2, barraY = Recursos.alto/2 + 65;
-	float barraAncho = 50, barraAlto = 5;
+	private float barraX = Recursos.ancho/2, barraY = Recursos.alto/2 + 65;
+	private float barraAncho = 50, barraAlto = 5;
 	public void pintar(float porcentajeVida) {
 		barra.begin(ShapeRenderer.ShapeType.Filled);
 		barra.setColor(Color.DARK_GRAY);

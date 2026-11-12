@@ -89,7 +89,7 @@ public class PantallaCampania extends PantallaJuego{
 		}
 		jugador.calcularAcciones(mapa, delta);
 		batch.end();
-		porcentajeVida = (float) jugador.getVida() / 100;
+		porcentajeVida = (float) jugador.getVida() / jugador.getVidaMaxima();
 		barraVida.pintar(porcentajeVida);
 		
 		if(jugador.isMuerto()) {

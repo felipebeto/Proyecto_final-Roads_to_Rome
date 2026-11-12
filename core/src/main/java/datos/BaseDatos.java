@@ -19,7 +19,7 @@ public class BaseDatos {
 			archivo.getParentFile().mkdirs();
 			conexion = DriverManager.getConnection("jdbc:sqlite:" + archivo.getAbsolutePath());
 			crearTablas();
-			//reiniciarPerfil();
+			reiniciarPerfil();
 		} catch (Exception e) {
 			throw new RuntimeException("No se pudo iniciar la base de datos (esta sqlite-jdbc en core/build.gradle?)", e);
 		}
@@ -66,6 +66,12 @@ public class BaseDatos {
 	            "oro_caja_fuerte = 0 " +
 	            "WHERE id = 1"
 	        );
+	        
+	        st.executeUpdate(
+	        		"UPDATE mejora SET nivel = 0 " +
+	        		"WHERE id_jugador = 1"
+	        		);
+	        
 	    } catch (SQLException e) {
 	        throw new RuntimeException("No se pudo reiniciar el perfil", e);
 	    }

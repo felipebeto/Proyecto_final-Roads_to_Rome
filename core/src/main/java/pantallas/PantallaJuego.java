@@ -69,12 +69,9 @@ public abstract class PantallaJuego implements Screen{
 		
 		jugador.calcularAcciones(mapa, delta);
 		batch.end();
-		porcentajeVida = (float) jugador.getVida() / jugador.getVidaMaxima();
-		barraVida.pintar(porcentajeVida);
 		
 	}
 	
-	//cambio por defecto nmo hay nivel
 	protected int getNivelActual() {
 		return 0;
 	}

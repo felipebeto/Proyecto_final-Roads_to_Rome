@@ -54,7 +54,7 @@ public class PantallaMejoras implements Screen {
 		musica = new Audio(Recursos.MUSICA_MENU);
 		musica.cambiarVolumen(1);
 		sonidoClick = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_CLICK));
-		titulo = new Texto("Mejoras", 60, 600);
+		titulo = new Texto("Mejoras", 60, 700);
 		titulo.agrandar(2);
 		volver = new Texto("Volver", 60, 100);
 		construirTextos();
