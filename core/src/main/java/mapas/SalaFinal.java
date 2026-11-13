@@ -1,6 +1,6 @@
 package mapas;
 
-import Enums.Direccion;
+import enums.Direccion;
 import personajes.Enemigo;
 import util.Recursos;
 

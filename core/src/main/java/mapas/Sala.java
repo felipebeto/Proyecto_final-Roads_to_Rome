@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-import Enums.Direccion;
 import elementos.Imagen;
+import enums.Direccion;
 import items.Objeto;
 import personajes.Enemigo;
 import personajes.Personaje;

@@ -10,11 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.rtr.Main;
 
-import Enums.Mejoras;
 import datos.Perfil;
 import elementos.Audio;
 import elementos.Imagen;
 import elementos.Texto;
+import enums.Mejoras;
 import util.InputManager;
 import util.Recursos;
 import util.Render;

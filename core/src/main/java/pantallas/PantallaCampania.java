@@ -4,10 +4,11 @@ package pantallas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rtr.Main;
-import Enums.Finales;
+
 import elementos.Audio;
 import elementos.BarraVida;
 import elementos.Camara;
+import enums.Finales;
 import personajes.Enemigo;
 import personajes.Jugador;
 import personajes.Personaje;
@@ -22,9 +23,9 @@ import util.Render;
 public class PantallaCampania extends PantallaJuego{
 	private int nivelActual;
 	
-	public PantallaCampania(Main main, SpriteBatch batch, InputManager input) {
+	public PantallaCampania(Main main, SpriteBatch batch, InputManager input, int nivelAct) {
 		super(main, batch, input);
-		
+		nivelActual = nivelAct;
 	}
 	
 	@Override
@@ -41,7 +42,7 @@ public class PantallaCampania extends PantallaJuego{
 	//cambio
 	@Override 
 	protected int getNivelActual() {
-		return nivelActual + 1;
+		return nivelActual;
 	}
 	
 	@Override
@@ -105,8 +106,7 @@ public class PantallaCampania extends PantallaJuego{
 						//main.setScreen(new PantallaFinal(contador, Finales.VICTORIA, main, batch, input));
 					}else {
 						mazmorra.salas.clear();
-						nivelActual++;
-						mazmorra = GeneradorMazmorra.generar(Aleatorio.generarEntero(6, 8));
+						main.setScreen(new PantallaCartas(main, batch, input, nivelActual));
 					}
 					
 				}

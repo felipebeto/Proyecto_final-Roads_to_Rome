@@ -22,7 +22,7 @@ import util.Colisiones;
 import util.InputManager;
 import util.Recursos;
 import datos.Perfil;
-import Enums.Mejoras;
+import enums.Mejoras;
 
 public class Jugador extends Personaje {
 	private Inventario inventario = new Inventario();

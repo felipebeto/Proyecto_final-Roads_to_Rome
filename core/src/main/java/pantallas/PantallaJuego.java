@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.rtr.Main;
 
-import Enums.Finales;
 import elementos.Audio;
 import elementos.BarraVida;
 import elementos.Camara;
 import elementos.Imagen;
+import enums.Finales;
 import mapas.*;
 import personajes.*;
 import util.Aleatorio;

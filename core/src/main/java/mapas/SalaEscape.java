@@ -1,7 +1,7 @@
 package mapas;
 
-import Enums.Direccion;
 import elementos.Imagen;
+import enums.Direccion;
 import util.Recursos;
 
 public class SalaEscape extends Sala {

@@ -3,7 +3,7 @@ package pantallas;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rtr.Main;
 
-import Enums.Finales;
+import enums.Finales;
 import mapas.Sala;
 import mapas.SalaEscape;
 import util.InputManager;

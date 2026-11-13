@@ -9,9 +9,9 @@ import elementos.Audio;
 import elementos.Camara;
 import elementos.Imagen;
 import elementos.Texto;
+import enums.*;
 import util.InputManager;
 import util.Render;
-import Enums.*;
 import datos.Perfil;
 
 		public class PantallaFinal implements Screen{

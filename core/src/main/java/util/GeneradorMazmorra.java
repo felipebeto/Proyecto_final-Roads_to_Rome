@@ -1,6 +1,6 @@
 package util;
 
-import Enums.Direccion;
+import enums.Direccion;
 import mapas.*;
 
 public class GeneradorMazmorra {

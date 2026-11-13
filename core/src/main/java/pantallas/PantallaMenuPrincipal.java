@@ -112,7 +112,7 @@ public class PantallaMenuPrincipal implements Screen{
 			if(subtitulo1.isSobre(mouseX, mouseY)) {
 				sonidoClick.play();
 				musica.detener();
-				main.setScreen(new PantallaCampania(main, batch, input));
+				main.setScreen(new PantallaCampania(main, batch, input, 1));
 			}
 			if(subtitulo2.isSobre(mouseX, mouseY)) {
 					sonidoClick.play();

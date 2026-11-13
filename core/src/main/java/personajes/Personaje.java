@@ -3,8 +3,8 @@ package personajes;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-import Enums.Direccion;
 import elementos.Imagen;
+import enums.Direccion;
 import items.Inventario;
 import mapas.Sala;
 import util.Colisiones;

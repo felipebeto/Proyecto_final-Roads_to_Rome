@@ -2,7 +2,7 @@ package mapas;
 
 import com.badlogic.gdx.Gdx;
 
-import Enums.Direccion;
+import enums.Direccion;
 import personajes.Borracho;
 import personajes.Enemigo;
 import personajes.Esqueleto;
