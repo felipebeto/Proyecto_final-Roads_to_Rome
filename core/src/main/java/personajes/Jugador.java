@@ -163,11 +163,13 @@ public class Jugador extends Personaje {
             nuevaX = pos[0];
             nuevaY = pos[1];
         } else {
+        	float movimiento = velocidad*delta;
+        	if(Modificadores.N6.isActivo()) movimiento-= movimiento/4;
             moviendose = false;
-            if (input.isIzquierda()) { nuevaX -= velocidad*delta; moviendose=true; mirandoDerecha=false; }
-            if (input.isDerecha()) { nuevaX += velocidad*delta; moviendose=true; mirandoDerecha=true; }
-            if (input.isArriba()) { nuevaY += velocidad*delta; moviendose=true; }
-            if (input.isAbajo()) {nuevaY -= velocidad*delta; moviendose=true;}
+            if (input.isIzquierda()) { nuevaX -= movimiento; moviendose=true; mirandoDerecha=false; }
+            if (input.isDerecha()) { nuevaX += movimiento; moviendose=true; mirandoDerecha=true; }
+            if (input.isArriba()) { nuevaY += movimiento; moviendose=true; }
+            if (input.isAbajo()) {nuevaY -= movimiento; moviendose=true;}
             	
             if (moviendose) tiempoAnimacion += delta;
         }
@@ -234,17 +236,30 @@ public class Jugador extends Personaje {
 	}
 
 	@Override
-    public void daniar(Personaje enemigo) {
-    	
-    	if (enemigo.recibirDanio(this.inventario.getObjActual().getDanio() + bonusDanio)) {
-    		int retro = this.inventario.getObjActual().getEmpuje();
-    		if(Modificadores.P3.isActivo()) {
-    			enemigo.iniciarRetroceso(this, retro+retro/2);
-    		}else {
-    			enemigo.iniciarRetroceso(this, retro);
-    		}
-                
-        }
+	public void daniar(Personaje enemigo) {
+		int danio = this.inventario.getObjActual().getDanio() + bonusDanio;
+		if (Modificadores.N4.isActivo()) {
+			if (enemigo.recibirDanio(danio/2)) {
+				int retro = this.inventario.getObjActual().getEmpuje();
+				if (Modificadores.P3.isActivo()) {
+					enemigo.iniciarRetroceso(this, retro + retro / 2);
+				} else {
+					enemigo.iniciarRetroceso(this, retro);
+				}
+
+			}
+		} else {
+			if (enemigo.recibirDanio(danio)) {
+				int retro = this.inventario.getObjActual().getEmpuje();
+				if (Modificadores.P3.isActivo()) {
+					enemigo.iniciarRetroceso(this, retro + retro / 2);
+				} else {
+					enemigo.iniciarRetroceso(this, retro);
+				}
+
+			}
+		}
+
     }
 
     @Override

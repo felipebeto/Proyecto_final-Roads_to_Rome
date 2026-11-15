@@ -25,6 +25,9 @@ public abstract class Personaje {
     protected float tiempoRetroceso = 0;
     protected final float DURACION_RETROCESO = 0.15f;
     protected final float DISTANCIA_RETROCESO = 100;
+    
+    protected float ancho;
+    protected float alto;
 
     public Personaje(float x, float y, int vida, int velocidad, String ruta, float ancho, float alto, int alcance) {
         this.x = x;
@@ -33,6 +36,8 @@ public abstract class Personaje {
         this.vida = maxVida;
         this.velocidad = velocidad;
         this.sprite = new Imagen(ruta);
+        this.ancho = ancho;
+        this.alto = alto;
         sprite.setTamanio(ancho, alto);
         this.hitbox = new Rectangle(x, y, ancho, alto);
         this.alcance = alcance;
@@ -180,6 +185,17 @@ public abstract class Personaje {
 	}
 
 	public void daniar(Personaje enemigo) {
+	}
+
+	public void agrandar() {
+		this.sprite.setTamanio(ancho*2, alto*2);
+		this.hitbox.setWidth(ancho*2);
+		this.hitbox.setHeight(alto*2);
+	}
+
+	public void mover(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 
 }

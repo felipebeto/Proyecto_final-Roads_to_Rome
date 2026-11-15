@@ -23,7 +23,7 @@ import util.Render;
 
 public class PantallaCampania extends PantallaJuego{
 	private int nivelActual;
-	
+	private boolean agrandar;
 	public PantallaCampania(Main main, SpriteBatch batch, InputManager input, int nivelAct, Personaje jugador) {
 		super(main, batch, input);
 		nivelActual = nivelAct;
@@ -52,6 +52,14 @@ public class PantallaCampania extends PantallaJuego{
 	public void render(float delta) {
 		
 		mapa = mazmorra.getSalaActual();
+		if(agrandar) {
+			for (Personaje e : mapa.getEnemigos()) {
+				e.agrandar();
+				e.mover(Recursos.ancho/4, Recursos.alto/2);
+				
+			}
+			agrandar = false;
+		}
 		super.render(delta);
 		
 		musica.comenzar();
@@ -116,7 +124,7 @@ public class PantallaCampania extends PantallaJuego{
 				}
 			}
 			
-			if(mapa.hayCofre()) {
+			if(mapa.hayCofre() && !Modificadores.N3.isActivo()) {
 				mapa.revelarCofre();
 			}
 			
@@ -126,6 +134,12 @@ public class PantallaCampania extends PantallaJuego{
 			if(jugador.revisarLimite()) {
 				if(jugador.avanzarSala(mapa)) {
 					mazmorra.avanzarSala();
+					if(Modificadores.N5.isActivo()){
+						jugador.recibirDanio(jugador.getVidaMaxima()/20);
+					}
+					if(Modificadores.N1.isActivo()) {
+						agrandar = true;
+					}
 				}else {
 					mazmorra.retrocederSala();
 				}

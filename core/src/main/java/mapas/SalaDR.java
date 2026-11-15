@@ -3,6 +3,7 @@ package mapas;
 import com.badlogic.gdx.Gdx;
 
 import enums.Direccion;
+import enums.Modificadores;
 import personajes.Borracho;
 import personajes.Enemigo;
 import personajes.Esqueleto;
@@ -33,6 +34,10 @@ public class SalaDR extends Sala {
 		agregarObstaculo(680, 320, 40, 40);
 		agregarObstaculo(440, 720, 200, 40);
 		agregarCofre(500, 500);
+		if(Modificadores.N2.isActivo()) {
+			agregarEnemigos(new Borracho(500, 500));
+			agregarEnemigos(new Esqueleto(500, 500));
+		}
 	}
 
 	@Override
