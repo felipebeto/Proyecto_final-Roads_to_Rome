@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.LinkedHashMap;
 import com.badlogic.gdx.Gdx;
 
+import enums.Modificadores;
+
 /**
  * Datos del jugador que se conservan entre partidas (base de datos SQLite):
  * nombre, enemigos totales, nivel maximo, oro en la caja fuerte y mejoras del personaje.
@@ -70,9 +72,17 @@ public class Perfil {
 	 * en la caja fuerte (enemigos * ORO_POR_ENEMIGO) y actualiza el nivel maximo si se supero.
 	 */
 	public static void guardarPartida(int enemigos, int nivelAlcanzado) {
-		ejecutar("UPDATE jugador SET enemigos_totales = enemigos_totales + ?, "
+		int totalOro = enemigos*OroPorEnemigo;
+		if(Modificadores.P6.isActivo()) {
+			ejecutar("UPDATE jugador SET enemigos_totales = enemigos_totales + ?, "
+					+ "oro_caja_fuerte = oro_caja_fuerte + ?, nivel_maximo = MAX(nivel_maximo, ?) WHERE id = 1",
+					enemigos, totalOro+totalOro/2, nivelAlcanzado);
+		}else {
+			ejecutar("UPDATE jugador SET enemigos_totales = enemigos_totales + ?, "
 				+ "oro_caja_fuerte = oro_caja_fuerte + ?, nivel_maximo = MAX(nivel_maximo, ?) WHERE id = 1",
-				enemigos, enemigos * OroPorEnemigo, nivelAlcanzado);
+				enemigos, totalOro, nivelAlcanzado);
+		}
+		
 	}
 	
 	

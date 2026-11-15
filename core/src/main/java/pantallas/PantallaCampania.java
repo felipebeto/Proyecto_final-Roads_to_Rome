@@ -9,6 +9,7 @@ import elementos.Audio;
 import elementos.BarraVida;
 import elementos.Camara;
 import enums.Finales;
+import enums.Modificadores;
 import personajes.Enemigo;
 import personajes.Jugador;
 import personajes.Personaje;
@@ -99,7 +100,7 @@ public class PantallaCampania extends PantallaJuego{
 			musica.detener();
 			main.setScreen(new PantallaFinal(contador, Finales.DERROTA, main, batch, input));
 		}
-		//if(mapa.isLimpia()) {
+		if(mapa.isLimpia()) {
 			if(mazmorra.isUltima()) {
 				if(mapa.revisarPortal(jugador.getX(), jugador.getY())) {
 					if(nivelActual==3) {
@@ -114,6 +115,14 @@ public class PantallaCampania extends PantallaJuego{
 					
 				}
 			}
+			
+			if(mapa.hayCofre()) {
+				mapa.revelarCofre();
+			}
+			
+		}
+		
+		if(mapa.isLimpia() || Modificadores.P1.isActivo()) {
 			if(jugador.revisarLimite()) {
 				if(jugador.avanzarSala(mapa)) {
 					mazmorra.avanzarSala();
@@ -122,13 +131,11 @@ public class PantallaCampania extends PantallaJuego{
 				}
 				
 			}
-			if(mapa.hayCofre()) {
-				mapa.revelarCofre();
-			}
-			
-		//}
+		}
+		
 		
 	}
+	
 	@Override
 	public void dispose() {
 		super.dispose();

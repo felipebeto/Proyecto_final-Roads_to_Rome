@@ -11,6 +11,7 @@ import elementos.Audio;
 import elementos.Camara;
 import elementos.Imagen;
 import elementos.Texto;
+import enums.Modificadores;
 import util.InputManager;
 import util.Recursos;
 import util.Render;
@@ -70,7 +71,7 @@ public class PantallaMenuPrincipal implements Screen{
 		musica.cambiarVolumen(1);
 		sonidoClick = Gdx.audio.newSound(Gdx.files.internal(Recursos.SONIDO_CLICK));
 		camara = new Camara();
-		
+		reset();		
 	}
 	private void calcularFade() {
 		if(!finFadeIn ) {
@@ -135,7 +136,11 @@ public class PantallaMenuPrincipal implements Screen{
 	public void resize(int width, int height) {
 		camara.actualizarPantalla(width, height);
 	}
-
+	public void reset() {
+		for(int i = 0; i<Modificadores.values().length; i++) {
+			Modificadores.values()[i].resetear();
+		}
+	}
 	@Override
 	public void pause() {
 	}

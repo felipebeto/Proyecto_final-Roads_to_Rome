@@ -2,14 +2,17 @@ package items;
 
 import java.util.ArrayList;
 
+import enums.Modificadores;
+
 public class Inventario {
-	private Objeto[] contenido = new Objeto[2];
+	private Objeto[] contenido = new Objeto[3];
 	private Objeto objetoAct;
 	private int indiceAct = 0;
 	
 	public void agregar(Objeto o) {
 		for(int i = 0;i<contenido.length;i++) {
 			if(!isOcupado(i)) {
+				if(i == 2 && !Modificadores.P5.isActivo()) return;
 				contenido[i] = o;
 				return;
 			}
@@ -25,12 +28,21 @@ public class Inventario {
 		return objeto;
 	}
 	public boolean isLleno() {
+		if(Modificadores.P5.isActivo()) return isOcupado(0) && isOcupado(1) && isOcupado(2);
 		return isOcupado(0) && isOcupado(1);
 	}
 	public void cambiarObjeto() {
 		if (indiceAct ==0) {
 			indiceAct = 1;
 			objetoAct = contenido[1];
+		}else if(indiceAct == 1){
+			if(Modificadores.P5.isActivo()) {
+				indiceAct = 2;
+				objetoAct = contenido[2];
+			}else {
+				indiceAct = 0;
+				objetoAct = contenido[0];
+			}
 		}else {
 			indiceAct = 0;
 			objetoAct = contenido[0];
@@ -41,6 +53,7 @@ public class Inventario {
 		return contenido[indiceAct];
 	}
 	public boolean isVacio() {
+		if(Modificadores.P5.isActivo()) return !isOcupado(0) && !isOcupado(1) && !isOcupado(2);
 		return !isOcupado(0) && !isOcupado(1);
 	}
 	public int getIndiceAct() {

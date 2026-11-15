@@ -47,4 +47,10 @@ public enum Modificadores {
 		img.dibujar(batch);
 	}
 
+
+	public void resetear() {
+		this.usado = false;
+		this.activo = false;
+	}
+
 }

@@ -23,6 +23,7 @@ import util.InputManager;
 import util.Recursos;
 import datos.Perfil;
 import enums.Mejoras;
+import enums.Modificadores;
 
 public class Jugador extends Personaje {
 	private Inventario inventario = new Inventario();
@@ -72,7 +73,7 @@ public class Jugador extends Personaje {
     public Jugador() {
         super(500, 500, 100, 400, "gambit1.png", 48, 60, 100);
         cargarSpriteSheets();
-        inventario.agregar(new Espada());
+        inventario.agregar(new Dios());
         aplicarMejoras();
     }
 
@@ -236,7 +237,13 @@ public class Jugador extends Personaje {
     public void daniar(Personaje enemigo) {
     	
     	if (enemigo.recibirDanio(this.inventario.getObjActual().getDanio() + bonusDanio)) {
-                enemigo.iniciarRetroceso(this, this.inventario.getObjActual().getEmpuje());
+    		int retro = this.inventario.getObjActual().getEmpuje();
+    		if(Modificadores.P3.isActivo()) {
+    			enemigo.iniciarRetroceso(this, retro+retro/2);
+    		}else {
+    			enemigo.iniciarRetroceso(this, retro);
+    		}
+                
         }
     }
 

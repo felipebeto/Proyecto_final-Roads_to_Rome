@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import enums.Modificadores;
 import mapas.Sala;
 import util.Aleatorio;
 import util.Colisiones;
@@ -49,7 +50,7 @@ public abstract class Enemigo extends Personaje{
 					direccionY = 0;
 					cooldownMove = maxCooldown;
 					int op = Aleatorio.generarEntero(100);
-					if (op < concentracion) {
+					if (op < concentracion || (Modificadores.P2.isActivo() && personaje.getVida()<personaje.getVidaMaxima()/5)) {
 						objX = x + Aleatorio.generarEntero(-alcance*2, alcance*2);
 						objY =  y + Aleatorio.generarEntero(-alcance*2, alcance*2);
 					}else{
