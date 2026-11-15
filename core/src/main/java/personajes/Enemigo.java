@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import mapas.Sala;
 import util.Aleatorio;
 import util.Colisiones;
+import util.InputManager;
 import util.Recursos;
 
 public abstract class Enemigo extends Personaje{
@@ -34,7 +35,7 @@ public abstract class Enemigo extends Personaje{
 	protected abstract void cargarSheet();
 
 	@Override
-		public void calcularMovimiento(float delta, Sala mapa, Personaje personaje) {
+		public void calcularMovimiento(float delta, Sala mapa, Personaje personaje, InputManager input) {
 			if(vida<=0) {
 				return;
 			}
@@ -166,7 +167,7 @@ public abstract class Enemigo extends Personaje{
 	}
 
 	@Override
-	public boolean prepararAtaque() {
+	public boolean prepararAtaque(InputManager input) {
 		
 		return false;
 	}

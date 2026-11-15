@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import items.Inventario;
 import mapas.Sala;
+import util.InputManager;
 
 public class Esqueleto extends Enemigo{
 
@@ -31,12 +32,12 @@ public class Esqueleto extends Enemigo{
 	}
 
 	@Override
-	public void calcularAcciones(Sala mapa, float delta) {
+	public void calcularAcciones(Sala mapa, float delta, InputManager input) {
 	}
 
 	@Override
 	protected void cargarSheet() {
-		sheetCaminar = new Texture(Gdx.files.internal("esqcamina.png"));
+		sheetCaminar = new Texture(Gdx.files.internal("sheets/esqcamina.png"));
         TextureRegion[] framesCaminando = TextureRegion.split(sheetCaminar, 72, 84)[0];
         frameQuieto = framesCaminando[0];
         animacionCaminar = new Animation<>(0.12f, framesCaminando);

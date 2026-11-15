@@ -15,7 +15,7 @@ public class Carta {
 	public Carta(Modificadores modif1, Modificadores modif2) {
 		this.modif1 = modif1;
 		this.modif2 = modif2;
-		this.hitbox = new Rectangle(x, y, 100, 100);
+		this.hitbox = new Rectangle(x, y, 160, 220);
 	}
 	public void activar() {
 		modif1.activar();
@@ -23,20 +23,32 @@ public class Carta {
 	}
 	public void dibujar(SpriteBatch batch, int posicion) {
 		if(posicion==1) {
-			this.x = 100;
+			this.x = 390;
 			hitbox.setPosition(x, y);
+			modif1.getImg().setPosicion(x, y);
 			modif1.dibujar(batch);
+			this.y = Recursos.alto/2-107;
+			hitbox.setPosition(x, y);
+			modif2.getImg().setPosicion(x, y);
 			modif2.dibujar(batch);
 		}else {
 			if(posicion ==2) {
-				this.x = 200;
+				this.x = 865;
 				hitbox.setPosition(x, y);
+				modif1.getImg().setPosicion(x, y);
 				modif1.dibujar(batch);
+				this.y = Recursos.alto/2-107;
+				hitbox.setPosition(x, y);
+				modif2.getImg().setPosicion(x, y);
 				modif2.dibujar(batch);
 			}else {
-				this.x = 300;
+				this.x = 1370;
 				hitbox.setPosition(x, y);
+				modif1.getImg().setPosicion(x, y);
 				modif1.dibujar(batch);
+				this.y = Recursos.alto/2-107;
+				hitbox.setPosition(x, y);
+				modif2.getImg().setPosicion(x, y);
 				modif2.dibujar(batch);
 			}
 		}

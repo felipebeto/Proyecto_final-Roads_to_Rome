@@ -42,18 +42,20 @@ public abstract class PantallaJuego implements Screen{
 		this.input = input;
 		Gdx.input.setInputProcessor(input);
 		input.resetearClick();
+		input.resetAll();
 	}
 
 	@Override
 	public void show() {
-		jugador = new Jugador();
+		if (jugador == null) jugador = new Jugador();
 		camara = new Camara();
+		input.resetAll();
 	}
 
 	@Override
 	public void render(float delta) {
 		
-		jugador.calcularMovimiento(delta, mapa, jugador);
+		jugador.calcularMovimiento(delta, mapa, jugador, input);
 		
 		Render.limpiar(0, 0, 0);
 		camara.actualizarPosicion(jugador, batch);
@@ -67,7 +69,7 @@ public abstract class PantallaJuego implements Screen{
 		
 		jugador.dibujar(batch);
 		
-		jugador.calcularAcciones(mapa, delta);
+		jugador.calcularAcciones(mapa, delta, input);
 		batch.end();
 		
 	}

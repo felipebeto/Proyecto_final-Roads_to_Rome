@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.rtr.Main;
 
 import cartas.Carta;
 import elementos.Camara;
 import elementos.Imagen;
 import enums.Modificadores;
+import personajes.Personaje;
 import util.Aleatorio;
 import util.InputManager;
 import util.Recursos;
@@ -28,8 +30,10 @@ public class PantallaCartas implements Screen{
 	private Carta carta2;
 	private Carta carta3;
 	private int nivelAnt;
+	private Personaje jugador;
 	
-	public PantallaCartas(Main main, SpriteBatch batch, InputManager input, int nivel) {
+	public PantallaCartas(Main main, SpriteBatch batch, InputManager input, int nivel, Personaje jugador) {
+		this.jugador = jugador;
 		this.main = main;
 		this.batch = batch;
 		this.input = input;
@@ -47,36 +51,81 @@ public class PantallaCartas implements Screen{
 	}
 	@Override
 	public void show() {
-		fondo = new Imagen(Recursos.FONDO_MENU);
+		fondo = new Imagen(Recursos.FONDO_CARTAS);
 		fondo.setTrans(a);
 		fondo.ajustarTamaño();
 		camara = new Camara();
-		carta1 = new Carta(elegirModif(true), elegirModif(false));
-		carta2 = new Carta(elegirModif(true), elegirModif(false));
-		carta3 = new Carta(elegirModif(true), elegirModif(false));
+		batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+		if(nivelAnt == 1) {
+			carta1 = new Carta(elegirModifR(true), elegirModifR(false));
+			carta2 = new Carta(elegirModifR(true), elegirModifR(false));
+			carta3 = new Carta(elegirModifR(true), elegirModifR(false));
+		}else {
+			carta1 = new Carta(elegirModif(true), elegirModif(false));
+			carta2 = new Carta(elegirModif(true), elegirModif(false));
+			carta3 = new Carta(elegirModif(true), elegirModif(false));
+		}
+		
 	}
-	public Modificadores elegirModif(boolean valor) {
+	public Modificadores elegirModifR(boolean valor) {
 		boolean sirve = false;
 		Modificadores modif;
+		int num;
 		do {
-			int num = Aleatorio.generarEntero(Modificadores.values().length);
+			num = Aleatorio.generarEntero(Modificadores.values().length);
 			switch (num) {
-				case 1: modif = Modificadores.N1;
-				case 2: modif = Modificadores.N2;
-				case 3: modif = Modificadores.N3;
-				case 4: modif = Modificadores.N4;
-				case 5: modif = Modificadores.N5;
-				case 6: modif = Modificadores.N6;
-				case 7: modif = Modificadores.P1;
-				case 8: modif = Modificadores.P2;
-				case 9: modif = Modificadores.P3;
-				case 10: modif = Modificadores.P4;
-				case 11: modif = Modificadores.P5;
-        		case 12: modif = Modificadores.P6;
-        		default: modif = Modificadores.N1; 
+				case 1: 
+					modif = Modificadores.N1;
+				break;
+				case 2: 
+					modif = Modificadores.N2;
+				break;
+				case 3: 
+					modif = Modificadores.N3;
+				break;
+				case 4: 
+					modif = Modificadores.N4;
+				break;
+				case 5: 
+					modif = Modificadores.N5;
+				break;
+				case 6: 
+					modif = Modificadores.N6;
+				break;
+				case 7: 
+					modif = Modificadores.P1;
+				break;
+				case 8: 
+					modif = Modificadores.P2;
+				break;
+				case 9: 
+					modif = Modificadores.P3;
+				break;
+				case 10: 
+					modif = Modificadores.P4;
+				break;
+				case 11: 
+					modif = Modificadores.P5;
+				break;
+        		case 12: 
+        			modif = Modificadores.P6;
+        		break;
+        		default: 
+        			modif = Modificadores.N2; 
+        		break;
 			}
-			if(!modif.isActivo() && modif.isPositivo() == valor) sirve = true;
+			if(modif.isPositivo() == valor && !modif.isUsado()) sirve = true;
 		}while(!sirve);
+		modif.usar();
+		return modif;
+	}
+	private Modificadores elegirModif(boolean valor) {
+		Modificadores modif;
+		int i = 0;
+		do {
+			modif = Modificadores.values()[i];
+			i++;
+		}while(!modif.isPositivo() == valor || modif.isUsado());
 		modif.usar();
 		return modif;
 	}
@@ -96,17 +145,18 @@ public class PantallaCartas implements Screen{
 			carta3.dibujar(batch, 3);
 			if(carta1.isSobre(mouseX, mouseY) && input.isClick()) {
 				carta1.activar();
-				main.setScreen(new PantallaCampania(main, batch, input, nivelAnt+1));
+				main.setScreen(new PantallaCampania(main, batch, input, nivelAnt+1, jugador));
 			}
 			if(carta2.isSobre(mouseX, mouseY) && input.isClick()) {
 				carta2.activar();
-				main.setScreen(new PantallaCampania(main, batch, input, nivelAnt+1));
+				main.setScreen(new PantallaCampania(main, batch, input, nivelAnt+1, jugador));
 			}
 			if(carta3.isSobre(mouseX, mouseY) && input.isClick()) {
 				carta3.activar();
-				main.setScreen(new PantallaCampania(main, batch, input, nivelAnt+1));
+				main.setScreen(new PantallaCampania(main, batch, input, nivelAnt+1, jugador));
 			}
 		}
+		batch.end();
 		
 	}
 

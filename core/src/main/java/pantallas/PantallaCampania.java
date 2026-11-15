@@ -23,9 +23,11 @@ import util.Render;
 public class PantallaCampania extends PantallaJuego{
 	private int nivelActual;
 	
-	public PantallaCampania(Main main, SpriteBatch batch, InputManager input, int nivelAct) {
+	public PantallaCampania(Main main, SpriteBatch batch, InputManager input, int nivelAct, Personaje jugador) {
 		super(main, batch, input);
 		nivelActual = nivelAct;
+		this.jugador = jugador;
+		input.resetAll();
 	}
 	
 	@Override
@@ -47,13 +49,14 @@ public class PantallaCampania extends PantallaJuego{
 	
 	@Override
 	public void render(float delta) {
+		
 		mapa = mazmorra.getSalaActual();
 		super.render(delta);
 		
 		musica.comenzar();
 		
 		for (Personaje e : mapa.getEnemigos()) {
-			e.calcularMovimiento(delta, mapa, jugador);
+			e.calcularMovimiento(delta, mapa, jugador, input);
 		}
 		
 		
@@ -74,7 +77,7 @@ public class PantallaCampania extends PantallaJuego{
 				e.daniar(jugador);
 			}
 		}
-		if (jugador.prepararAtaque()) {
+		if (jugador.prepararAtaque(input)) {
 			jugador.atacar();
 			for (Enemigo e : mapa.getEnemigos()) {
 				if (calcularRangoAtaque(e)) {
@@ -88,7 +91,6 @@ public class PantallaCampania extends PantallaJuego{
 				}
 			}
 		}
-		jugador.calcularAcciones(mapa, delta);
 		batch.end();
 		porcentajeVida = (float) jugador.getVida() / jugador.getVidaMaxima();
 		barraVida.pintar(porcentajeVida);
@@ -100,13 +102,14 @@ public class PantallaCampania extends PantallaJuego{
 		//if(mapa.isLimpia()) {
 			if(mazmorra.isUltima()) {
 				if(mapa.revisarPortal(jugador.getX(), jugador.getY())) {
-					if(nivelActual==2) {
+					if(nivelActual==3) {
 						musica.detener();
 						main.setScreen(new PantallaSalaFinal(main, batch, input, contador));
 						//main.setScreen(new PantallaFinal(contador, Finales.VICTORIA, main, batch, input));
 					}else {
 						mazmorra.salas.clear();
-						main.setScreen(new PantallaCartas(main, batch, input, nivelActual));
+						input.resetAll();
+						main.setScreen(new PantallaCartas(main, batch, input, nivelActual, jugador));
 					}
 					
 				}

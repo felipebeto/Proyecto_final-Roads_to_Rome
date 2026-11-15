@@ -8,6 +8,7 @@ import enums.Direccion;
 import items.Inventario;
 import mapas.Sala;
 import util.Colisiones;
+import util.InputManager;
 import util.Recursos;
 
 public abstract class Personaje {
@@ -53,7 +54,7 @@ public abstract class Personaje {
         return true;
     }
 
-    public abstract void calcularMovimiento(float delta, Sala mapa, Personaje p);
+    public abstract void calcularMovimiento(float delta, Sala mapa, Personaje p, InputManager input);
     public abstract void atacar();
 
     public boolean revisarLimite() {
@@ -139,7 +140,7 @@ public abstract class Personaje {
     }
 
     public abstract Inventario getInventario();
-	public abstract boolean prepararAtaque();
+	public abstract boolean prepararAtaque(InputManager input);
 
 	public boolean avanzarSala(Sala mapa) {
 		if (x == 0) {
@@ -166,7 +167,7 @@ public abstract class Personaje {
 
 	public abstract void agarrarObjeto(Sala sala);
 
-	public abstract void calcularAcciones(Sala mapa, float delta);
+	public abstract void calcularAcciones(Sala mapa, float delta, InputManager input);
 
 	public void curar(int cantidad) {
 		vida +=cantidad;

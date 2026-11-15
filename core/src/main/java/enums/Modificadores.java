@@ -2,21 +2,24 @@ package enums;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import elementos.Imagen;
 import util.Aleatorio;
 
 public enum Modificadores {
-	N1("Minusculo", false), N2("Rodeado", false), N3("Pobre", false), N4("Debilitado", false), N5("Envenenado", false), N6("Cansado", false), 
-	P1("Pacifista", true), P2("Invisible", true), P3("Temerario", true), P4("Curandero", true), P5("Coleccionista", true), P6("Avaricioso", true);
+	N1("Minusculo", false, "cartas/cartaN1.png"), N2("Rodeado", false, "cartas/cartaN2.png"), N3("Pobre", false, "cartas/cartaN3.png"), N4("Debilitado", false, "cartas/cartaN4.png"), N5("Envenenado", false, "cartas/cartaN5.png"), N6("Cansado", false, "cartas/cartaN6.png"), 
+	P1("Pacifista", true, "cartas/cartaP1.png"), P2("Invisible", true, "cartas/cartaP2.png"), P3("Temerario", true, "cartas/cartaP3.png"), P4("Curandero", true, "cartas/cartaP4.png"), P5("Coleccionista", true, "cartas/cartaP5.png"), P6("Avaricioso", true, "cartas/cartaP6.png");
 	
 	private boolean activo;
+	private Imagen img;
 	private String nombre;
 	private boolean positivo;
 	private boolean usado;
-	private Modificadores(String nombre, boolean positivo) {
+	private Modificadores(String nombre, boolean positivo, String ruta) {
 		this.activo = false;
 		this.usado = false;
 		this.nombre = nombre;
 		this.positivo = positivo;
+		this.img = new Imagen(ruta);
 	}
 	
 	public boolean isActivo() {
@@ -28,41 +31,20 @@ public enum Modificadores {
 	public boolean isPositivo() {
 		return positivo;
 	}
+	public boolean isUsado() {
+		return usado;
+	}
 	public void activar() {
 		this.activo = true;
 	}
 	public void usar() {
 		this.usado = true;
 	}
-
-	public Modificadores elegirModif(boolean valor) {
-		boolean sirve = false;
-		Modificadores modif;
-		do {
-			int num = Aleatorio.generarEntero(Modificadores.values().length);
-			switch (num) {
-				case 1: modif = N1;
-				case 2: modif = N2;
-				case 3: modif = N3;
-				case 4: modif = N4;
-				case 5: modif = N5;
-				case 6: modif = N6;
-				case 7: modif = P1;
-				case 8: modif = P2;
-				case 9: modif = P3;
-				case 10: modif = P4;
-				case 11: modif = P5;
-        		case 12: modif = P6;
-        		default: modif = N1; 
-			}
-			if(!modif.activo && modif.positivo == valor) sirve = true;
-		}while(!sirve);
-		return modif;
+	public Imagen getImg() {
+		return img;
 	}
-
 	public void dibujar(SpriteBatch batch) {
-		
-		
+		img.dibujar(batch);
 	}
 
 }

@@ -19,7 +19,7 @@ public class BaseDatos {
 			archivo.getParentFile().mkdirs();
 			conexion = DriverManager.getConnection("jdbc:sqlite:" + archivo.getAbsolutePath());
 			crearTablas();
-			reiniciarPerfil();
+			//reiniciarPerfil();
 		} catch (Exception e) {
 			throw new RuntimeException("No se pudo iniciar la base de datos (esta sqlite-jdbc en core/build.gradle?)", e);
 		}

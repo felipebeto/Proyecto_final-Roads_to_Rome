@@ -67,7 +67,6 @@ public class Jugador extends Personaje {
     private Texture sheetDagazo;
     private Texture sheetLanzazo;
     
-    private InputManager input = new InputManager();
     
 
     public Jugador() {
@@ -88,66 +87,66 @@ public class Jugador extends Personaje {
     
     
     private void cargarSpriteSheets() {
-        sheetCaminar = new Texture(Gdx.files.internal("sheetCaminan2.png"));
+        sheetCaminar = new Texture(Gdx.files.internal("sheets/sheetCaminan2.png"));
         TextureRegion[] framesCaminando = TextureRegion.split(sheetCaminar, 64, 80)[0];
         frameQuieto = framesCaminando[0];
         animacionCaminar = new Animation<>(0.12f, framesCaminando);
         animacionCaminar.setPlayMode(Animation.PlayMode.LOOP);
         
-        sheetCaminarLlave = new Texture(Gdx.files.internal("sheetCaminan2Llave.png"));
+        sheetCaminarLlave = new Texture(Gdx.files.internal("sheets/sheetCaminan2Llave.png"));
         TextureRegion[] framesCaminandoLlave = TextureRegion.split(sheetCaminarLlave, 64, 80)[0];
         frameQuietoLlave = framesCaminandoLlave[0];
         animacionCaminarLlave = new Animation<>(0.12f, framesCaminandoLlave);
         animacionCaminarLlave.setPlayMode(Animation.PlayMode.LOOP);
         
-        sheetCaminarPocion = new Texture(Gdx.files.internal("sheetCaminan2Pocion.png"));
+        sheetCaminarPocion = new Texture(Gdx.files.internal("sheets/sheetCaminan2Pocion.png"));
         TextureRegion[] framesCaminandoPocion = TextureRegion.split(sheetCaminarPocion, 64, 80)[0];
         frameQuietoPocion = framesCaminandoPocion[0];
         animacionCaminarPocion = new Animation<>(0.12f, framesCaminandoPocion);
         animacionCaminarPocion.setPlayMode(Animation.PlayMode.LOOP);
         
-        sheetCaminarEspada = new Texture(Gdx.files.internal("sheetCaminan2Espada.png"));
+        sheetCaminarEspada = new Texture(Gdx.files.internal("sheets/sheetCaminan2Espada.png"));
         TextureRegion[] framesCaminandoEspada = TextureRegion.split(sheetCaminarEspada, 64, 80)[0];
         frameQuietoEspada = framesCaminandoEspada[0];
         animacionCaminarEspada = new Animation<>(0.12f, framesCaminandoEspada);
         animacionCaminarEspada.setPlayMode(Animation.PlayMode.LOOP);
         
-        sheetCaminarDaga = new Texture(Gdx.files.internal("sheetCaminan2Daga.png"));
+        sheetCaminarDaga = new Texture(Gdx.files.internal("sheets/sheetCaminan2Daga.png"));
         TextureRegion[] framesCaminandoDaga = TextureRegion.split(sheetCaminarDaga, 64, 80)[0];
         frameQuietoDaga = framesCaminandoDaga[0];
         animacionCaminarDaga = new Animation<>(0.12f, framesCaminandoDaga);
         animacionCaminarDaga.setPlayMode(Animation.PlayMode.LOOP);
         
-        sheetCaminarLanza = new Texture(Gdx.files.internal("sheetCaminan2Lanza.png"));
+        sheetCaminarLanza = new Texture(Gdx.files.internal("sheets/sheetCaminan2Lanza.png"));
         TextureRegion[] framesCaminandoLanza = TextureRegion.split(sheetCaminarLanza, 64, 80)[0];
         frameQuietoLanza = framesCaminandoLanza[0];
         animacionCaminarLanza = new Animation<>(0.12f, framesCaminandoLanza);
         animacionCaminarLanza.setPlayMode(Animation.PlayMode.LOOP);
 
-        sheetGolpe = new Texture(Gdx.files.internal("sheetgolp.png"));
+        sheetGolpe = new Texture(Gdx.files.internal("sheets/sheetgolp.png"));
         TextureRegion[] framesAtaque = TextureRegion.split(sheetGolpe, 72, 80)[0];
         animacionAtacar = new Animation<>(0.08f, framesAtaque);
         animacionAtacar.setPlayMode(Animation.PlayMode.NORMAL);
         
-        sheetEspadazo = new Texture(Gdx.files.internal("sheetEspada.png"));
+        sheetEspadazo = new Texture(Gdx.files.internal("sheets/sheetEspada.png"));
         TextureRegion[] framesEspada = TextureRegion.split(sheetEspadazo, 72, 80)[0];
         animacionEspada = new Animation<>(0.08f, framesEspada);
         animacionEspada.setPlayMode(Animation.PlayMode.NORMAL);
         
-        sheetDagazo = new Texture(Gdx.files.internal("sheetDaga.png"));
+        sheetDagazo = new Texture(Gdx.files.internal("sheets/sheetDaga.png"));
         TextureRegion[] framesDaga = TextureRegion.split(sheetDagazo, 72, 80)[0];
         animacionDaga = new Animation<>(0.08f, framesDaga);
         animacionDaga.setPlayMode(Animation.PlayMode.NORMAL);
         
-        sheetLanzazo = new Texture(Gdx.files.internal("sheetLanza.png"));
+        sheetLanzazo = new Texture(Gdx.files.internal("sheets/sheetLanza.png"));
         TextureRegion[] framesLanza = TextureRegion.split(sheetLanzazo, 72, 80)[0];
         animacionLanza = new Animation<>(0.08f, framesLanza);
         animacionLanza.setPlayMode(Animation.PlayMode.NORMAL);
     }
 
     @Override
-    public void calcularMovimiento(float delta, Sala mapa, Personaje enemigo) {
-    	Gdx.input.setInputProcessor(input);
+    public void calcularMovimiento(float delta, Sala mapa, Personaje enemigo, InputManager input) {
+    	
     	if (cooldownDanio > 0) cooldownDanio -= delta;
     	if (cooldownAtaque > 0) cooldownAtaque -= delta;
         if (atacando) {
@@ -167,7 +166,8 @@ public class Jugador extends Personaje {
             if (input.isIzquierda()) { nuevaX -= velocidad*delta; moviendose=true; mirandoDerecha=false; }
             if (input.isDerecha()) { nuevaX += velocidad*delta; moviendose=true; mirandoDerecha=true; }
             if (input.isArriba()) { nuevaY += velocidad*delta; moviendose=true; }
-            if (input.isAbajo()) { nuevaY -= velocidad*delta; moviendose=true; }
+            if (input.isAbajo()) {nuevaY -= velocidad*delta; moviendose=true;}
+            	
             if (moviendose) tiempoAnimacion += delta;
         }
 
@@ -175,7 +175,7 @@ public class Jugador extends Personaje {
         
     }
     @Override
-    public void calcularAcciones(Sala mapa, float delta) {
+    public void calcularAcciones(Sala mapa, float delta, InputManager input) {
     	if(cooldownAccion >0) {
     		cooldownAccion-=delta;
     	}else {
@@ -193,8 +193,8 @@ public class Jugador extends Personaje {
     			cooldownAccion = 0.5f;
     		}
     	}
-    	
-    	System.out.println("slot actual: "+inventario.getIndiceAct());
+    	//System.out.println(input.isAbajo());
+    	//System.out.println("slot actual: "+inventario.getIndiceAct());
     }
 
 
@@ -210,7 +210,7 @@ public class Jugador extends Personaje {
 	}
 
 	@Override
-	public boolean prepararAtaque() {
+	public boolean prepararAtaque(InputManager input) {
     	if(input.isClick()&& cooldownAtaque<=0 && !atacando) return true;
     	return false;
     }

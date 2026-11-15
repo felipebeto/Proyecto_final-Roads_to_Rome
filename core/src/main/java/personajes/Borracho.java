@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import items.Inventario;
 import mapas.Sala;
+import util.InputManager;
 
 public class Borracho extends Enemigo{
 
@@ -26,11 +27,11 @@ public class Borracho extends Enemigo{
 	public void agarrarObjeto(Sala sala) {
 	}
 	@Override
-	public void calcularAcciones(Sala mapa, float delta) {
+	public void calcularAcciones(Sala mapa, float delta, InputManager input) {
 	}
 	@Override
 	protected void cargarSheet() {
-		sheetCaminar = new Texture(Gdx.files.internal("vagacamina.png"));
+		sheetCaminar = new Texture(Gdx.files.internal("sheets/vagacamina.png"));
         TextureRegion[] framesCaminando = TextureRegion.split(sheetCaminar, 64, 80)[0];
         frameQuieto = framesCaminando[0];
         animacionCaminar = new Animation<>(0.12f, framesCaminando);

@@ -38,6 +38,7 @@ public class InputManager extends InputAdapter{
 	     if (keycode == Input.Keys.E) e = false;
 	     if (keycode == Input.Keys.Q) q = false;
 	     if (keycode == Input.Keys.F) f = false;
+	     
 		return true;
 	}
 	@Override
@@ -85,5 +86,23 @@ public class InputManager extends InputAdapter{
 	}
 	public boolean isCambiar() {
 		return f;
+	}
+	public void resetAll() {
+		a = true;
+		w = true;
+		s = true;
+		d = true;
+		izq = true;
+		der = true;
+		arriba = true;
+		abajo = true;
+		a = false;
+		w = false;
+		s = false;
+		d = false;
+		izq = false;
+		der = false;
+		arriba = false;
+		abajo = false;
 	}
 }
