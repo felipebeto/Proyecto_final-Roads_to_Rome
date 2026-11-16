@@ -94,7 +94,7 @@ public class PantallaCampania extends PantallaJuego{
 					jugador.daniar(e);
 					if (mapa.revisarMuerto(e)) {
 						contador++;
-						
+						break;
 					}
 						
 				}

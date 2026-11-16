@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 
 public class Recursos {
 	public static final String FONDO_MENU = "fondos/fondomenu.jpg";
-	public static final String FONDO_MEJORAS = "fondos/fondoMejoras.jpg";
-	public static final String FONDO_TUTORIAL = "fondos/fondoTutorial.jpg.png";
-	public static final String FONDO_NOMBRE = "fondos/fondoNombre.jpg";
+	public static final String FONDO_MEJORAS = "fondos/FondoMejoras.jpg";
+	public static final String FONDO_TUTORIAL = "fondos/FondoTutorial.jpg.png";
+	public static final String FONDO_NOMBRE = "fondos/FondoNombre.jpg";
 	public static final String FONDO_CARTAS = "fondos/pantallaCartas.png";
 	public static final String GAMEOVER = "fondos/FIN.png";
 	public static final String YOUWIN = "fondos/Youwin.png";
@@ -29,11 +29,11 @@ public class Recursos {
 	public static final String SALA_INICIO = "fondos/inicio2.png";
 	public static final int ANCHO_MAPA = 1000;
 	public static final int ALTO_MAPA = 1000;
-	public static final String ESPADA = "Espada.png";
-	public static final String DAGA = "Daga.png";
-	public static final String LANZA = "Lanza.png";
-	public static final String LLAVE = "Llave.png";
-	public static final String POCION = "Poti.png";
+	public static final String ESPADA = "espada.png";
+	public static final String DAGA = "daga.png";
+	public static final String LANZA = "lanza.png";
+	public static final String LLAVE = "llave.png";
+	public static final String POCION = "poti.png";
 	public static final String SALA_ESCAPE = "fondos/finalce.png";
 	public static final String SALA_ESCAPEAB = "fondos/finalAb.png";
 	public static void recalcularPantalla(int width, int height) {
