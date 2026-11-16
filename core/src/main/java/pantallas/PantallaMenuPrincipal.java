@@ -61,7 +61,7 @@ public class PantallaMenuPrincipal implements Screen{
 		nivelMaxAlcanzado.agrandar(1);
 		subtitulo1 = new Texto("Nueva partida", 400, 300);
 		subtitulo1.agrandar(1);
-		subtitulo2 = new Texto("Modo oleada", 400, 250);
+		subtitulo2 = new Texto("Tutorial", 400, 250);
 		subtitulo2.agrandar(1);
 		subtitulo3 = new Texto("Mejoras", 400, 200);
 		subtitulo3.agrandar(1);
@@ -118,7 +118,7 @@ public class PantallaMenuPrincipal implements Screen{
 			if(subtitulo2.isSobre(mouseX, mouseY)) {
 					sonidoClick.play();
 					musica.detener();
-					main.setScreen(new PantallaCartas(main, batch, input, 0, null));
+					main.setScreen(new PantallaTutorial(main, batch, input));
 			}
 			if(subtitulo3.isSobre(mouseX, mouseY)) {
 				sonidoClick.play();

@@ -37,7 +37,7 @@ public class PantallaNombre implements Screen {
 
 	@Override
 	public void show() {
-		fondo = new Imagen(Recursos.FONDO_MENU);
+		fondo = new Imagen(Recursos.FONDO_NOMBRE);
 		fondo.ajustarTamaño();
 		titulo = new Texto("Roads to Rome", 
 				Gdx.graphics.getWidth() / 2 - 200, Gdx.graphics.getHeight() / 2 + 200);

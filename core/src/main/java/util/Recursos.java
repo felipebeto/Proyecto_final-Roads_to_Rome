@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 
 public class Recursos {
 	public static final String FONDO_MENU = "fondos/fondomenu.jpg";
+	public static final String FONDO_MEJORAS = "fondos/fondoMejoras.jpg";
+	public static final String FONDO_TUTORIAL = "fondos/fondoTutorial.jpg.png";
+	public static final String FONDO_NOMBRE = "fondos/fondoNombre.jpg";
 	public static final String FONDO_CARTAS = "fondos/pantallaCartas.png";
 	public static final String GAMEOVER = "fondos/FIN.png";
-	public static final String YOUWIN = "fondos/youwin.gif";
+	public static final String YOUWIN = "fondos/Youwin.png";
 	public static final String MUSICA_MENU = "audios/Ruins.mp3";
 	public static final String MUSICA_JUEGO = "audios/Moongrains.mp3";
 	public static final String MUSICA_GAMEOVER = "audios/RWQ.mp3";

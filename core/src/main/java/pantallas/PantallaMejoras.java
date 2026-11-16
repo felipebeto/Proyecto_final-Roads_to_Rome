@@ -49,7 +49,7 @@ public class PantallaMejoras implements Screen {
 	public void show() {
 		int alto = Gdx.graphics.getHeight();
 		batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), alto));
-		fondo = new Imagen(Recursos.FONDO_MENU);
+		fondo = new Imagen(Recursos.FONDO_MEJORAS);
 		fondo.ajustarTamaño();
 		musica = new Audio(Recursos.MUSICA_MENU);
 		musica.cambiarVolumen(1);
