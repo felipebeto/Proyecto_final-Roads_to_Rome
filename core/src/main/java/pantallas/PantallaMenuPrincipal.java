@@ -108,28 +108,30 @@ public class PantallaMenuPrincipal implements Screen{
 			subtitulo3.escribir(batch);
 			subtitulo4.setColor(subtitulo4.isSobre(mouseX, mouseY) ? Color.RED : Color.WHITE);
 			subtitulo4.escribir(batch);
-		}
-		if(input.isClick()) {
-			if(subtitulo1.isSobre(mouseX, mouseY)) {
-				sonidoClick.play();
-				musica.detener();
-				main.setScreen(new PantallaCampania(main, batch, input, 1, null));
-			}
-			if(subtitulo2.isSobre(mouseX, mouseY)) {
+		
+			if (input.isClick()) {
+				if (subtitulo1.isSobre(mouseX, mouseY)) {
+					sonidoClick.play();
+					musica.detener();
+					main.setScreen(new PantallaCampania(main, batch, input, 1, null));
+				}
+				if (subtitulo2.isSobre(mouseX, mouseY)) {
 					sonidoClick.play();
 					musica.detener();
 					main.setScreen(new PantallaTutorial(main, batch, input));
-			}
-			if(subtitulo3.isSobre(mouseX, mouseY)) {
-				sonidoClick.play();
-				musica.detener();
-				main.setScreen(new PantallaMejoras(main, batch, input));
-			}
-			if(subtitulo4.isSobre(mouseX, mouseY)) {
-			    musica.detener();
-			    Gdx.app.exit();
+				}
+				if (subtitulo3.isSobre(mouseX, mouseY)) {
+					sonidoClick.play();
+					musica.detener();
+					main.setScreen(new PantallaMejoras(main, batch, input));
+				}
+				if (subtitulo4.isSobre(mouseX, mouseY)) {
+					musica.detener();
+					Gdx.app.exit();
+				}
 			}
 		}
+		
 		batch.end();
 	}
 	@Override

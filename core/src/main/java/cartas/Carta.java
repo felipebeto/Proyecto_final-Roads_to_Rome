@@ -10,7 +10,7 @@ public class Carta {
 	private Modificadores modif1;
 	private Modificadores modif2;
 	private Rectangle hitbox;
-	private int x;
+	private float x;
 	private int y = Recursos.alto/2;
 	public Carta(Modificadores modif1, Modificadores modif2) {
 		this.modif1 = modif1;
@@ -23,7 +23,7 @@ public class Carta {
 	}
 	public void dibujar(SpriteBatch batch, int posicion) {
 		if(posicion==1) {
-			this.x = 390;
+			this.x = Recursos.ancho/3-40- this.hitbox.getWidth();
 			hitbox.setPosition(x, y);
 			modif1.getImg().setPosicion(x, y);
 			modif1.dibujar(batch);
@@ -33,7 +33,7 @@ public class Carta {
 			modif2.dibujar(batch);
 		}else {
 			if(posicion ==2) {
-				this.x = 865;
+				this.x = Recursos.ancho/2-95;
 				hitbox.setPosition(x, y);
 				modif1.getImg().setPosicion(x, y);
 				modif1.dibujar(batch);
@@ -42,7 +42,7 @@ public class Carta {
 				modif2.getImg().setPosicion(x, y);
 				modif2.dibujar(batch);
 			}else {
-				this.x = 1370;
+				this.x = Recursos.ancho-95- this.hitbox.getWidth()*2;
 				hitbox.setPosition(x, y);
 				modif1.getImg().setPosicion(x, y);
 				modif1.dibujar(batch);

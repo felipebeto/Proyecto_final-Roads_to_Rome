@@ -42,7 +42,6 @@ public class PantallaCampania extends PantallaJuego{
 		barraVida.recalcularCoords();
 		
 	}
-	//cambio
 	@Override 
 	protected int getNivelActual() {
 		return nivelActual;
@@ -88,13 +87,13 @@ public class PantallaCampania extends PantallaJuego{
 		}
 		if (jugador.prepararAtaque(input)) {
 			jugador.atacar();
-			for (Enemigo e : mapa.getEnemigos()) {
-				if (calcularRangoAtaque(e)) {
+			for (int i = mapa.getEnemigos().size()-1; i>=0; i--) {
+				if (calcularRangoAtaque(mapa.getEnemigos().get(i))) {
 					sonidoGolpe.play();
-					jugador.daniar(e);
-					if (mapa.revisarMuerto(e)) {
+					jugador.daniar(mapa.getEnemigos().get(i));
+					if (mapa.revisarMuerto(mapa.getEnemigos().get(i))) {
 						contador++;
-						break;
+						
 					}
 						
 				}

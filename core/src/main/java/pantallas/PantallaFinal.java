@@ -59,8 +59,7 @@ import datos.Perfil;
 				fondo.ajustarTamaño();
 				titulo = new Texto(f.getMsj(), 40, 450);
 				titulo.agrandar(2);
-				kills = new Texto("Kills: " + contK, 50, 410);
-				//cambio
+				kills = new Texto("Kills: " + Perfil.getEnemigosTotales(), 50, 410);
 				oro = new Texto("Oro en la caja fuerte: " + Perfil.getOroCajaFuerte(), 50, 380);
 				
 				subtitulo = new Texto("clickea la pantalla para volver al menú", 60, 350);
